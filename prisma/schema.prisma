@@ -1,0 +1,5538 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model pre_addon_antirobot_illegal_postlog {
+  id          Int     @id @default(autoincrement())
+  type        Boolean @default(false)
+  fid         Int     @default(0)
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  first       Boolean @default(false)
+  author      String
+  authorid    Int     @default(0)
+  subject     String
+  message     String
+  postway     Boolean @default(true)
+  useip       String
+  remote_addr String
+  allip       String
+  illegalip   String
+  proxyip     String
+  user_agent  String
+  note        String
+  dateline    Int     @default(0)
+
+  @@index([dateline], name: "dateline")
+}
+
+model pre_addon_antirobot_noviewlog {
+  id          Int     @id @default(autoincrement())
+  url         String
+  author      String
+  authorid    Int     @default(0)
+  isrobot     Boolean @default(false)
+  way         Boolean @default(true)
+  useip       String
+  remote_addr String
+  allip       String
+  illegalip   String
+  proxyip     String
+  user_agent  String
+  note        String
+  dateline    Int     @default(0)
+
+  @@index([dateline], name: "dateline")
+}
+
+model pre_addon_antirobot_threadpost_succeedlog {
+  id          Int     @id @default(autoincrement())
+  type        Boolean @default(false)
+  fid         Int     @default(0)
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  first       Boolean @default(false)
+  author      String
+  authorid    Int     @default(0)
+  postway     Boolean @default(true)
+  useip       String
+  remote_addr String
+  allip       String
+  illegalip   String
+  proxyip     String
+  user_agent  String
+  dateline    Int     @default(0)
+
+  @@index([dateline], name: "dateline")
+}
+
+model pre_addon_download_attachment {
+  id         Int     @id @default(autoincrement())
+  rid        Int     @default(0)
+  pid        Int     @default(0)
+  uid        Int     @default(0)
+  dateline   Int     @default(0)
+  filename   String  @default("")
+  filesize   Int     @default(0)
+  attachment String  @default("")
+  remote     Boolean @default(false)
+  isimage    Boolean @default(false)
+  width      Int     @default(0)
+  thumb      Boolean @default(false)
+
+  @@index([rid], name: "askd")
+  @@index([attachment], name: "attachment")
+  @@index([pid], name: "pid")
+  @@index([uid], name: "uid")
+}
+
+model pre_addon_download_buylog {
+  id       Int @id @default(autoincrement())
+  rid      Int @default(0)
+  uid      Int @default(0)
+  dateline Int @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([rid], name: "rid")
+}
+
+model pre_addon_download_category {
+  id             Int     @id @default(autoincrement())
+  parentid       Int     @default(0)
+  name           String
+  count          Int     @default(0)
+  seotitle       String
+  seokeywords    String
+  seodescription String
+  status         Boolean @default(false)
+  displayorder   Int     @default(0)
+}
+
+model pre_addon_download_downlog {
+  id       Int @id @default(autoincrement())
+  rid      Int @default(0)
+  uid      Int @default(0)
+  dateline Int @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([rid], name: "rid")
+}
+
+model pre_addon_download_icon {
+  id           Int     @id @default(autoincrement())
+  pic          String
+  status       Boolean @default(false)
+  displayorder Int     @default(0)
+
+  @@index([displayorder], name: "displayorder")
+}
+
+model pre_addon_download_resource {
+  id             Int     @id @default(autoincrement())
+  catid1         Int     @default(0)
+  catid2         Int     @default(0)
+  name           String
+  uid            Int     @default(0)
+  username       String
+  downloadtype   Boolean @default(true)
+  filename       String
+  fileext        String
+  filesize       Int     @default(0)
+  attachment     String
+  panurl         String
+  pankey         String
+  pansize        String
+  icon           String
+  cover          String
+  description    String
+  price          Int     @default(0)
+  views          Int     @default(0)
+  downloads      Int     @default(0)
+  grade          Int     @default(80)
+  piccount       Int     @default(0)
+  useip          String
+  port           Int
+  tid            Int
+  seotitle       String
+  seokeywords    String
+  seodescription String
+  status         Boolean @default(false)
+  dateline       Int     @default(0)
+  updatetime     Int     @default(0)
+
+  @@index([catid1], name: "catid")
+  @@index([dateline], name: "dateline")
+  @@index([downloads], name: "downloads")
+  @@index([updatetime], name: "updatetime")
+}
+
+model pre_addon_download_slide {
+  id           Int     @id @default(autoincrement())
+  title        String
+  pic          String
+  url          String
+  status       Boolean @default(false)
+  displayorder Int     @default(0)
+
+  @@index([displayorder], name: "displayorder")
+}
+
+model pre_addon_download_viewlog {
+  id       Int    @id @default(autoincrement())
+  rid      Int    @default(0)
+  uid      Int    @default(0)
+  useip    String
+  dateline Int    @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([rid], name: "saleid")
+  @@index([uid], name: "uid")
+}
+
+model pre_aljsv_field {
+  id           Int    @id @default(autoincrement())
+  formid       Int
+  displayorder String
+  display      String
+  fieldname    String
+  fieldtitle   String
+  fieldtype    String
+  fieldpar     String
+  fieldremark  String
+  dateline     Int
+  chart        String
+}
+
+model pre_aljsv_form {
+  formid       Int    @id @default(autoincrement())
+  allallow     String
+  formtitle    String
+  formtype     Int
+  formaddtime  Int
+  formedittime Int
+  formstatus   Int
+  formnum      Int
+  amount       Int
+  ipnum        Int
+  colour       String
+  collectnum   Int
+  finishtime   String
+  prompt       String
+  thanks       String
+  issue        Int
+  formwork     String
+  titlecolor   String
+  backpic      String
+  describe     String
+  report       Int
+}
+
+model pre_aljsv_result {
+  id        Int    @id @default(autoincrement())
+  user      String
+  datetime  Int
+  formtitle String
+  formid    Int
+  uid       Int
+  answer    String
+  fieldname String
+  fieldtype Int
+}
+
+model pre_appbyme_activity {
+  id            Int     @id @default(autoincrement())
+  start_time    Int     @default(0)
+  stop_time     Int     @default(0)
+  activity_name String  @default("")
+  people        Int     @default(0)
+  pic           String  @default("")
+  type          String  @default("")
+  is_run        Boolean @default(false)
+
+  @@index([is_run], name: "is_run")
+  @@index([type], name: "type")
+}
+
+model pre_appbyme_activity_invite {
+  id             Int      @id @default(autoincrement())
+  activity_id    Int      @default(0)
+  start_time     Int      @default(0)
+  stop_time      Int      @default(0)
+  sponsor        String   @default("")
+  first_reward   Int      @default(0)
+  invite_reward  Int      @default(0)
+  exchange_min   Int      @default(0)
+  virtual_name   String   @default("")
+  exchange_ratio Int      @default(0)
+  limit_user     Boolean? @default(false)
+  limit_device   Boolean? @default(false)
+  limit_time     Boolean? @default(false)
+  limit_days     Int      @default(0)
+  limit_num      Int      @default(0)
+  activity_rule  String   @default("")
+  share_appurl   String   @default("")
+
+  @@index([activity_id], name: "activity_id")
+}
+
+model pre_appbyme_activity_invite_user {
+  id               Int     @id @default(autoincrement())
+  uid              Int     @default(0)
+  activity_id      Int     @default(0)
+  flag             Boolean @default(false)
+  joining          Boolean @default(false)
+  username         String  @default("")
+  invite_count     Int     @default(0)
+  reward_sum       Int     @default(0)
+  available_reward Int     @default(0)
+  mobile           String  @default("")
+  exchange_status  Boolean @default(false)
+  exchange_type    String  @default("")
+  exchange_num     String  @default("")
+  exchange_count   Int     @default(0)
+  device           String  @default("")
+
+  @@index([exchange_num], name: "exchange_num")
+  @@index([exchange_type], name: "exchange_type")
+  @@index([flag], name: "flag")
+  @@index([uid], name: "uid")
+  @@index([username], name: "username")
+}
+
+model pre_appbyme_auth {
+  id       Int    @id @default(autoincrement())
+  username String
+  allow    String
+}
+
+model pre_appbyme_chat {
+  uid   Int    @default(0)
+  cid   String @id @default("")
+  cname String @default("")
+  ctime Int    @default(0)
+
+  @@index([uid], name: "uid")
+}
+
+model pre_appbyme_chatuser {
+  cuid    Int    @id @default(autoincrement())
+  uid     Int    @default(0)
+  cid     String @default("")
+  uname   String @default("")
+  uavatar String @default("")
+
+  @@index([cid], name: "cid")
+}
+
+model pre_appbyme_config {
+  ckey   String  @id @default("")
+  cvalue String?
+}
+
+model pre_appbyme_connection {
+  id     Int     @id @default(autoincrement())
+  uid    Int
+  openid String  @default("")
+  status Boolean @default(false)
+  type   Boolean @default(false)
+  param  String
+
+  @@index([openid, type], name: "openid")
+  @@index([uid, type], name: "uid")
+}
+
+model pre_appbyme_fastregister {
+  ID       Int     @id @default(autoincrement())
+  USERNAME String  @default("")
+  DEVICE   String? @default("")
+  passwd   String  @default("")
+}
+
+model pre_appbyme_getpwd {
+  code     Int
+  pwdkey   String @id
+  time     Int
+  rate     Int    @default(0)
+  coderate Int    @default(0)
+}
+
+model pre_appbyme_hash {
+  text String @id @default("")
+}
+
+model pre_appbyme_plugin {
+  id          Int    @id @default(autoincrement())
+  plugin_name String
+  menu        String
+  version     Float
+  plugin_id   String
+}
+
+model pre_appbyme_plugs_token {
+  tid     Int    @id @default(autoincrement())
+  uid     Int    @default(0)
+  plugsid String @default("")
+  token   String @default("")
+  addtime Int    @default(0)
+}
+
+model pre_appbyme_portal_module {
+  mid          Int    @id @default(autoincrement())
+  name         String @default("")
+  type         Int    @default(0)
+  displayorder Int    @default(0)
+  param        String
+
+  @@index([displayorder], name: "displayorder")
+}
+
+model pre_appbyme_portal_module_source {
+  sid          Int     @id @default(autoincrement())
+  mid          Int?    @default(0)
+  id           Int?    @default(0)
+  url          String? @default("")
+  idtype       String? @default("")
+  imgid        Int?    @default(0)
+  imgurl       String? @default("")
+  imgtype      String? @default("")
+  title        String? @default("")
+  type         Int?    @default(1)
+  displayorder Int     @default(0)
+  param        String
+
+  @@index([mid, type, displayorder], name: "displayorder")
+  @@index([mid, type, idtype, imgtype], name: "mid")
+}
+
+model pre_appbyme_sendsms {
+  id     Int    @id @default(autoincrement())
+  mobile String @default("")
+  code   String @default("")
+  time   Int    @default(0)
+  uid    Int    @default(0)
+  param  String @default("")
+
+  @@index([mobile], name: "idx_mobile")
+  @@index([mobile, uid], name: "idx_mobile_uid")
+}
+
+model pre_appbyme_service {
+  id      Int    @id @default(autoincrement())
+  title   String @default("")
+  icon    String @default("")
+  type    String @default("")
+  keyword String @default("")
+  param   String
+
+  @@index([keyword, type], name: "keyword")
+  @@index([title, type], name: "title")
+}
+
+model pre_appbyme_share {
+  id        Int     @id @default(autoincrement())
+  name      String
+  count     Int     @default(0)
+  starttime Int
+  endtime   Int
+  credit    String
+  type      String
+  param     String?
+}
+
+model pre_appbyme_share_user {
+  id         Int    @id @default(autoincrement())
+  activityid Int
+  uid        Int
+  username   String
+  type       Int
+  time       Int
+  param      String
+  form       String
+
+  @@index([activityid, uid, time], name: "time")
+  @@index([activityid, uid], name: "uid")
+}
+
+model pre_appbyme_special_users {
+  uid      Int
+  username String @default("")
+  time     Int    @default(0)
+  type     Int    @default(0)
+
+  @@id([uid, username])
+}
+
+model pre_appbyme_topic_items {
+  ti_id         Int     @id @default(autoincrement())
+  ti_title      String  @default("")
+  ti_content    String  @default("")
+  ti_cover      String  @default("")
+  ti_starttime  Int     @default(0)
+  ti_endtime    Int     @default(0)
+  ti_topiccount Int     @default(0)
+  ti_topicimg   Int?    @default(0)
+  ti_authorid   Int     @default(0)
+  ti_authorname String  @default("")
+  ti_remote     Boolean @default(false)
+  ti_fid        Int     @default(0)
+
+  @@index([ti_title, ti_authorid], name: "ti_title")
+}
+
+model pre_appbyme_tpctopost {
+  tpid  Int @id @default(autoincrement())
+  ti_id Int @default(0)
+  pid   Int @default(0)
+
+  @@index([ti_id], name: "ti_id")
+}
+
+model pre_appbyme_tpctou {
+  ttid  Int @id @default(autoincrement())
+  ti_id Int @default(0)
+  uid   Int @default(0)
+
+  @@unique([ti_id, uid], name: "tiu")
+}
+
+model pre_appbyme_uidiyconfig {
+  id                      Int     @id @default(autoincrement())
+  name                    String
+  app_uidiy_nav_info_temp String?
+  app_uidiy_nav_info      String?
+  app_uidiy_modules_temp  String?
+  app_uidiy_modules       String?
+  icon                    String?
+  status                  Int     @default(1)
+}
+
+model pre_appbyme_user_access {
+  user_access_id     Int    @id @default(autoincrement())
+  user_access_token  String @default("")
+  user_access_secret String @default("")
+  user_id            Int    @unique @default(0)
+  create_time        Int    @default(0)
+
+  @@unique([user_access_token, user_access_secret], name: "user_access_token")
+}
+
+model pre_appbyme_user_openid {
+  uid     Int    @default(0)
+  plugsid String @default("")
+  openid  String @default("")
+
+  @@unique([uid, plugsid], name: "uid_p")
+}
+
+model pre_appbyme_user_setting {
+  id     Int     @id @default(autoincrement())
+  uid    Int     @default(0)
+  ukey   String  @default("")
+  uvalue String?
+  type   Int     @default(5)
+
+  @@unique([uid, ukey], name: "key")
+}
+
+model pre_appbyme_visitor {
+  uid      String @id
+  username String @default("")
+  uavatar  String @default("")
+  time     Int    @default(0)
+}
+
+model pre_common_addon {
+  key         String  @id @default("")
+  title       String  @default("")
+  sitename    String  @default("")
+  siteurl     String  @default("")
+  description String  @default("")
+  contact     String  @default("")
+  logo        String  @default("")
+  system      Boolean @default(false)
+}
+
+model pre_common_admincp_cmenu {
+  id           Int     @id @default(autoincrement())
+  title        String
+  url          String
+  sort         Boolean @default(false)
+  displayorder Int
+  clicks       Int     @default(1)
+  uid          Int
+  dateline     Int
+
+  @@index([displayorder], name: "displayorder")
+  @@index([uid], name: "uid")
+}
+
+model pre_common_admincp_group {
+  cpgroupid   Int    @id @default(autoincrement())
+  cpgroupname String
+}
+
+model pre_common_admincp_member {
+  uid        Int    @id
+  cpgroupid  Int
+  customperm String
+
+  @@index([uid], name: "uid")
+}
+
+model pre_common_admincp_perm {
+  cpgroupid Int
+  perm      String
+
+  @@unique([cpgroupid, perm], name: "cpgroupperm")
+  @@index([cpgroupid], name: "cpgroupid")
+}
+
+model pre_common_admincp_session {
+  uid        Int     @default(0)
+  adminid    Int     @default(0)
+  panel      Boolean @default(false)
+  ip         String  @default("")
+  dateline   Int     @default(0)
+  errorcount Boolean @default(false)
+  storage    String
+
+  @@id([uid, panel])
+}
+
+model pre_common_admingroup {
+  admingid              Int     @id @default(0)
+  alloweditpost         Boolean @default(false)
+  alloweditpoll         Boolean @default(false)
+  allowstickthread      Boolean @default(false)
+  allowmodpost          Boolean @default(false)
+  allowdelpost          Boolean @default(false)
+  allowmassprune        Boolean @default(false)
+  allowrefund           Boolean @default(false)
+  allowcensorword       Boolean @default(false)
+  allowviewip           Boolean @default(false)
+  allowbanip            Boolean @default(false)
+  allowedituser         Boolean @default(false)
+  allowmoduser          Boolean @default(false)
+  allowbanuser          Boolean @default(false)
+  allowbanvisituser     Boolean @default(false)
+  allowpostannounce     Boolean @default(false)
+  allowviewlog          Boolean @default(false)
+  allowbanpost          Boolean @default(false)
+  supe_allowpushthread  Boolean @default(false)
+  allowhighlightthread  Boolean @default(false)
+  allowlivethread       Boolean @default(false)
+  allowdigestthread     Boolean @default(false)
+  allowrecommendthread  Boolean @default(false)
+  allowbumpthread       Boolean @default(false)
+  allowclosethread      Boolean @default(false)
+  allowmovethread       Boolean @default(false)
+  allowedittypethread   Boolean @default(false)
+  allowstampthread      Boolean @default(false)
+  allowstamplist        Boolean @default(false)
+  allowcopythread       Boolean @default(false)
+  allowmergethread      Boolean @default(false)
+  allowsplitthread      Boolean @default(false)
+  allowrepairthread     Boolean @default(false)
+  allowwarnpost         Boolean @default(false)
+  allowviewreport       Boolean @default(false)
+  alloweditforum        Boolean @default(false)
+  allowremovereward     Boolean @default(false)
+  allowedittrade        Boolean @default(false)
+  alloweditactivity     Boolean @default(false)
+  allowstickreply       Boolean @default(false)
+  allowmanagearticle    Boolean @default(false)
+  allowaddtopic         Boolean @default(false)
+  allowmanagetopic      Boolean @default(false)
+  allowdiy              Boolean @default(false)
+  allowclearrecycle     Boolean @default(false)
+  allowmanagetag        Boolean @default(false)
+  alloweditusertag      Boolean @default(false)
+  managefeed            Boolean @default(false)
+  managedoing           Boolean @default(false)
+  manageshare           Boolean @default(false)
+  manageblog            Boolean @default(false)
+  managealbum           Boolean @default(false)
+  managecomment         Boolean @default(false)
+  managemagiclog        Boolean @default(false)
+  managereport          Boolean @default(false)
+  managehotuser         Boolean @default(false)
+  managedefaultuser     Boolean @default(false)
+  managevideophoto      Boolean @default(false)
+  managemagic           Boolean @default(false)
+  manageclick           Boolean @default(false)
+  allowmanagecollection Boolean @default(false)
+  allowmakehtml         Boolean @default(false)
+}
+
+model pre_common_adminnote {
+  id         Int    @id @default(autoincrement())
+  admin      String @default("")
+  access     Int    @default(0)
+  adminid    Int    @default(0)
+  dateline   Int    @default(0)
+  expiration Int    @default(0)
+  message    String
+}
+
+model pre_common_advertisement {
+  advid        Int     @id @default(autoincrement())
+  available    Boolean @default(false)
+  type         String  @default("0")
+  displayorder Int     @default(0)
+  title        String  @default("")
+  targets      String
+  parameters   String
+  code         String
+  starttime    Int     @default(0)
+  endtime      Int     @default(0)
+}
+
+model pre_common_advertisement_custom {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  @@index([name], name: "name")
+}
+
+model pre_common_banned {
+  id         Int    @id @default(autoincrement())
+  ip1        Int    @default(0)
+  ip2        Int    @default(0)
+  ip3        Int    @default(0)
+  ip4        Int    @default(0)
+  admin      String @default("")
+  dateline   Int    @default(0)
+  expiration Int    @default(0)
+}
+
+model pre_common_block {
+  bid            Int     @id @default(autoincrement())
+  blockclass     String  @default("0")
+  blocktype      Boolean @default(false)
+  name           String  @default("")
+  title          String
+  classname      String  @default("")
+  summary        String
+  uid            Int     @default(0)
+  username       String  @default("")
+  styleid        Int     @default(0)
+  blockstyle     String
+  picwidth       Int     @default(0)
+  picheight      Int     @default(0)
+  target         String  @default("")
+  dateformat     String  @default("")
+  dateuformat    Boolean @default(false)
+  script         String  @default("")
+  param          String
+  shownum        Int     @default(0)
+  cachetime      Int     @default(0)
+  cachetimerange String  @default("")
+  punctualupdate Boolean @default(false)
+  hidedisplay    Boolean @default(false)
+  dateline       Int     @default(0)
+  notinherited   Boolean @default(false)
+  isblank        Boolean @default(false)
+}
+
+model pre_common_block_favorite {
+  favid    Int @id @default(autoincrement())
+  uid      Int @default(0)
+  bid      Int @default(0)
+  dateline Int @default(0)
+
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_common_block_item {
+  itemid       Int     @id @default(autoincrement())
+  bid          Int     @default(0)
+  id           Int     @default(0)
+  idtype       String  @default("")
+  itemtype     Boolean @default(false)
+  title        String  @default("")
+  url          String  @default("")
+  pic          String  @default("")
+  picflag      Boolean @default(false)
+  makethumb    Boolean @default(false)
+  thumbpath    String  @default("")
+  summary      String
+  showstyle    String
+  related      String
+  fields       String
+  displayorder Int     @default(0)
+  startdate    Int     @default(0)
+  enddate      Int     @default(0)
+
+  @@index([bid], name: "bid")
+}
+
+model pre_common_block_item_data {
+  dataid       Int     @id @default(autoincrement())
+  bid          Int     @default(0)
+  id           Int     @default(0)
+  idtype       String  @default("")
+  itemtype     Boolean @default(false)
+  title        String  @default("")
+  url          String  @default("")
+  pic          String  @default("")
+  picflag      Boolean @default(false)
+  makethumb    Boolean @default(false)
+  summary      String
+  showstyle    String
+  related      String
+  fields       String
+  displayorder Int     @default(0)
+  startdate    Int     @default(0)
+  enddate      Int     @default(0)
+  uid          Int     @default(0)
+  username     String  @default("")
+  dateline     Int     @default(0)
+  isverified   Boolean @default(false)
+  verifiedtime Int     @default(0)
+  stickgrade   Int     @default(0)
+
+  @@index([bid, stickgrade, displayorder, verifiedtime], name: "bid")
+}
+
+model pre_common_block_permission {
+  bid              Int     @default(0)
+  uid              Int     @default(0)
+  allowmanage      Boolean @default(false)
+  allowrecommend   Boolean @default(false)
+  needverify       Boolean @default(false)
+  inheritedtplname String  @default("")
+
+  @@id([bid, uid])
+  @@index([uid], name: "uid")
+}
+
+model pre_common_block_pic {
+  picid   Int     @id @default(autoincrement())
+  bid     Int     @default(0)
+  itemid  Int     @default(0)
+  pic     String  @default("")
+  picflag Boolean @default(false)
+  type    Boolean @default(false)
+
+  @@index([bid, itemid], name: "bid")
+}
+
+model pre_common_block_style {
+  styleid    Int     @id @default(autoincrement())
+  blockclass String  @default("")
+  name       String  @default("")
+  template   String
+  hash       String  @default("")
+  getpic     Boolean @default(false)
+  getsummary Boolean @default(false)
+  makethumb  Boolean @default(false)
+  settarget  Boolean @default(false)
+  fields     String
+  moreurl    Boolean @default(false)
+
+  @@index([blockclass], name: "blockclass")
+  @@index([hash], name: "hash")
+}
+
+model pre_common_block_xml {
+  id       Int    @id @default(autoincrement())
+  name     String
+  version  String
+  url      String
+  clientid String
+  key      String
+  signtype String
+  data     String
+}
+
+model pre_common_cache {
+  cachekey      String                    @id @default("")
+  // This type is currently not supported by the Prisma Client.
+  // cachevalue Unsupported("mediumblob")
+  dateline      Int                       @default(0)
+}
+
+model pre_common_card {
+  id            String  @id @default("")
+  typeid        Int     @default(1)
+  maketype      Boolean @default(false)
+  makeruid      Int     @default(0)
+  price         Int     @default(0)
+  extcreditskey Boolean @default(false)
+  extcreditsval Int     @default(0)
+  status        Boolean @default(true)
+  dateline      Int     @default(0)
+  cleardateline Int     @default(0)
+  useddateline  Int     @default(0)
+  uid           Int     @default(0)
+
+  @@index([dateline], name: "dateline")
+}
+
+model pre_common_card_log {
+  id          Int     @id @default(autoincrement())
+  uid         Int     @default(0)
+  username    String  @default("")
+  cardrule    String  @default("")
+  info        String
+  dateline    Int     @default(0)
+  description String
+  operation   Boolean @default(false)
+
+  @@index([dateline], name: "dateline")
+  @@index([operation, dateline], name: "operation_dateline")
+}
+
+model pre_common_card_type {
+  id       Int    @id @default(autoincrement())
+  typename String @default("")
+}
+
+model pre_common_connect_guest {
+  conopenid    String @id @default("")
+  conuin       String @default("")
+  conuinsecret String @default("")
+  conqqnick    String @default("")
+  conuintoken  String @default("")
+}
+
+model pre_common_credit_log {
+  logid       Int    @id @default(autoincrement())
+  uid         Int    @default(0)
+  operation   String @default("")
+  relatedid   Int
+  dateline    Int
+  extcredits1 Int
+  extcredits2 Int
+  extcredits3 Int
+  extcredits4 Int
+  extcredits5 Int
+  extcredits6 Int
+  extcredits7 Int
+  extcredits8 Int
+
+  @@index([dateline], name: "dateline")
+  @@index([operation], name: "operation")
+  @@index([relatedid], name: "relatedid")
+  @@index([uid], name: "uid")
+}
+
+model pre_common_credit_rule {
+  rid         Int     @id @default(autoincrement())
+  rulename    String  @default("")
+  action      String  @unique @default("")
+  cycletype   Boolean @default(false)
+  cycletime   Int     @default(0)
+  rewardnum   Int     @default(1)
+  norepeat    Boolean @default(false)
+  extcredits1 Int     @default(0)
+  extcredits2 Int     @default(0)
+  extcredits3 Int     @default(0)
+  extcredits4 Int     @default(0)
+  extcredits5 Int     @default(0)
+  extcredits6 Int     @default(0)
+  extcredits7 Int     @default(0)
+  extcredits8 Int     @default(0)
+  fids        String
+}
+
+model pre_common_credit_rule_log {
+  clid        Int @id @default(autoincrement())
+  uid         Int @default(0)
+  rid         Int @default(0)
+  fid         Int @default(0)
+  total       Int @default(0)
+  cyclenum    Int @default(0)
+  extcredits1 Int @default(0)
+  extcredits2 Int @default(0)
+  extcredits3 Int @default(0)
+  extcredits4 Int @default(0)
+  extcredits5 Int @default(0)
+  extcredits6 Int @default(0)
+  extcredits7 Int @default(0)
+  extcredits8 Int @default(0)
+  starttime   Int @default(0)
+  dateline    Int @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([uid, rid, fid], name: "uid")
+}
+
+model pre_common_credit_rule_log_field {
+  clid Int    @default(0)
+  uid  Int    @default(0)
+  info String
+  user String
+  app  String
+
+  @@id([uid, clid])
+}
+
+model pre_common_cron {
+  cronid    Int                  @id @default(autoincrement())
+  available Boolean              @default(false)
+  type      pre_common_cron_type @default(user)
+  name      String               @default("")
+  filename  String               @default("")
+  lastrun   Int                  @default(0)
+  nextrun   Int                  @default(0)
+  weekday   Boolean              @default(false)
+  day       Int                  @default(0)
+  hour      Int                  @default(0)
+  minute    String               @default("")
+
+  @@index([available, nextrun], name: "nextrun")
+}
+
+model pre_common_devicetoken {
+  uid   Int    @id
+  token String
+
+  @@index([token], name: "token")
+}
+
+model pre_common_district {
+  id           Int     @id @default(autoincrement())
+  name         String  @default("")
+  level        Int     @default(0)
+  usetype      Boolean @default(false)
+  upid         Int     @default(0)
+  displayorder Int     @default(0)
+
+  @@index([upid, displayorder], name: "upid")
+}
+
+model pre_common_diy_data {
+  targettplname String @default("")
+  tpldirectory  String @default("")
+  primaltplname String @default("")
+  diycontent    String
+  name          String @default("")
+  uid           Int    @default(0)
+  username      String @default("")
+  dateline      Int    @default(0)
+
+  @@id([targettplname, tpldirectory])
+}
+
+model pre_common_domain {
+  domain     String @default("")
+  domainroot String @default("")
+  id         Int    @default(0)
+  idtype     String @default("")
+
+  @@id([id, idtype])
+  @@index([domain, domainroot], name: "domain")
+  @@index([idtype], name: "idtype")
+}
+
+model pre_common_failedip {
+  ip         String  @default("")
+  lastupdate Int     @default(0)
+  count      Boolean @default(false)
+
+  @@id([ip, lastupdate])
+  @@index([lastupdate], name: "lastupdate")
+}
+
+model pre_common_failedlogin {
+  ip         String  @default("")
+  username   String  @default("")
+  count      Boolean @default(false)
+  lastupdate Int     @default(0)
+
+  @@id([ip, username])
+}
+
+model pre_common_friendlink {
+  id           Int    @id @default(autoincrement())
+  displayorder Int    @default(0)
+  name         String @default("")
+  url          String @default("")
+  description  String
+  logo         String @default("")
+  type         Int    @default(0)
+}
+
+model pre_common_grouppm {
+  id       Int    @id @default(autoincrement())
+  authorid Int    @default(0)
+  author   String @default("")
+  dateline Int    @default(0)
+  message  String
+  numbers  Int    @default(0)
+}
+
+model pre_common_invite {
+  id          Int     @id @default(autoincrement())
+  uid         Int     @default(0)
+  code        String  @default("")
+  fuid        Int     @default(0)
+  fusername   String  @default("")
+  type        Boolean @default(false)
+  email       String  @default("")
+  inviteip    String  @default("")
+  appid       Int     @default(0)
+  dateline    Int     @default(0)
+  endtime     Int     @default(0)
+  regdateline Int     @default(0)
+  status      Boolean @default(true)
+  orderid     String  @default("")
+
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_common_magic {
+  magicid      Int     @id @default(autoincrement())
+  available    Boolean @default(false)
+  name         String
+  identifier   String  @unique
+  description  String
+  displayorder Int     @default(0)
+  credit       Boolean @default(false)
+  price        Int     @default(0)
+  num          Int     @default(0)
+  salevolume   Int     @default(0)
+  supplytype   Boolean @default(false)
+  supplynum    Int     @default(0)
+  useperoid    Boolean @default(false)
+  usenum       Int     @default(0)
+  weight       Int     @default(1)
+  magicperm    String
+  useevent     Boolean @default(false)
+
+  @@index([available, displayorder], name: "displayorder")
+}
+
+model pre_common_mailcron {
+  cid      Int    @id @default(autoincrement())
+  touid    Int    @default(0)
+  email    String @default("")
+  sendtime Int    @default(0)
+
+  @@index([sendtime], name: "sendtime")
+}
+
+model pre_common_mailqueue {
+  qid      Int    @id @default(autoincrement())
+  cid      Int    @default(0)
+  subject  String
+  message  String
+  dateline Int    @default(0)
+
+  @@index([cid, dateline], name: "mcid")
+}
+
+model pre_common_member {
+  uid                Int     @id @default(autoincrement())
+  email              String  @default("")
+  username           String  @unique @default("")
+  password           String  @default("")
+  status             Boolean @default(false)
+  emailstatus        Boolean @default(false)
+  avatarstatus       Boolean @default(false)
+  videophotostatus   Boolean @default(false)
+  adminid            Boolean @default(false)
+  groupid            Int     @default(0)
+  groupexpiry        Int     @default(0)
+  extgroupids        String  @default("")
+  regdate            Int     @default(0)
+  credits            Int     @default(0)
+  notifysound        Boolean @default(false)
+  timeoffset         String  @default("")
+  newpm              Int     @default(0)
+  newprompt          Int     @default(0)
+  accessmasks        Boolean @default(false)
+  allowadmincp       Boolean @default(false)
+  onlyacceptfriendpm Boolean @default(false)
+  conisbind          Boolean @default(false)
+  freeze             Boolean @default(false)
+
+  @@index([conisbind], name: "conisbind")
+  @@index([email], name: "email")
+  @@index([groupid], name: "groupid")
+  @@index([regdate], name: "regdate")
+}
+
+model pre_common_member_action_log {
+  id       Int @id @default(autoincrement())
+  uid      Int @default(0)
+  action   Int @default(0)
+  dateline Int @default(0)
+
+  @@index([dateline, action, uid], name: "dateline")
+}
+
+model pre_common_member_archive {
+  uid                Int     @id @default(autoincrement())
+  email              String  @default("")
+  username           String  @unique @default("")
+  password           String  @default("")
+  status             Boolean @default(false)
+  emailstatus        Boolean @default(false)
+  avatarstatus       Boolean @default(false)
+  videophotostatus   Boolean @default(false)
+  adminid            Boolean @default(false)
+  groupid            Int     @default(0)
+  groupexpiry        Int     @default(0)
+  extgroupids        String  @default("")
+  regdate            Int     @default(0)
+  credits            Int     @default(0)
+  notifysound        Boolean @default(false)
+  timeoffset         String  @default("")
+  newpm              Int     @default(0)
+  newprompt          Int     @default(0)
+  accessmasks        Boolean @default(false)
+  allowadmincp       Boolean @default(false)
+  onlyacceptfriendpm Boolean @default(false)
+  conisbind          Boolean @default(false)
+  freeze             Boolean @default(false)
+
+  @@index([conisbind], name: "conisbind")
+  @@index([email], name: "email")
+  @@index([groupid], name: "groupid")
+  @@index([regdate], name: "regdate")
+}
+
+model pre_common_member_connect {
+  uid              Int     @id @default(0)
+  conuin           String  @default("")
+  conuinsecret     String  @default("")
+  conopenid        String  @default("")
+  conisfeed        Boolean @default(false)
+  conispublishfeed Boolean @default(false)
+  conispublisht    Boolean @default(false)
+  conisregister    Boolean @default(false)
+  conisqzoneavatar Boolean @default(false)
+  conisqqshow      Boolean @default(false)
+  conuintoken      String  @default("")
+
+  @@index([conopenid], name: "conopenid")
+  @@index([conuin], name: "conuin")
+}
+
+model pre_common_member_count {
+  uid             Int @id
+  extcredits1     Int @default(0)
+  extcredits2     Int @default(0)
+  extcredits3     Int @default(0)
+  extcredits4     Int @default(0)
+  extcredits5     Int @default(0)
+  extcredits6     Int @default(0)
+  extcredits7     Int @default(0)
+  extcredits8     Int @default(0)
+  friends         Int @default(0)
+  posts           Int @default(0)
+  threads         Int @default(0)
+  digestposts     Int @default(0)
+  doings          Int @default(0)
+  blogs           Int @default(0)
+  albums          Int @default(0)
+  sharings        Int @default(0)
+  attachsize      Int @default(0)
+  views           Int @default(0)
+  oltime          Int @default(0)
+  todayattachs    Int @default(0)
+  todayattachsize Int @default(0)
+  feeds           Int @default(0)
+  follower        Int @default(0)
+  following       Int @default(0)
+  newfollower     Int @default(0)
+  blacklist       Int @default(0)
+
+  @@index([posts], name: "posts")
+}
+
+model pre_common_member_count_archive {
+  uid             Int @id
+  extcredits1     Int @default(0)
+  extcredits2     Int @default(0)
+  extcredits3     Int @default(0)
+  extcredits4     Int @default(0)
+  extcredits5     Int @default(0)
+  extcredits6     Int @default(0)
+  extcredits7     Int @default(0)
+  extcredits8     Int @default(0)
+  friends         Int @default(0)
+  posts           Int @default(0)
+  threads         Int @default(0)
+  digestposts     Int @default(0)
+  doings          Int @default(0)
+  blogs           Int @default(0)
+  albums          Int @default(0)
+  sharings        Int @default(0)
+  attachsize      Int @default(0)
+  views           Int @default(0)
+  oltime          Int @default(0)
+  todayattachs    Int @default(0)
+  todayattachsize Int @default(0)
+  feeds           Int @default(0)
+  follower        Int @default(0)
+  following       Int @default(0)
+  newfollower     Int @default(0)
+  blacklist       Int @default(0)
+
+  @@index([posts], name: "posts")
+}
+
+model pre_common_member_crime {
+  cid        Int    @id @default(autoincrement())
+  uid        Int    @default(0)
+  operatorid Int    @default(0)
+  operator   String
+  action     Int
+  reason     String
+  dateline   Int    @default(0)
+
+  @@index([uid, action, dateline], name: "uid")
+}
+
+model pre_common_member_field_forum {
+  uid            Int    @id
+  publishfeed    Int    @default(0)
+  customshow     Int    @default(26)
+  customstatus   String @default("")
+  medals         String
+  sightml        String
+  groupterms     String
+  authstr        String @default("")
+  groups         String
+  attentiongroup String @default("")
+}
+
+model pre_common_member_field_forum_archive {
+  uid            Int    @id
+  publishfeed    Int    @default(0)
+  customshow     Int    @default(26)
+  customstatus   String @default("")
+  medals         String
+  sightml        String
+  groupterms     String
+  authstr        String @default("")
+  groups         String
+  attentiongroup String @default("")
+}
+
+model pre_common_member_field_home {
+  uid              Int    @id
+  videophoto       String @default("")
+  spacename        String @default("")
+  spacedescription String @default("")
+  domain           String @default("")
+  addsize          Int    @default(0)
+  addfriend        Int    @default(0)
+  menunum          Int    @default(0)
+  theme            String @default("")
+  spacecss         String
+  blockposition    String
+  recentnote       String
+  spacenote        String
+  privacy          String
+  feedfriend       String
+  acceptemail      String
+  magicgift        String
+  stickblogs       String
+
+  @@index([domain], name: "domain")
+}
+
+model pre_common_member_field_home_archive {
+  uid              Int    @id
+  videophoto       String @default("")
+  spacename        String @default("")
+  spacedescription String @default("")
+  domain           String @default("")
+  addsize          Int    @default(0)
+  addfriend        Int    @default(0)
+  menunum          Int    @default(0)
+  theme            String @default("")
+  spacecss         String
+  blockposition    String
+  recentnote       String
+  spacenote        String
+  privacy          String
+  feedfriend       String
+  acceptemail      String
+  magicgift        String
+  stickblogs       String
+
+  @@index([domain], name: "domain")
+}
+
+model pre_common_member_forum_buylog {
+  uid     Int
+  fid     Int @default(0)
+  credits Int @default(0)
+
+  @@id([uid, fid])
+  @@index([fid], name: "fid")
+}
+
+model pre_common_member_grouppm {
+  uid      Int     @default(0)
+  gpmid    Int     @default(0)
+  status   Boolean @default(false)
+  dateline Int     @default(0)
+
+  @@id([uid, gpmid])
+}
+
+model pre_common_member_log {
+  uid      Int    @id @default(0)
+  action   String @default("")
+  dateline Int    @default(0)
+}
+
+model pre_common_member_magic {
+  uid     Int @default(0)
+  magicid Int @default(0)
+  num     Int @default(0)
+
+  @@id([uid, magicid])
+}
+
+model pre_common_member_medal {
+  uid     Int
+  medalid Int
+
+  @@id([uid, medalid])
+}
+
+model pre_common_member_newprompt {
+  uid  Int    @id
+  data String @default("")
+}
+
+model pre_common_member_profile {
+  uid             Int     @id
+  realname        String  @default("")
+  gender          Boolean @default(false)
+  birthyear       Int     @default(0)
+  birthmonth      Int     @default(0)
+  birthday        Int     @default(0)
+  constellation   String  @default("")
+  zodiac          String  @default("")
+  telephone       String  @default("")
+  mobile          String  @default("")
+  idcardtype      String  @default("")
+  idcard          String  @default("")
+  address         String  @default("")
+  zipcode         String  @default("")
+  nationality     String  @default("")
+  birthprovince   String  @default("")
+  birthcity       String  @default("")
+  birthdist       String  @default("")
+  birthcommunity  String  @default("")
+  resideprovince  String  @default("")
+  residecity      String  @default("")
+  residedist      String  @default("")
+  residecommunity String  @default("")
+  residesuite     String  @default("")
+  graduateschool  String  @default("")
+  company         String  @default("")
+  education       String  @default("")
+  occupation      String  @default("")
+  position        String  @default("")
+  revenue         String  @default("")
+  affectivestatus String  @default("")
+  lookingfor      String  @default("")
+  bloodtype       String  @default("")
+  height          String  @default("")
+  weight          String  @default("")
+  alipay          String  @default("")
+  icq             String  @default("")
+  qq              String  @default("")
+  yahoo           String  @default("")
+  msn             String  @default("")
+  taobao          String  @default("")
+  site            String  @default("")
+  bio             String
+  interest        String
+  field1          String
+  field2          String
+  field3          String
+  field4          String
+  field5          String
+  field6          String
+  field7          String
+  field8          String
+}
+
+model pre_common_member_profile_archive {
+  uid             Int     @id
+  realname        String  @default("")
+  gender          Boolean @default(false)
+  birthyear       Int     @default(0)
+  birthmonth      Int     @default(0)
+  birthday        Int     @default(0)
+  constellation   String  @default("")
+  zodiac          String  @default("")
+  telephone       String  @default("")
+  mobile          String  @default("")
+  idcardtype      String  @default("")
+  idcard          String  @default("")
+  address         String  @default("")
+  zipcode         String  @default("")
+  nationality     String  @default("")
+  birthprovince   String  @default("")
+  birthcity       String  @default("")
+  birthdist       String  @default("")
+  birthcommunity  String  @default("")
+  resideprovince  String  @default("")
+  residecity      String  @default("")
+  residedist      String  @default("")
+  residecommunity String  @default("")
+  residesuite     String  @default("")
+  graduateschool  String  @default("")
+  company         String  @default("")
+  education       String  @default("")
+  occupation      String  @default("")
+  position        String  @default("")
+  revenue         String  @default("")
+  affectivestatus String  @default("")
+  lookingfor      String  @default("")
+  bloodtype       String  @default("")
+  height          String  @default("")
+  weight          String  @default("")
+  alipay          String  @default("")
+  icq             String  @default("")
+  qq              String  @default("")
+  yahoo           String  @default("")
+  msn             String  @default("")
+  taobao          String  @default("")
+  site            String  @default("")
+  bio             String
+  interest        String
+  field1          String
+  field2          String
+  field3          String
+  field4          String
+  field5          String
+  field6          String
+  field7          String
+  field8          String
+}
+
+model pre_common_member_profile_setting {
+  fieldid        String  @id @default("")
+  available      Boolean @default(false)
+  invisible      Boolean @default(false)
+  needverify     Boolean @default(false)
+  title          String  @default("")
+  description    String  @default("")
+  displayorder   Int     @default(0)
+  required       Boolean @default(false)
+  unchangeable   Boolean @default(false)
+  showincard     Boolean @default(false)
+  showinthread   Boolean @default(false)
+  showinregister Boolean @default(false)
+  allowsearch    Boolean @default(false)
+  formtype       String
+  size           Int     @default(0)
+  choices        String
+  validate       String
+}
+
+model pre_common_member_security {
+  securityid Int    @id @default(autoincrement())
+  uid        Int    @default(0)
+  username   String @default("")
+  fieldid    String @default("")
+  oldvalue   String
+  newvalue   String
+  dateline   Int    @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([uid, fieldid], name: "uid")
+}
+
+model pre_common_member_secwhite {
+  uid      Int @id
+  dateline Int
+}
+
+model pre_common_member_status {
+  uid             Int     @id
+  regip           String  @default("")
+  lastip          String  @default("")
+  port            Int     @default(0)
+  lastvisit       Int     @default(0)
+  lastactivity    Int     @default(0)
+  lastpost        Int     @default(0)
+  lastsendmail    Int     @default(0)
+  invisible       Boolean @default(false)
+  buyercredit     Int     @default(0)
+  sellercredit    Int     @default(0)
+  favtimes        Int     @default(0)
+  sharetimes      Int     @default(0)
+  profileprogress Int     @default(0)
+
+  @@index([lastactivity, invisible], name: "lastactivity")
+}
+
+model pre_common_member_status_archive {
+  uid             Int     @id
+  regip           String  @default("")
+  lastip          String  @default("")
+  port            Int     @default(0)
+  lastvisit       Int     @default(0)
+  lastactivity    Int     @default(0)
+  lastpost        Int     @default(0)
+  lastsendmail    Int     @default(0)
+  invisible       Boolean @default(false)
+  buyercredit     Int     @default(0)
+  sellercredit    Int     @default(0)
+  favtimes        Int     @default(0)
+  sharetimes      Int     @default(0)
+  profileprogress Int     @default(0)
+
+  @@index([lastactivity, invisible], name: "lastactivity")
+}
+
+model pre_common_member_stat_field {
+  optionid   Int    @id @default(autoincrement())
+  fieldid    String @default("")
+  fieldvalue String @default("")
+  hash       String @default("")
+  users      Int    @default(0)
+  updatetime Int    @default(0)
+
+  @@index([fieldid], name: "fieldid")
+}
+
+model pre_common_member_stat_fieldcache {
+  optionid Int @default(0)
+  uid      Int @default(0)
+
+  @@id([optionid, uid])
+}
+
+model pre_common_member_stat_search {
+  optionid   Int    @id @default(autoincrement())
+  title      String @default("")
+  condition  String
+  hash       String @default("")
+  users      Int    @default(0)
+  updatetime Int    @default(0)
+
+  @@index([hash], name: "hash")
+}
+
+model pre_common_member_stat_searchcache {
+  optionid Int @default(0)
+  uid      Int @default(0)
+
+  @@id([optionid, uid])
+}
+
+model pre_common_member_validate {
+  uid         Int     @id @default(0)
+  submitdate  Int     @default(0)
+  moddate     Int     @default(0)
+  admin       String  @default("")
+  submittimes Int     @default(0)
+  status      Boolean @default(false)
+  message     String
+  remark      String
+
+  @@index([status], name: "status")
+}
+
+model pre_common_member_verify {
+  uid     Int     @id
+  verify1 Boolean @default(false)
+  verify2 Boolean @default(false)
+  verify3 Boolean @default(false)
+  verify4 Boolean @default(false)
+  verify5 Boolean @default(false)
+  verify6 Boolean @default(false)
+  verify7 Boolean @default(false)
+
+  @@index([verify1], name: "verify1")
+  @@index([verify2], name: "verify2")
+  @@index([verify3], name: "verify3")
+  @@index([verify4], name: "verify4")
+  @@index([verify5], name: "verify5")
+  @@index([verify6], name: "verify6")
+  @@index([verify7], name: "verify7")
+}
+
+model pre_common_member_verify_info {
+  vid        Int     @id @default(autoincrement())
+  uid        Int     @default(0)
+  username   String  @default("")
+  verifytype Boolean @default(false)
+  flag       Boolean @default(false)
+  field      String
+  dateline   Int     @default(0)
+
+  @@index([uid, verifytype, dateline], name: "uid")
+  @@index([verifytype, flag], name: "verifytype")
+}
+
+model pre_common_member_wechat {
+  uid        Int     @id
+  openid     String  @unique @default("")
+  status     Boolean @default(false)
+  isregister Boolean @default(false)
+}
+
+model pre_common_member_wechatmp {
+  uid    Int     @id
+  openid String  @default("")
+  status Boolean @default(false)
+
+  @@index([openid], name: "openid")
+}
+
+model pre_common_moderate {
+  id       Int    @default(0)
+  idtype   String @default("")
+  status   Int    @default(0)
+  dateline Int    @default(0)
+
+  @@id([id, idtype])
+  @@index([idtype, status, dateline], name: "idtype")
+}
+
+model pre_common_myapp {
+  appid            Int     @id @default(0)
+  appname          String  @default("")
+  narrow           Boolean @default(false)
+  flag             Boolean @default(false)
+  version          Int     @default(0)
+  userpanelarea    Boolean @default(false)
+  canvastitle      String  @default("")
+  fullscreen       Boolean @default(false)
+  displayuserpanel Boolean @default(false)
+  displaymethod    Boolean @default(false)
+  displayorder     Int     @default(0)
+  appstatus        Int     @default(0)
+  iconstatus       Int     @default(0)
+  icondowntime     Int     @default(0)
+
+  @@index([flag, displayorder], name: "flag")
+}
+
+model pre_common_myinvite {
+  id       Int     @id @default(autoincrement())
+  typename String  @default("")
+  appid    Int     @default(0)
+  type     Boolean @default(false)
+  fromuid  Int     @default(0)
+  touid    Int     @default(0)
+  myml     String
+  dateline Int     @default(0)
+  hash     Int     @default(0)
+
+  @@index([hash], name: "hash")
+  @@index([touid, dateline], name: "uid")
+}
+
+model pre_common_mytask {
+  uid      Int
+  username String  @default("")
+  taskid   Int
+  status   Boolean @default(false)
+  csc      String  @default("")
+  dateline Int     @default(0)
+
+  @@id([uid, taskid])
+  @@index([taskid, dateline], name: "parter")
+}
+
+model pre_common_nav {
+  id           Int     @id @default(autoincrement())
+  parentid     Int     @default(0)
+  name         String
+  title        String
+  url          String
+  identifier   String
+  target       Boolean @default(false)
+  type         Boolean @default(false)
+  available    Boolean @default(false)
+  displayorder Int
+  highlight    Boolean @default(false)
+  level        Boolean @default(false)
+  subtype      Boolean @default(false)
+  subcols      Boolean @default(false)
+  icon         String
+  subname      String
+  suburl       String
+  navtype      Boolean @default(false)
+  logo         String
+
+  @@index([navtype], name: "navtype")
+}
+
+model pre_common_onlinetime {
+  uid        Int @id @default(0)
+  thismonth  Int @default(0)
+  total      Int @default(0)
+  lastupdate Int @default(0)
+}
+
+model pre_common_optimizer {
+  k String @id @default("")
+  v String @default("")
+}
+
+model pre_common_patch {
+  serial   String  @id @default("")
+  rule     String
+  note     String
+  status   Boolean @default(false)
+  dateline Int     @default(0)
+}
+
+model pre_common_plugin {
+  pluginid    Int     @id @default(autoincrement())
+  available   Boolean @default(false)
+  adminid     Boolean @default(false)
+  name        String  @default("")
+  identifier  String  @unique @default("")
+  description String  @default("")
+  datatables  String  @default("")
+  directory   String  @default("")
+  copyright   String  @default("")
+  modules     String
+  version     String  @default("")
+}
+
+model pre_common_pluginvar {
+  pluginvarid  Int    @id @default(autoincrement())
+  pluginid     Int    @default(0)
+  displayorder Int    @default(0)
+  title        String @default("")
+  description  String @default("")
+  variable     String @default("")
+  type         String @default("text")
+  value        String
+  extra        String
+
+  @@index([pluginid], name: "pluginid")
+}
+
+model pre_common_process {
+  processid String @id
+  expiry    Int?
+  extra     Int?
+
+  @@index([expiry], name: "expiry")
+}
+
+model pre_common_relatedlink {
+  id     Int    @id @default(autoincrement())
+  name   String @default("")
+  url    String @default("")
+  extent Int    @default(0)
+}
+
+model pre_common_remote_port {
+  id     Int    @default(0)
+  idtype String @default("")
+  useip  String @default("")
+  port   Int    @default(0)
+
+  @@id([id, idtype])
+}
+
+model pre_common_report {
+  id       Int    @id @default(autoincrement())
+  urlkey   String @default("")
+  url      String @default("")
+  message  String
+  uid      Int    @default(0)
+  username String @default("")
+  dateline Int    @default(0)
+  num      Int    @default(1)
+  opuid    Int    @default(0)
+  opname   String @default("")
+  optime   Int    @default(0)
+  opresult String @default("")
+  fid      Int    @default(0)
+
+  @@index([fid], name: "fid")
+  @@index([urlkey], name: "urlkey")
+}
+
+model pre_common_searchindex {
+  searchid     Int    @id @default(autoincrement())
+  srchmod      Int
+  keywords     String @default("")
+  searchstring String
+  useip        String @default("")
+  uid          Int    @default(0)
+  dateline     Int    @default(0)
+  expiration   Int    @default(0)
+  threadsortid Int    @default(0)
+  num          Int    @default(0)
+  ids          String
+
+  @@index([srchmod], name: "srchmod")
+}
+
+model pre_common_seccheck {
+  ssid     Int     @id @default(autoincrement())
+  dateline Int
+  code     String
+  succeed  Boolean
+  verified Boolean
+
+  @@index([dateline], name: "dateline")
+  @@index([succeed], name: "succeed")
+  @@index([verified], name: "verified")
+}
+
+model pre_common_secquestion {
+  id       Int     @id @default(autoincrement())
+  type     Boolean
+  question String
+  answer   String
+}
+
+model pre_common_session {
+  sid          String  @unique @default("")
+  ip1          Int     @default(0)
+  ip2          Int     @default(0)
+  ip3          Int     @default(0)
+  ip4          Int     @default(0)
+  uid          Int     @default(0)
+  username     String  @default("")
+  groupid      Int     @default(0)
+  invisible    Boolean @default(false)
+  action       Boolean @default(false)
+  lastactivity Int     @default(0)
+  lastolupdate Int     @default(0)
+  fid          Int     @default(0)
+  tid          Int     @default(0)
+
+  @@index([uid], name: "uid")
+}
+
+model pre_common_setting {
+  skey   String @id @default("")
+  svalue String
+}
+
+model pre_common_smiley {
+  id           Int                    @id @default(autoincrement())
+  typeid       Int
+  displayorder Boolean                @default(false)
+  type         pre_common_smiley_type @default(smiley)
+  code         String                 @default("")
+  url          String                 @default("")
+
+  @@index([type, displayorder], name: "type")
+}
+
+model pre_common_sphinxcounter {
+  indexid Boolean @id
+  maxid   Int
+}
+
+model pre_common_stat {
+  daytime      Int @id @default(0)
+  login        Int @default(0)
+  mobilelogin  Int @default(0)
+  connectlogin Int @default(0)
+  register     Int @default(0)
+  invite       Int @default(0)
+  appinvite    Int @default(0)
+  doing        Int @default(0)
+  blog         Int @default(0)
+  pic          Int @default(0)
+  poll         Int @default(0)
+  activity     Int @default(0)
+  share        Int @default(0)
+  thread       Int @default(0)
+  docomment    Int @default(0)
+  blogcomment  Int @default(0)
+  piccomment   Int @default(0)
+  sharecomment Int @default(0)
+  reward       Int @default(0)
+  debate       Int @default(0)
+  trade        Int @default(0)
+  group        Int @default(0)
+  groupjoin    Int @default(0)
+  groupthread  Int @default(0)
+  grouppost    Int @default(0)
+  post         Int @default(0)
+  wall         Int @default(0)
+  poke         Int @default(0)
+  click        Int @default(0)
+  sendpm       Int @default(0)
+  friend       Int @default(0)
+  addfriend    Int @default(0)
+}
+
+model pre_common_style {
+  styleid    Int     @id @default(autoincrement())
+  name       String  @default("")
+  available  Boolean @default(true)
+  templateid Int     @default(0)
+  extstyle   String  @default("")
+}
+
+model pre_common_stylevar {
+  stylevarid Int    @id @default(autoincrement())
+  styleid    Int    @default(0)
+  variable   String
+  substitute String
+
+  @@index([styleid], name: "styleid")
+}
+
+model pre_common_syscache {
+  cname    String                    @id
+  ctype    Int
+  dateline Int
+  // This type is currently not supported by the Prisma Client.
+  // data  Unsupported("mediumblob")
+}
+
+model pre_common_tag {
+  tagid   Int     @id @default(autoincrement())
+  tagname String  @default("")
+  status  Boolean @default(false)
+
+  @@index([status, tagid], name: "status")
+  @@index([tagname], name: "tagname")
+}
+
+model pre_common_tagitem {
+  tagid   Int    @default(0)
+  tagname String @default("")
+  itemid  Int    @default(0)
+  idtype  String @default("")
+
+  @@unique([tagid, itemid, idtype], name: "item")
+  @@index([idtype, itemid], name: "idtype")
+  @@index([tagid, idtype], name: "tagid")
+}
+
+model pre_common_task {
+  taskid        Int                    @id @default(autoincrement())
+  relatedtaskid Int                    @default(0)
+  available     Boolean                @default(false)
+  name          String                 @default("")
+  description   String
+  icon          String                 @default("")
+  applicants    Int                    @default(0)
+  achievers     Int                    @default(0)
+  tasklimits    Int                    @default(0)
+  applyperm     String
+  scriptname    String                 @default("")
+  starttime     Int                    @default(0)
+  endtime       Int                    @default(0)
+  period        Int                    @default(0)
+  periodtype    Boolean                @default(false)
+  reward        pre_common_task_reward @default(credit)
+  prize         String                 @default("")
+  bonus         Int                    @default(0)
+  displayorder  Int                    @default(0)
+  version       String                 @default("")
+}
+
+model pre_common_taskvar {
+  taskvarid   Int                     @id @default(autoincrement())
+  taskid      Int                     @default(0)
+  sort        pre_common_taskvar_sort @default(complete)
+  name        String                  @default("")
+  description String                  @default("")
+  variable    String                  @default("")
+  type        String                  @default("text")
+  value       String
+
+  @@index([taskid], name: "taskid")
+}
+
+model pre_common_template {
+  templateid Int    @id @default(autoincrement())
+  name       String @default("")
+  directory  String @default("")
+  copyright  String @default("")
+}
+
+model pre_common_template_block {
+  targettplname String @default("")
+  tpldirectory  String @default("")
+  bid           Int    @default(0)
+
+  @@id([targettplname, tpldirectory, bid])
+  @@index([bid], name: "bid")
+}
+
+model pre_common_template_permission {
+  targettplname    String  @default("")
+  uid              Int     @default(0)
+  allowmanage      Boolean @default(false)
+  allowrecommend   Boolean @default(false)
+  needverify       Boolean @default(false)
+  inheritedtplname String  @default("")
+
+  @@id([targettplname, uid])
+  @@index([uid], name: "uid")
+}
+
+model pre_common_uin_black {
+  uin      String @id
+  uid      Int    @unique @default(0)
+  dateline Int    @default(0)
+}
+
+model pre_common_usergroup {
+  groupid         Int                       @id @default(autoincrement())
+  radminid        Int                       @default(0)
+  type            pre_common_usergroup_type @default(member)
+  system          String                    @default("private")
+  grouptitle      String                    @default("")
+  creditshigher   Int                       @default(0)
+  creditslower    Int                       @default(0)
+  stars           Int                       @default(0)
+  color           String                    @default("")
+  icon            String                    @default("")
+  allowvisit      Boolean                   @default(false)
+  allowsendpm     Boolean                   @default(true)
+  allowinvite     Boolean                   @default(false)
+  allowmailinvite Boolean                   @default(false)
+  maxinvitenum    Int                       @default(0)
+  inviteprice     Int                       @default(0)
+  maxinviteday    Int                       @default(0)
+
+  @@index([creditshigher, creditslower], name: "creditsrange")
+}
+
+model pre_common_usergroup_field {
+  groupid                Int     @id
+  readaccess             Int     @default(0)
+  allowpost              Boolean @default(false)
+  allowreply             Boolean @default(false)
+  allowpostpoll          Boolean @default(false)
+  allowpostreward        Boolean @default(false)
+  allowposttrade         Boolean @default(false)
+  allowpostactivity      Boolean @default(false)
+  allowdirectpost        Boolean @default(false)
+  allowgetattach         Boolean @default(false)
+  allowgetimage          Boolean @default(false)
+  allowpostattach        Boolean @default(false)
+  allowpostimage         Boolean @default(false)
+  allowvote              Boolean @default(false)
+  allowsearch            Boolean @default(false)
+  allowcstatus           Boolean @default(false)
+  allowinvisible         Boolean @default(false)
+  allowtransfer          Boolean @default(false)
+  allowsetreadperm       Boolean @default(false)
+  allowsetattachperm     Boolean @default(false)
+  allowposttag           Boolean @default(false)
+  allowhidecode          Boolean @default(false)
+  allowhtml              Boolean @default(false)
+  allowanonymous         Boolean @default(false)
+  allowsigbbcode         Boolean @default(false)
+  allowsigimgcode        Boolean @default(false)
+  allowmagics            Boolean
+  disableperiodctrl      Boolean @default(false)
+  reasonpm               Boolean @default(false)
+  maxprice               Int     @default(0)
+  maxsigsize             Int     @default(0)
+  maxattachsize          Int     @default(0)
+  maxsizeperday          Int     @default(0)
+  maxthreadsperhour      Int     @default(0)
+  maxpostsperhour        Int     @default(0)
+  attachextensions       String  @default("")
+  raterange              String  @default("")
+  loginreward            String  @default("")
+  mintradeprice          Int     @default(1)
+  maxtradeprice          Int     @default(0)
+  minrewardprice         Int     @default(1)
+  maxrewardprice         Int     @default(0)
+  magicsdiscount         Boolean
+  maxmagicsweight        Int
+  allowpostdebate        Boolean @default(false)
+  tradestick             Boolean
+  exempt                 Boolean
+  maxattachnum           Int     @default(0)
+  allowposturl           Int     @default(3)
+  allowrecommend         Boolean @default(true)
+  allowpostrushreply     Boolean @default(false)
+  maxfriendnum           Int     @default(0)
+  maxspacesize           Int     @default(0)
+  allowcomment           Boolean @default(false)
+  allowcommentarticle    Int     @default(0)
+  searchinterval         Int     @default(0)
+  searchignore           Boolean @default(false)
+  allowblog              Boolean @default(false)
+  allowdoing             Boolean @default(false)
+  allowupload            Boolean @default(false)
+  allowshare             Boolean @default(false)
+  allowblogmod           Boolean @default(false)
+  allowdoingmod          Boolean @default(false)
+  allowuploadmod         Boolean @default(false)
+  allowsharemod          Boolean @default(false)
+  allowcss               Boolean @default(false)
+  allowpoke              Boolean @default(false)
+  allowfriend            Boolean @default(false)
+  allowclick             Boolean @default(false)
+  allowmagic             Boolean @default(false)
+  allowstat              Boolean @default(false)
+  allowstatdata          Boolean @default(false)
+  videophotoignore       Boolean @default(false)
+  allowviewvideophoto    Boolean @default(false)
+  allowmyop              Boolean @default(false)
+  magicdiscount          Boolean @default(false)
+  domainlength           Int     @default(0)
+  seccode                Boolean @default(true)
+  disablepostctrl        Boolean @default(false)
+  allowbuildgroup        Boolean @default(false)
+  allowgroupdirectpost   Boolean @default(false)
+  allowgroupposturl      Boolean @default(false)
+  edittimelimit          Int     @default(0)
+  allowpostarticle       Boolean @default(false)
+  allowdownlocalimg      Boolean @default(false)
+  allowdownremoteimg     Boolean @default(false)
+  allowpostarticlemod    Boolean @default(false)
+  allowspacediyhtml      Boolean @default(false)
+  allowspacediybbcode    Boolean @default(false)
+  allowspacediyimgcode   Boolean @default(false)
+  allowcommentpost       Int     @default(2)
+  allowcommentitem       Boolean @default(false)
+  allowcommentreply      Boolean @default(false)
+  allowreplycredit       Boolean @default(false)
+  ignorecensor           Boolean @default(false)
+  allowsendallpm         Boolean @default(false)
+  allowsendpmmaxnum      Int     @default(0)
+  maximagesize           Int     @default(0)
+  allowmediacode         Boolean @default(false)
+  allowbegincode         Boolean @default(false)
+  allowat                Int     @default(0)
+  allowsetpublishdate    Boolean @default(false)
+  allowfollowcollection  Boolean @default(false)
+  allowcommentcollection Boolean @default(false)
+  allowcreatecollection  Int     @default(0)
+  forcesecques           Boolean @default(false)
+  forcelogin             Boolean @default(false)
+  closead                Boolean @default(false)
+  buildgroupcredits      Int     @default(0)
+  allowimgcontent        Boolean @default(false)
+}
+
+model pre_common_visit {
+  ip   Int @id @default(0)
+  view Int @default(0)
+
+  @@index([ip, view], name: "ip")
+}
+
+model pre_common_vphone {
+  phone        Int    @id
+  uid          Int    @unique
+  country_code String @default("86")
+}
+
+model pre_common_word {
+  id          Int    @id @default(autoincrement())
+  admin       String @default("")
+  type        Int    @default(1)
+  find        String @default("")
+  replacement String @default("")
+  extra       String @default("")
+}
+
+model pre_common_word_type {
+  id       Int    @id @default(autoincrement())
+  typename String @default("")
+}
+
+model pre_connect_disktask {
+  taskid       Int     @id @default(autoincrement())
+  aid          Int     @default(0)
+  uid          Int     @default(0)
+  openid       String  @default("")
+  filename     String  @default("")
+  verifycode   String  @default("")
+  status       Int     @default(0)
+  dateline     Int     @default(0)
+  downloadtime Int     @default(0)
+  extra        String?
+
+  @@index([openid], name: "openid")
+  @@index([status], name: "status")
+}
+
+model pre_connect_feedlog {
+  flid          Int     @id @default(autoincrement())
+  tid           Int     @unique @default(0)
+  uid           Int     @default(0)
+  publishtimes  Int     @default(0)
+  lastpublished Int     @default(0)
+  dateline      Int     @default(0)
+  status        Boolean @default(true)
+}
+
+model pre_connect_memberbindlog {
+  mblid    Int     @id @default(autoincrement())
+  uid      Int     @default(0)
+  uin      String
+  type     Boolean @default(false)
+  dateline Int     @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([uid], name: "uid")
+  @@index([uin], name: "uin")
+}
+
+model pre_connect_postfeedlog {
+  flid          Int     @id @default(autoincrement())
+  pid           Int     @unique @default(0)
+  uid           Int     @default(0)
+  publishtimes  Int     @default(0)
+  lastpublished Int     @default(0)
+  dateline      Int     @default(0)
+  status        Boolean @default(true)
+}
+
+model pre_connect_tlog {
+  tlid          Int     @id @default(autoincrement())
+  tid           Int     @unique @default(0)
+  uid           Int     @default(0)
+  publishtimes  Int     @default(0)
+  lastpublished Int     @default(0)
+  dateline      Int     @default(0)
+  status        Boolean @default(true)
+}
+
+model pre_connect_tthreadlog {
+  twid       String  @id
+  tid        Int     @default(0)
+  conopenid  String
+  pagetime   Int?    @default(0)
+  lasttwid   String?
+  nexttime   Int?    @default(0)
+  updatetime Int?    @default(0)
+  dateline   Int?    @default(0)
+
+  @@index([tid, nexttime], name: "nexttime")
+  @@index([tid, updatetime], name: "updatetime")
+}
+
+model pre_dpwactivity_mobile_adv {
+  id           Int     @id @default(autoincrement())
+  tid          Int?
+  fid          Int?
+  author       String?
+  authorid     Int
+  subject      String?
+  expires      Int?
+  available    Int?    @default(1)
+  url          String
+  imgsrc       String
+  isfocus      Int?    @default(0)
+  dateline     Int     @default(0)
+  displayorder Int
+  ext1         String
+  ext2         String
+  ext3         String
+  ext4         String
+  ext5         String
+  ext6         String
+}
+
+model pre_dsu_paulsign {
+  uid        Int    @id
+  time       Int
+  days       Int    @default(0)
+  lasted     Int    @default(0)
+  mdays      Int    @default(0)
+  reward     Int    @default(0)
+  lastreward Int    @default(0)
+  qdxq       String
+  todaysay   String
+
+  @@index([time], name: "time")
+}
+
+model pre_dsu_paulsignemot {
+  id           Int    @id @default(autoincrement())
+  displayorder Int    @default(0)
+  qdxq         String
+  count        Int    @default(0)
+  name         String
+}
+
+model pre_dsu_paulsignset {
+  id          Int @id
+  todayq      Int @default(0)
+  yesterdayq  Int @default(0)
+  highestq    Int @default(0)
+  qdtidnumber Int @default(0)
+}
+
+model pre_forum_access {
+  uid             Int     @default(0)
+  fid             Int     @default(0)
+  allowview       Boolean @default(false)
+  allowpost       Boolean @default(false)
+  allowreply      Boolean @default(false)
+  allowgetattach  Boolean @default(false)
+  allowgetimage   Boolean @default(false)
+  allowpostattach Boolean @default(false)
+  allowpostimage  Boolean @default(false)
+  adminuser       Int     @default(0)
+  dateline        Int     @default(0)
+
+  @@id([uid, fid])
+  @@index([fid, dateline], name: "listorder")
+}
+
+model pre_forum_activity {
+  tid           Int     @id @default(0)
+  uid           Int     @default(0)
+  aid           Int     @default(0)
+  cost          Int     @default(0)
+  starttimefrom Int     @default(0)
+  starttimeto   Int     @default(0)
+  place         String  @default("")
+  class         String  @default("")
+  gender        Boolean @default(false)
+  number        Int     @default(0)
+  applynumber   Int     @default(0)
+  expiration    Int     @default(0)
+  ufield        String
+  credit        Int     @default(0)
+
+  @@index([applynumber], name: "applynumber")
+  @@index([expiration], name: "expiration")
+  @@index([starttimefrom], name: "starttimefrom")
+  @@index([uid, starttimefrom], name: "uid")
+}
+
+model pre_forum_activityapply {
+  applyid    Int     @id @default(autoincrement())
+  tid        Int     @default(0)
+  username   String  @default("")
+  uid        Int     @default(0)
+  message    String  @default("")
+  verified   Boolean @default(false)
+  dateline   Int     @default(0)
+  payment    Int     @default(0)
+  ufielddata String
+  myfriend   Int     @default(0)
+
+  @@index([tid, dateline], name: "dateline")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_announcement {
+  id           Int     @id @default(autoincrement())
+  author       String  @default("")
+  subject      String  @default("")
+  type         Boolean @default(false)
+  displayorder Int     @default(0)
+  starttime    Int     @default(0)
+  endtime      Int     @default(0)
+  message      String
+  groups       String
+
+  @@index([starttime, endtime], name: "timespan")
+}
+
+model pre_forum_attachment {
+  aid       Int     @id @default(autoincrement())
+  tid       Int     @default(0)
+  pid       Int     @default(0)
+  uid       Int     @default(0)
+  tableid   Boolean @default(false)
+  downloads Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_0 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_1 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_2 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_3 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_4 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_5 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_6 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_7 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_8 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_9 {
+  aid         Int     @id
+  tid         Int     @default(0)
+  pid         Int     @default(0)
+  uid         Int     @default(0)
+  dateline    Int     @default(0)
+  filename    String  @default("")
+  filesize    Int     @default(0)
+  attachment  String  @default("")
+  remote      Boolean @default(false)
+  description String
+  readperm    Int     @default(0)
+  price       Int     @default(0)
+  isimage     Boolean @default(false)
+  width       Int     @default(0)
+  thumb       Boolean @default(false)
+  picid       Int     @default(0)
+
+  @@index([pid], name: "pid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachment_exif {
+  aid  Int    @id
+  exif String
+}
+
+model pre_forum_attachment_unused {
+  aid        Int     @id
+  uid        Int     @default(0)
+  dateline   Int     @default(0)
+  filename   String  @default("")
+  filesize   Int     @default(0)
+  attachment String  @default("")
+  remote     Boolean @default(false)
+  isimage    Boolean @default(false)
+  width      Int     @default(0)
+  thumb      Boolean @default(false)
+
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_attachtype {
+  id        Int    @id @default(autoincrement())
+  fid       Int    @default(0)
+  extension String @default("")
+  maxsize   Int    @default(0)
+
+  @@index([fid], name: "fid")
+}
+
+model pre_forum_bbcode {
+  id           Int     @id @default(autoincrement())
+  available    Boolean @default(false)
+  tag          String  @default("")
+  icon         String
+  replacement  String
+  example      String  @default("")
+  explanation  String
+  params       Boolean @default(true)
+  prompt       String
+  nest         Int     @default(1)
+  displayorder Int     @default(0)
+  perm         String
+}
+
+model pre_forum_collection {
+  ctid         Int    @id @default(autoincrement())
+  uid          Int    @default(0)
+  username     String @default("")
+  name         String @default("")
+  dateline     Int    @default(0)
+  follownum    Int    @default(0)
+  threadnum    Int    @default(0)
+  commentnum   Int    @default(0)
+  desc         String @default("")
+  lastupdate   Int    @default(0)
+  rate         Float  @default(0)
+  ratenum      Int    @default(0)
+  lastpost     Int    @default(0)
+  lastsubject  String @default("")
+  lastposttime Int    @default(0)
+  lastposter   String @default("")
+  lastvisit    Int    @default(0)
+  keyword      String @default("")
+
+  @@index([dateline], name: "dateline")
+  @@index([follownum], name: "follownum")
+  @@index([threadnum, lastupdate], name: "hotcollection")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_collectioncomment {
+  cid      Int    @id @default(autoincrement())
+  ctid     Int    @default(0)
+  uid      Int    @default(0)
+  username String @default("")
+  message  String
+  dateline Int    @default(0)
+  useip    String @default("")
+  port     Int    @default(0)
+  rate     Float  @default(0)
+
+  @@index([ctid, dateline], name: "ctid")
+  @@index([ctid, uid, rate], name: "userrate")
+}
+
+model pre_forum_collectionfollow {
+  uid       Int    @default(0)
+  username  String @default("")
+  ctid      Int    @default(0)
+  dateline  Int    @default(0)
+  lastvisit Int    @default(0)
+
+  @@id([uid, ctid])
+  @@index([ctid, dateline], name: "ctid")
+}
+
+model pre_forum_collectioninvite {
+  ctid     Int @default(0)
+  uid      Int @default(0)
+  dateline Int @default(0)
+
+  @@id([ctid, uid])
+  @@index([dateline], name: "dateline")
+}
+
+model pre_forum_collectionrelated {
+  tid        Int    @id @default(0)
+  collection String
+}
+
+model pre_forum_collectionteamworker {
+  ctid      Int    @default(0)
+  uid       Int    @default(0)
+  name      String @default("")
+  username  String @default("")
+  lastvisit Int    @default(0)
+
+  @@id([ctid, uid])
+}
+
+model pre_forum_collectionthread {
+  ctid     Int    @default(0)
+  tid      Int    @default(0)
+  dateline Int    @default(0)
+  reason   String @default("")
+
+  @@id([ctid, tid])
+  @@index([ctid, dateline], name: "ctid")
+}
+
+model pre_forum_debate {
+  tid            Int     @id @default(0)
+  uid            Int     @default(0)
+  starttime      Int     @default(0)
+  endtime        Int     @default(0)
+  affirmdebaters Int     @default(0)
+  negadebaters   Int     @default(0)
+  affirmvotes    Int     @default(0)
+  negavotes      Int     @default(0)
+  umpire         String  @default("")
+  winner         Boolean @default(false)
+  bestdebater    String  @default("")
+  affirmpoint    String
+  negapoint      String
+  umpirepoint    String
+  affirmvoterids String
+  negavoterids   String
+  affirmreplies  Int
+  negareplies    Int
+
+  @@index([uid, starttime], name: "uid")
+}
+
+model pre_forum_debatepost {
+  pid      Int     @id @default(0)
+  stand    Boolean @default(false)
+  tid      Int     @default(0)
+  uid      Int     @default(0)
+  dateline Int     @default(0)
+  voters   Int     @default(0)
+  voterids String
+
+  @@index([pid, stand], name: "pid")
+  @@index([tid, uid], name: "tid")
+  @@index([tid, voters], name: "voters")
+}
+
+model pre_forum_faq {
+  id           Int    @id @default(autoincrement())
+  fpid         Int    @default(0)
+  displayorder Int    @default(0)
+  identifier   String
+  keyword      String
+  title        String
+  message      String
+
+  @@index([displayorder], name: "displayplay")
+}
+
+model pre_forum_filter_post {
+  tid        Int @default(0)
+  pid        Int @default(0)
+  postlength Int @default(0)
+
+  @@id([tid, pid])
+  @@index([tid, postlength], name: "tid")
+}
+
+model pre_forum_forum {
+  fid              Int                  @id @default(autoincrement())
+  fup              Int                  @default(0)
+  type             pre_forum_forum_type @default(forum)
+  name             String               @default("")
+  status           Boolean              @default(false)
+  displayorder     Int                  @default(0)
+  styleid          Int                  @default(0)
+  threads          Int                  @default(0)
+  posts            Int                  @default(0)
+  todayposts       Int                  @default(0)
+  yesterdayposts   Int                  @default(0)
+  rank             Int                  @default(0)
+  oldrank          Int                  @default(0)
+  lastpost         String               @default("")
+  domain           String               @default("")
+  allowsmilies     Boolean              @default(false)
+  allowhtml        Boolean              @default(false)
+  allowbbcode      Boolean              @default(false)
+  allowimgcode     Boolean              @default(false)
+  allowmediacode   Boolean              @default(false)
+  allowanonymous   Boolean              @default(false)
+  allowpostspecial Int                  @default(0)
+  allowspecialonly Boolean              @default(false)
+  allowappend      Boolean              @default(false)
+  alloweditrules   Boolean              @default(false)
+  allowfeed        Boolean              @default(true)
+  allowside        Boolean              @default(false)
+  recyclebin       Boolean              @default(false)
+  modnewposts      Boolean              @default(false)
+  jammer           Boolean              @default(false)
+  disablewatermark Boolean              @default(false)
+  inheritedmod     Boolean              @default(false)
+  autoclose        Int                  @default(0)
+  forumcolumns     Int                  @default(0)
+  catforumcolumns  Int                  @default(0)
+  threadcaches     Boolean              @default(false)
+  alloweditpost    Boolean              @default(true)
+  simple           Boolean              @default(false)
+  modworks         Boolean              @default(false)
+  allowglobalstick Boolean              @default(true)
+  level            Int                  @default(0)
+  commoncredits    Int                  @default(0)
+  archive          Boolean              @default(false)
+  recommend        Int                  @default(0)
+  favtimes         Int                  @default(0)
+  sharetimes       Int                  @default(0)
+  disablethumb     Boolean              @default(false)
+  disablecollect   Boolean              @default(false)
+
+  @@index([status, type, displayorder], name: "forum")
+  @@index([fup], name: "fup")
+  @@index([fup, type, displayorder], name: "fup_type")
+}
+
+model pre_forum_forumfield {
+  fid              Int     @id @default(0)
+  description      String
+  password         String  @default("")
+  icon             String  @default("")
+  redirect         String  @default("")
+  attachextensions String  @default("")
+  creditspolicy    String
+  formulaperm      String
+  moderators       String
+  rules            String
+  threadtypes      String
+  threadsorts      String
+  viewperm         String
+  postperm         String
+  replyperm        String
+  getattachperm    String
+  postattachperm   String
+  postimageperm    String
+  spviewperm       String
+  seotitle         String
+  keywords         String
+  seodescription   String
+  supe_pushsetting String
+  modrecommend     String
+  threadplugin     String
+  replybg          String
+  extra            String
+  jointype         Boolean @default(false)
+  gviewperm        Boolean @default(false)
+  membernum        Int     @default(0)
+  dateline         Int     @default(0)
+  lastupdate       Int     @default(0)
+  activity         Int     @default(0)
+  founderuid       Int     @default(0)
+  foundername      String  @default("")
+  banner           String  @default("")
+  groupnum         Int     @default(0)
+  commentitem      String
+  relatedgroup     String
+  picstyle         Boolean @default(false)
+  widthauto        Boolean @default(false)
+  noantitheft      Boolean @default(false)
+  noforumhidewater Boolean @default(false)
+  noforumrecommend Boolean @default(false)
+  livetid          Int     @default(0)
+  price            Int     @default(0)
+
+  @@index([activity], name: "activity")
+  @@index([dateline], name: "dateline")
+  @@index([lastupdate], name: "lastupdate")
+  @@index([membernum], name: "membernum")
+}
+
+model pre_forum_forumrecommend {
+  fid          Int     @default(0)
+  tid          Int     @id
+  typeid       Int
+  displayorder Boolean
+  subject      String
+  author       String
+  authorid     Int
+  moderatorid  Int
+  expiration   Int
+  position     Boolean @default(false)
+  highlight    Boolean @default(false)
+  aid          Int     @default(0)
+  filename     String  @default("")
+
+  @@index([fid, displayorder], name: "displayorder")
+  @@index([position], name: "position")
+}
+
+model pre_forum_forum_threadtable {
+  fid           Int
+  threadtableid Int
+  threads       Int @default(0)
+  posts         Int @default(0)
+
+  @@id([fid, threadtableid])
+}
+
+model pre_forum_groupcreditslog {
+  fid     Int
+  uid     Int
+  logdate Int @default(0)
+
+  @@id([fid, uid, logdate])
+}
+
+model pre_forum_groupfield {
+  fid      Int     @default(0)
+  privacy  Boolean @default(false)
+  dateline Int     @default(0)
+  type     String
+  data     String
+
+  @@unique([fid, type], name: "types")
+  @@index([fid], name: "fid")
+  @@index([type], name: "type")
+}
+
+model pre_forum_groupinvite {
+  fid       Int @default(0)
+  uid       Int @default(0)
+  inviteuid Int @default(0)
+  dateline  Int @default(0)
+
+  @@unique([fid, inviteuid], name: "ids")
+  @@index([dateline], name: "dateline")
+}
+
+model pre_forum_grouplevel {
+  levelid       Int                       @id @default(autoincrement())
+  type          pre_forum_grouplevel_type @default(default)
+  leveltitle    String                    @default("")
+  creditshigher Int                       @default(0)
+  creditslower  Int                       @default(0)
+  icon          String                    @default("")
+  creditspolicy String
+  postpolicy    String
+  specialswitch String
+
+  @@index([creditshigher, creditslower], name: "creditsrange")
+}
+
+model pre_forum_groupranking {
+  fid       Int     @id @default(0)
+  yesterday Int     @default(0)
+  today     Int     @default(0)
+  trend     Boolean @default(false)
+
+  @@index([today], name: "today")
+}
+
+model pre_forum_groupuser {
+  fid          Int     @default(0)
+  uid          Int     @default(0)
+  username     String
+  level        Int     @default(0)
+  threads      Int     @default(0)
+  replies      Int     @default(0)
+  joindateline Int     @default(0)
+  lastupdate   Int     @default(0)
+  privacy      Boolean @default(false)
+
+  @@id([fid, uid])
+  @@index([uid, lastupdate], name: "uid_lastupdate")
+  @@index([fid, level, lastupdate], name: "userlist")
+}
+
+model pre_forum_hotreply_member {
+  tid      Int     @default(0)
+  pid      Int     @default(0)
+  uid      Int     @default(0)
+  attitude Boolean @default(false)
+
+  @@id([pid, uid])
+}
+
+model pre_forum_hotreply_number {
+  pid     Int @id @default(0)
+  tid     Int @default(0)
+  support Int @default(0)
+  against Int @default(0)
+  total   Int @default(0)
+
+  @@index([tid, total], name: "tid")
+}
+
+model pre_forum_imagetype {
+  typeid       Int                      @id @default(autoincrement())
+  available    Boolean                  @default(false)
+  name         String
+  type         pre_forum_imagetype_type @default(smiley)
+  displayorder Int                      @default(0)
+  directory    String
+}
+
+model pre_forum_medal {
+  medalid      Int     @id @default(autoincrement())
+  name         String  @default("")
+  available    Boolean @default(false)
+  image        String  @default("")
+  type         Boolean @default(false)
+  displayorder Int     @default(0)
+  description  String
+  expiration   Int     @default(0)
+  permission   String
+  credit       Boolean @default(false)
+  price        Int     @default(0)
+
+  @@index([available, displayorder], name: "available")
+  @@index([displayorder], name: "displayorder")
+}
+
+model pre_forum_medallog {
+  id         Int     @id @default(autoincrement())
+  uid        Int     @default(0)
+  medalid    Int     @default(0)
+  type       Boolean @default(false)
+  dateline   Int     @default(0)
+  expiration Int     @default(0)
+  status     Boolean @default(false)
+
+  @@index([dateline], name: "dateline")
+  @@index([status, expiration], name: "status")
+  @@index([type], name: "type")
+  @@index([uid, medalid, type], name: "uid")
+}
+
+model pre_forum_moderator {
+  uid          Int     @default(0)
+  fid          Int     @default(0)
+  displayorder Int     @default(0)
+  inherited    Boolean @default(false)
+
+  @@id([uid, fid])
+}
+
+model pre_forum_newthread {
+  tid      Int @id @default(0)
+  fid      Int @default(0)
+  dateline Int @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([fid], name: "fid")
+}
+
+model pre_forum_order {
+  orderid     String @unique @default("")
+  status      String @default("")
+  buyer       String @default("")
+  admin       String @default("")
+  uid         Int    @default(0)
+  amount      Int    @default(0)
+  price       Float  @default(0.00)
+  submitdate  Int    @default(0)
+  confirmdate Int    @default(0)
+  email       String @default("")
+  ip          String @default("")
+
+  @@index([submitdate], name: "submitdate")
+  @@index([uid, submitdate], name: "uid")
+}
+
+model pre_forum_poll {
+  tid         Int     @id @default(0)
+  overt       Boolean @default(false)
+  multiple    Boolean @default(false)
+  visible     Boolean @default(false)
+  maxchoices  Int     @default(0)
+  isimage     Boolean @default(false)
+  expiration  Int     @default(0)
+  pollpreview String  @default("")
+  voters      Int     @default(0)
+}
+
+model pre_forum_polloption {
+  polloptionid Int    @id @default(autoincrement())
+  tid          Int    @default(0)
+  votes        Int    @default(0)
+  displayorder Int    @default(0)
+  polloption   String @default("")
+  voterids     String
+
+  @@index([tid, displayorder], name: "tid")
+}
+
+model pre_forum_polloption_image {
+  aid        Int     @id @default(autoincrement())
+  poid       Int     @default(0)
+  tid        Int     @default(0)
+  pid        Int     @default(0)
+  uid        Int     @default(0)
+  filename   String  @default("")
+  filesize   Int     @default(0)
+  attachment String  @default("")
+  remote     Boolean @default(false)
+  width      Int     @default(0)
+  thumb      Boolean @default(false)
+  dateline   Int     @default(0)
+
+  @@index([poid], name: "poid")
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_post {
+  pid         Int     @unique
+  fid         Int     @default(0)
+  tid         Int     @default(0)
+  first       Boolean @default(false)
+  author      String  @default("")
+  authorid    Int     @default(0)
+  subject     String  @default("")
+  dateline    Int     @default(0)
+  message     String
+  useip       String  @default("")
+  port        Int     @default(0)
+  invisible   Boolean @default(false)
+  anonymous   Boolean @default(false)
+  usesig      Boolean @default(false)
+  htmlon      Boolean @default(false)
+  bbcodeoff   Boolean @default(false)
+  smileyoff   Boolean @default(false)
+  parseurloff Boolean @default(false)
+  attachment  Boolean @default(false)
+  rate        Int     @default(0)
+  ratetimes   Int     @default(0)
+  status      Int     @default(0)
+  tags        String  @default("0")
+  comment     Boolean @default(false)
+  replycredit Int     @default(0)
+  position    Int     @default(0)
+
+  @@id([tid, position])
+  @@index([authorid, invisible], name: "authorid")
+  @@index([dateline], name: "dateline")
+  @@index([tid, invisible, dateline], name: "displayorder")
+  @@index([fid], name: "fid")
+  @@index([tid, first], name: "first")
+  @@index([invisible], name: "invisible")
+}
+
+model pre_forum_postcache {
+  pid      Int    @id
+  comment  String
+  rate     String
+  dateline Int    @default(0)
+
+  @@index([dateline], name: "dateline")
+}
+
+model pre_forum_postcomment {
+  id       Int     @id @default(autoincrement())
+  tid      Int     @default(0)
+  pid      Int     @default(0)
+  author   String  @default("")
+  authorid Int     @default(0)
+  dateline Int     @default(0)
+  comment  String  @default("")
+  score    Boolean @default(false)
+  useip    String  @default("")
+  port     Int     @default(0)
+  rpid     Int     @default(0)
+
+  @@index([authorid], name: "authorid")
+  @@index([pid, dateline], name: "pid")
+  @@index([rpid], name: "rpid")
+  @@index([score], name: "score")
+  @@index([tid], name: "tid")
+}
+
+model pre_forum_postlog {
+  pid      Int    @default(0)
+  tid      Int    @default(0)
+  fid      Int    @default(0)
+  uid      Int    @default(0)
+  action   String @default("")
+  dateline Int    @default(0)
+
+  @@id([pid, tid])
+  @@index([dateline], name: "dateline")
+  @@index([fid], name: "fid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_postposition {
+  tid      Int
+  position Int @default(0)
+  pid      Int
+
+  @@id([tid, position])
+  @@index([pid], name: "pid")
+}
+
+model pre_forum_poststick {
+  tid      Int
+  pid      Int
+  position Int
+  dateline Int
+
+  @@id([tid, pid])
+  @@index([tid, dateline], name: "dateline")
+}
+
+model pre_forum_post_location {
+  pid      Int    @id @default(0)
+  tid      Int?   @default(0)
+  uid      Int?   @default(0)
+  mapx     String
+  mapy     String
+  location String
+
+  @@index([tid], name: "tid")
+  @@index([uid], name: "uid")
+}
+
+model pre_forum_post_moderate {
+  id       Int @id @default(0)
+  status   Int @default(0)
+  dateline Int @default(0)
+
+  @@index([status, dateline], name: "status")
+}
+
+model pre_forum_post_tableid {
+  pid Int @id @default(autoincrement())
+}
+
+model pre_forum_promotion {
+  ip       String @id @default("")
+  uid      Int    @default(0)
+  username String @default("")
+}
+
+model pre_forum_relatedthread {
+  tid            Int                          @default(0)
+  type           pre_forum_relatedthread_type @default(general)
+  expiration     Int                          @default(0)
+  keywords       String                       @default("")
+  relatedthreads String
+
+  @@id([tid, type])
+}
+
+model pre_forum_replycredit {
+  tid            Int     @id
+  extcredits     Int     @default(0)
+  extcreditstype Boolean @default(false)
+  times          Int     @default(0)
+  membertimes    Int     @default(0)
+  random         Boolean @default(false)
+}
+
+model pre_forum_rsscache {
+  lastupdate  Int    @default(0)
+  fid         Int    @default(0)
+  tid         Int    @unique @default(0)
+  dateline    Int    @default(0)
+  forum       String @default("")
+  author      String @default("")
+  subject     String @default("")
+  description String @default("")
+  guidetype   String @default("")
+
+  @@index([fid, dateline], name: "fid")
+}
+
+model pre_forum_sofa {
+  tid Int @id @default(0)
+  fid Int @default(0)
+
+  @@index([fid, tid], name: "ftid")
+}
+
+model pre_forum_spacecache {
+  uid        Int    @default(0)
+  variable   String
+  value      String
+  expiration Int    @default(0)
+
+  @@id([uid, variable])
+}
+
+model pre_forum_statlog {
+  logdate DateTime
+  fid     Int
+  type    Int      @default(0)
+  value   Int      @default(0)
+
+  @@id([logdate, fid])
+}
+
+model pre_forum_thread {
+  tid           Int     @id @default(autoincrement())
+  fid           Int     @default(0)
+  posttableid   Int     @default(0)
+  typeid        Int     @default(0)
+  sortid        Int     @default(0)
+  readperm      Int     @default(0)
+  price         Int     @default(0)
+  author        String  @default("")
+  authorid      Int     @default(0)
+  subject       String  @default("")
+  dateline      Int     @default(0)
+  lastpost      Int     @default(0)
+  lastposter    String  @default("")
+  views         Int     @default(0)
+  replies       Int     @default(0)
+  displayorder  Boolean @default(false)
+  highlight     Boolean @default(false)
+  digest        Boolean @default(false)
+  rate          Boolean @default(false)
+  special       Boolean @default(false)
+  attachment    Boolean @default(false)
+  moderated     Boolean @default(false)
+  closed        Int     @default(0)
+  stickreply    Boolean @default(false)
+  recommends    Int     @default(0)
+  recommend_add Int     @default(0)
+  recommend_sub Int     @default(0)
+  heats         Int     @default(0)
+  status        Int     @default(0)
+  isgroup       Boolean @default(false)
+  favtimes      Int     @default(0)
+  sharetimes    Int     @default(0)
+  stamp         Int     @default(-1)
+  icon          Int     @default(-1)
+  pushedaid     Int     @default(0)
+  cover         Int     @default(0)
+  replycredit   Int     @default(0)
+  relatebytag   String  @default("0")
+  maxposition   Int     @default(0)
+  bgcolor       String  @default("")
+  comments      Int     @default(0)
+  hidden        Int     @default(0)
+
+  @@index([authorid], name: "authorid")
+  @@index([digest], name: "digest")
+  @@index([fid, displayorder, lastpost], name: "displayorder")
+  @@index([heats], name: "heats")
+  @@index([isgroup, lastpost], name: "isgroup")
+  @@index([recommends], name: "recommends")
+  @@index([sortid], name: "sortid")
+  @@index([special], name: "special")
+  @@index([fid, typeid, displayorder, lastpost], name: "typeid")
+}
+
+model pre_forum_threadaddviews {
+  tid      Int @id @default(0)
+  addviews Int @default(0)
+}
+
+model pre_forum_threadcalendar {
+  cid      Int @id @default(autoincrement())
+  fid      Int @default(0)
+  dateline Int @default(0)
+  hotnum   Int @default(0)
+
+  @@index([fid, dateline], name: "fid")
+}
+
+model pre_forum_threadclass {
+  typeid       Int     @id @default(autoincrement())
+  fid          Int
+  name         String
+  displayorder Int
+  icon         String
+  moderators   Boolean @default(false)
+
+  @@index([fid, displayorder], name: "fid")
+}
+
+model pre_forum_threadclosed {
+  tid      Int @id @default(0)
+  redirect Int @default(0)
+}
+
+model pre_forum_threaddisablepos {
+  tid Int @id @default(0)
+}
+
+model pre_forum_threadhidelog {
+  tid Int @default(0)
+  uid Int @default(0)
+
+  @@unique([tid, uid], name: "uid")
+}
+
+model pre_forum_threadhot {
+  cid Int @default(0)
+  fid Int @default(0)
+  tid Int @default(0)
+
+  @@id([cid, tid])
+  @@index([fid], name: "fid")
+}
+
+model pre_forum_threadlog {
+  tid      Int    @default(0)
+  fid      Int    @default(0)
+  uid      Int    @default(0)
+  otherid  Int    @default(0)
+  action   String
+  expiry   Int    @default(0)
+  dateline Int    @default(0)
+
+  @@id([tid, fid, uid])
+  @@index([dateline], name: "dateline")
+}
+
+model pre_forum_threadpreview {
+  tid     Int    @id @default(0)
+  relay   Int    @default(0)
+  content String
+}
+
+model pre_forum_threadprofile {
+  id       Int     @id @default(autoincrement())
+  name     String  @default("")
+  template String
+  global   Boolean @default(false)
+
+  @@index([global], name: "global")
+}
+
+model pre_forum_threadprofile_group {
+  gid  Int @id
+  tpid Int
+}
+
+model pre_forum_threadrush {
+  tid           Int    @id @default(0)
+  stopfloor     Int    @default(0)
+  starttimefrom Int    @default(0)
+  starttimeto   Int    @default(0)
+  rewardfloor   String
+  creditlimit   Int    @default(-996)
+  replylimit    Int    @default(0)
+}
+
+model pre_forum_threadtype {
+  typeid       Int     @id @default(autoincrement())
+  fid          Int     @default(0)
+  displayorder Int     @default(0)
+  name         String  @default("")
+  description  String  @default("")
+  icon         String  @default("")
+  special      Int     @default(0)
+  modelid      Int     @default(0)
+  expiration   Boolean @default(false)
+  template     String
+  stemplate    String
+  ptemplate    String
+  btemplate    String
+}
+
+model pre_forum_thread_moderate {
+  id       Int @id @default(0)
+  status   Int @default(0)
+  dateline Int @default(0)
+
+  @@index([status, dateline], name: "status")
+}
+
+model pre_forum_trade {
+  tid            Int
+  pid            Int
+  typeid         Int
+  sellerid       Int
+  seller         String
+  account        String
+  tenpayaccount  String  @default("")
+  subject        String
+  price          Float
+  amount         Int     @default(1)
+  quality        Boolean @default(false)
+  locus          String
+  transport      Boolean @default(false)
+  ordinaryfee    Int     @default(0)
+  expressfee     Int     @default(0)
+  emsfee         Int     @default(0)
+  itemtype       Boolean @default(false)
+  dateline       Int     @default(0)
+  expiration     Int     @default(0)
+  lastbuyer      String
+  lastupdate     Int     @default(0)
+  totalitems     Int     @default(0)
+  tradesum       Float   @default(0.00)
+  closed         Boolean @default(false)
+  aid            Int
+  displayorder   Boolean
+  costprice      Float
+  credit         Int     @default(0)
+  costcredit     Int     @default(0)
+  credittradesum Int     @default(0)
+
+  @@id([tid, pid])
+  @@index([credittradesum], name: "credittradesum")
+  @@index([tid, displayorder], name: "displayorder")
+  @@index([expiration], name: "expiration")
+  @@index([pid], name: "pid")
+  @@index([sellerid], name: "sellerid")
+  @@index([sellerid, tradesum, totalitems], name: "sellertrades")
+  @@index([totalitems], name: "totalitems")
+  @@index([tradesum], name: "tradesum")
+  @@index([typeid], name: "typeid")
+}
+
+model pre_forum_tradecomment {
+  id          Int     @id @default(autoincrement())
+  orderid     String
+  pid         Int
+  type        Boolean
+  raterid     Int
+  rater       String
+  rateeid     Int
+  ratee       String
+  message     String
+  explanation String
+  score       Boolean
+  dateline    Int
+
+  @@index([orderid], name: "orderid")
+  @@index([rateeid, type, dateline], name: "rateeid")
+  @@index([raterid, type, dateline], name: "raterid")
+}
+
+model pre_forum_tradelog {
+  tid           Int
+  pid           Int
+  orderid       String  @unique
+  tradeno       String
+  paytype       Boolean @default(false)
+  subject       String
+  price         Float   @default(0.00)
+  quality       Boolean @default(false)
+  itemtype      Boolean @default(false)
+  number        Int     @default(0)
+  tax           Float   @default(0.00)
+  locus         String
+  sellerid      Int
+  seller        String
+  selleraccount String
+  tenpayaccount String  @default("0")
+  buyerid       Int
+  buyer         String
+  buyercontact  String
+  buyercredits  Int     @default(0)
+  buyermsg      String?
+  status        Boolean @default(false)
+  lastupdate    Int     @default(0)
+  offline       Boolean @default(false)
+  buyername     String
+  buyerzip      String
+  buyerphone    String
+  buyermobile   String
+  transport     Boolean @default(false)
+  transportfee  Int     @default(0)
+  baseprice     Float
+  discount      Boolean @default(false)
+  ratestatus    Boolean @default(false)
+  message       String
+  credit        Int     @default(0)
+  basecredit    Int     @default(0)
+
+  @@index([buyerid], name: "buyerid")
+  @@index([buyerid, status, lastupdate], name: "buyerlog")
+  @@index([pid], name: "pid")
+  @@index([sellerid], name: "sellerid")
+  @@index([sellerid, status, lastupdate], name: "sellerlog")
+  @@index([status], name: "status")
+  @@index([tid, pid], name: "tid")
+}
+
+model pre_forum_typeoption {
+  optionid     Int     @id @default(autoincrement())
+  classid      Int     @default(0)
+  displayorder Int     @default(0)
+  expiration   Boolean
+  protect      String
+  title        String  @default("")
+  description  String  @default("")
+  identifier   String  @default("")
+  type         String  @default("")
+  unit         String
+  rules        String
+  permprompt   String
+
+  @@index([classid], name: "classid")
+}
+
+model pre_forum_typevar {
+  sortid       Int     @default(0)
+  optionid     Int     @default(0)
+  available    Boolean @default(false)
+  required     Boolean @default(false)
+  unchangeable Boolean @default(false)
+  search       Boolean @default(false)
+  displayorder Int     @default(0)
+  subjectshow  Boolean @default(false)
+
+  @@unique([sortid, optionid], name: "optionid")
+  @@index([sortid], name: "sortid")
+}
+
+model pre_forum_warning {
+  wid        Int    @id @default(autoincrement())
+  pid        Int    @unique
+  operatorid Int
+  operator   String
+  authorid   Int
+  author     String
+  dateline   Int
+  reason     String
+
+  @@index([authorid], name: "authorid")
+}
+
+model pre_home_album {
+  albumid    Int     @id @default(autoincrement())
+  albumname  String  @default("")
+  catid      Int     @default(0)
+  uid        Int     @default(0)
+  username   String  @default("")
+  dateline   Int     @default(0)
+  updatetime Int     @default(0)
+  picnum     Int     @default(0)
+  pic        String  @default("")
+  picflag    Boolean @default(false)
+  friend     Boolean @default(false)
+  password   String  @default("")
+  target_ids String
+  favtimes   Int
+  sharetimes Int
+  depict     String
+
+  @@index([uid, updatetime], name: "uid")
+  @@index([updatetime], name: "updatetime")
+}
+
+model pre_home_album_category {
+  catid        Int    @id @default(autoincrement())
+  upid         Int    @default(0)
+  catname      String @default("")
+  num          Int    @default(0)
+  displayorder Int    @default(0)
+}
+
+model pre_home_appcreditlog {
+  logid    Int     @id @default(autoincrement())
+  uid      Int     @default(0)
+  appid    Int     @default(0)
+  appname  String  @default("")
+  type     Boolean @default(false)
+  credit   Int     @default(0)
+  note     String
+  dateline Int     @default(0)
+
+  @@index([appid], name: "appid")
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_blacklist {
+  uid      Int @default(0)
+  buid     Int @default(0)
+  dateline Int @default(0)
+
+  @@id([uid, buid])
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_blog {
+  blogid     Int     @id @default(autoincrement())
+  uid        Int     @default(0)
+  username   String  @default("")
+  subject    String  @default("")
+  classid    Int     @default(0)
+  catid      Int     @default(0)
+  viewnum    Int     @default(0)
+  replynum   Int     @default(0)
+  hot        Int     @default(0)
+  dateline   Int     @default(0)
+  picflag    Boolean @default(false)
+  noreply    Boolean @default(false)
+  friend     Boolean @default(false)
+  password   String  @default("")
+  favtimes   Int     @default(0)
+  sharetimes Int     @default(0)
+  status     Boolean @default(false)
+  click1     Int     @default(0)
+  click2     Int     @default(0)
+  click3     Int     @default(0)
+  click4     Int     @default(0)
+  click5     Int     @default(0)
+  click6     Int     @default(0)
+  click7     Int     @default(0)
+  click8     Int     @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([hot], name: "hot")
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_blogfield {
+  blogid      Int    @id @default(0)
+  uid         Int    @default(0)
+  pic         String @default("")
+  tag         String @default("")
+  message     String
+  postip      String @default("")
+  port        Int    @default(0)
+  related     String
+  relatedtime Int    @default(0)
+  target_ids  String
+  hotuser     String
+  magiccolor  Int    @default(0)
+  magicpaper  Int    @default(0)
+  pushedaid   Int    @default(0)
+
+  @@index([uid], name: "uid")
+}
+
+model pre_home_blog_category {
+  catid        Int    @id @default(autoincrement())
+  upid         Int    @default(0)
+  catname      String @default("")
+  num          Int    @default(0)
+  displayorder Int    @default(0)
+}
+
+model pre_home_blog_moderate {
+  id       Int @id @default(0)
+  status   Int @default(0)
+  dateline Int @default(0)
+
+  @@index([status, dateline], name: "status")
+}
+
+model pre_home_class {
+  classid   Int    @id @default(autoincrement())
+  classname String @default("")
+  uid       Int    @default(0)
+  dateline  Int    @default(0)
+
+  @@index([uid], name: "uid")
+}
+
+model pre_home_click {
+  clickid      Int     @id @default(autoincrement())
+  name         String  @default("")
+  icon         String  @default("")
+  idtype       String  @default("")
+  available    Boolean @default(false)
+  displayorder Int     @default(0)
+
+  @@index([idtype, displayorder], name: "idtype")
+}
+
+model pre_home_comment {
+  cid          Int     @id @default(autoincrement())
+  uid          Int     @default(0)
+  id           Int     @default(0)
+  idtype       String  @default("")
+  authorid     Int     @default(0)
+  author       String  @default("")
+  ip           String  @default("")
+  port         Int     @default(0)
+  dateline     Int     @default(0)
+  message      String
+  magicflicker Boolean @default(false)
+  status       Boolean @default(false)
+
+  @@index([authorid, idtype], name: "authorid")
+  @@index([id, idtype, dateline], name: "id")
+}
+
+model pre_home_comment_moderate {
+  id       Int    @id @default(0)
+  idtype   String @default("")
+  status   Int    @default(0)
+  dateline Int    @default(0)
+
+  @@index([idtype, status, dateline], name: "idtype")
+}
+
+model pre_home_docomment {
+  id       Int    @id @default(autoincrement())
+  upid     Int    @default(0)
+  doid     Int    @default(0)
+  uid      Int    @default(0)
+  username String @default("")
+  dateline Int    @default(0)
+  message  String
+  ip       String @default("")
+  grade    Int    @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([doid, dateline], name: "doid")
+}
+
+model pre_home_doing {
+  doid     Int     @id @default(autoincrement())
+  uid      Int     @default(0)
+  username String  @default("")
+  from     String  @default("")
+  dateline Int     @default(0)
+  message  String
+  ip       String  @default("")
+  port     Int     @default(0)
+  replynum Int     @default(0)
+  status   Boolean @default(false)
+
+  @@index([dateline], name: "dateline")
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_doing_moderate {
+  id       Int @id @default(0)
+  status   Int @default(0)
+  dateline Int @default(0)
+
+  @@index([status, dateline], name: "status")
+}
+
+model pre_home_favorite {
+  favid       Int    @id @default(autoincrement())
+  uid         Int    @default(0)
+  id          Int    @default(0)
+  idtype      String @default("")
+  spaceuid    Int    @default(0)
+  title       String @default("")
+  description String
+  dateline    Int    @default(0)
+
+  @@index([id, idtype], name: "idtype")
+  @@index([uid, idtype, dateline], name: "uid")
+}
+
+model pre_home_feed {
+  feedid         Int     @id @default(autoincrement())
+  appid          Int     @default(0)
+  icon           String  @default("")
+  uid            Int     @default(0)
+  username       String  @default("")
+  dateline       Int     @default(0)
+  friend         Boolean @default(false)
+  hash_template  String  @default("")
+  hash_data      String  @default("")
+  title_template String
+  title_data     String
+  body_template  String
+  body_data      String
+  body_general   String
+  image_1        String  @default("")
+  image_1_link   String  @default("")
+  image_2        String  @default("")
+  image_2_link   String  @default("")
+  image_3        String  @default("")
+  image_3_link   String  @default("")
+  image_4        String  @default("")
+  image_4_link   String  @default("")
+  target_ids     String
+  id             Int     @default(0)
+  idtype         String  @default("")
+  hot            Int     @default(0)
+
+  @@index([dateline], name: "dateline")
+  @@index([hot], name: "hot")
+  @@index([id, idtype], name: "id")
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_feed_app {
+  feedid         Int     @id @default(autoincrement())
+  appid          Int     @default(0)
+  icon           String  @default("")
+  uid            Int     @default(0)
+  username       String  @default("")
+  dateline       Int     @default(0)
+  friend         Boolean @default(false)
+  hash_template  String  @default("")
+  hash_data      String  @default("")
+  title_template String
+  title_data     String
+  body_template  String
+  body_data      String
+  body_general   String
+  image_1        String  @default("")
+  image_1_link   String  @default("")
+  image_2        String  @default("")
+  image_2_link   String  @default("")
+  image_3        String  @default("")
+  image_3_link   String  @default("")
+  image_4        String  @default("")
+  image_4_link   String  @default("")
+  target_ids     String
+
+  @@index([dateline], name: "dateline")
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_follow {
+  uid       Int     @default(0)
+  username  String  @default("")
+  followuid Int     @default(0)
+  fusername String  @default("")
+  bkname    String  @default("")
+  status    Boolean @default(false)
+  mutual    Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@id([uid, followuid])
+}
+
+model pre_home_follow_feed {
+  feedid   Int    @id @default(autoincrement())
+  uid      Int    @default(0)
+  username String @default("")
+  tid      Int    @default(0)
+  note     String
+  dateline Int    @default(0)
+
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_follow_feed_archiver {
+  feedid   Int    @id @default(autoincrement())
+  uid      Int    @default(0)
+  username String @default("")
+  tid      Int    @default(0)
+  note     String
+  dateline Int    @default(0)
+
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_friend {
+  uid       Int    @default(0)
+  fuid      Int    @default(0)
+  fusername String @default("")
+  gid       Int    @default(0)
+  num       Int    @default(0)
+  dateline  Int    @default(0)
+  note      String @default("")
+
+  @@id([uid, fuid])
+  @@index([fuid], name: "fuid")
+  @@index([uid, num, dateline], name: "uid")
+}
+
+model pre_home_friendlog {
+  uid      Int    @default(0)
+  fuid     Int    @default(0)
+  action   String @default("")
+  dateline Int    @default(0)
+
+  @@id([uid, fuid])
+}
+
+model pre_home_friend_request {
+  uid       Int    @default(0)
+  fuid      Int    @default(0)
+  fusername String @default("")
+  gid       Int    @default(0)
+  note      String @default("")
+  dateline  Int    @default(0)
+
+  @@id([uid, fuid])
+  @@index([uid, dateline], name: "dateline")
+  @@index([fuid], name: "fuid")
+}
+
+model pre_home_notification {
+  id          Int     @id @default(autoincrement())
+  uid         Int     @default(0)
+  type        String  @default("")
+  new         Boolean @default(false)
+  authorid    Int     @default(0)
+  author      String  @default("")
+  note        String
+  dateline    Int     @default(0)
+  from_id     Int     @default(0)
+  from_idtype String  @default("")
+  from_num    Int     @default(0)
+  category    Boolean @default(false)
+
+  @@index([uid, type, dateline], name: "by_type")
+  @@index([uid, category, dateline], name: "category")
+  @@index([from_id, from_idtype], name: "from_id")
+  @@index([uid, new], name: "uid")
+}
+
+model pre_home_pic {
+  picid      Int     @id @default(autoincrement())
+  albumid    Int     @default(0)
+  uid        Int     @default(0)
+  username   String  @default("")
+  dateline   Int     @default(0)
+  postip     String  @default("")
+  port       Int     @default(0)
+  filename   String  @default("")
+  title      String  @default("")
+  type       String  @default("")
+  size       Int     @default(0)
+  filepath   String  @default("")
+  thumb      Boolean @default(false)
+  remote     Boolean @default(false)
+  hot        Int     @default(0)
+  sharetimes Int     @default(0)
+  click1     Int     @default(0)
+  click2     Int     @default(0)
+  click3     Int     @default(0)
+  click4     Int     @default(0)
+  click5     Int     @default(0)
+  click6     Int     @default(0)
+  click7     Int     @default(0)
+  click8     Int     @default(0)
+  magicframe Int     @default(0)
+  status     Boolean @default(false)
+
+  @@index([albumid, dateline], name: "albumid")
+  @@index([uid], name: "uid")
+}
+
+model pre_home_picfield {
+  picid   Int    @id @default(0)
+  hotuser String
+}
+
+model pre_home_pic_moderate {
+  id       Int @id @default(0)
+  status   Int @default(0)
+  dateline Int @default(0)
+
+  @@index([status, dateline], name: "status")
+}
+
+model pre_home_poke {
+  uid          Int    @default(0)
+  fromuid      Int    @default(0)
+  fromusername String @default("")
+  note         String @default("")
+  dateline     Int    @default(0)
+  iconid       Int    @default(0)
+
+  @@id([uid, fromuid])
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_pokearchive {
+  pid      Int    @id @default(autoincrement())
+  pokeuid  Int    @default(0)
+  uid      Int    @default(0)
+  fromuid  Int    @default(0)
+  note     String @default("")
+  dateline Int    @default(0)
+  iconid   Int    @default(0)
+
+  @@index([pokeuid], name: "pokeuid")
+}
+
+model pre_home_share {
+  sid            Int     @id @default(autoincrement())
+  itemid         Int
+  type           String  @default("")
+  uid            Int     @default(0)
+  username       String  @default("")
+  fromuid        Int     @default(0)
+  dateline       Int     @default(0)
+  title_template String
+  body_template  String
+  body_data      String
+  body_general   String
+  image          String  @default("")
+  image_link     String  @default("")
+  hot            Int     @default(0)
+  hotuser        String
+  status         Boolean
+
+  @@index([dateline], name: "dateline")
+  @@index([hot], name: "hot")
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_home_share_moderate {
+  id       Int @id @default(0)
+  status   Int @default(0)
+  dateline Int @default(0)
+
+  @@index([status, dateline], name: "status")
+}
+
+model pre_home_show {
+  uid       Int    @id @default(0)
+  username  String @default("")
+  unitprice Int    @default(1)
+  credit    Int    @default(0)
+  note      String @default("")
+
+  @@index([credit], name: "credit")
+  @@index([unitprice], name: "unitprice")
+}
+
+model pre_home_surrounding_user {
+  poi_id    Int    @id @default(autoincrement())
+  longitude Float  @default(0.0000000)
+  latitude  Float  @default(0.0000000)
+  object_id Int    @default(0)
+  type      Int    @default(0)
+  location  String @default("")
+
+  @@unique([object_id, type], name: "object_id")
+  @@index([type], name: "type")
+}
+
+model pre_home_visitor {
+  uid       Int    @default(0)
+  vuid      Int    @default(0)
+  vusername String @default("")
+  dateline  Int    @default(0)
+
+  @@id([uid, vuid])
+  @@index([dateline], name: "dateline")
+  @@index([vuid], name: "vuid")
+}
+
+model pre_it618_sale_apiwork {
+  id         Int    @id @default(autoincrement())
+  it618_type String
+  it618_time Int
+}
+
+model pre_it618_sale_bottomnav {
+  id          Int    @id @default(autoincrement())
+  it618_title String
+  it618_img   String
+  it618_url   String
+  it618_color String
+  it618_order Int
+}
+
+model pre_it618_sale_brand1 {
+  id          Int    @id @default(autoincrement())
+  it618_name  String
+  it618_color String
+  it618_order Int
+  it618_istj  Int    @default(0)
+}
+
+model pre_it618_sale_brand2 {
+  id              Int    @id @default(autoincrement())
+  it618_brand1_id Int
+  it618_name      String
+  it618_color     String
+  it618_order     Int
+  it618_istj      Int    @default(0)
+}
+
+model pre_it618_sale_category {
+  id              Int @id @default(autoincrement())
+  it618_class2_id Int
+  it618_category  Int
+}
+
+model pre_it618_sale_categorytmp {
+  id             Int    @id @default(autoincrement())
+  it618_category Int
+  it618_name     String
+}
+
+model pre_it618_sale_class1 {
+  id                  Int    @id @default(autoincrement())
+  it618_classname     String
+  it618_classnamenav  String
+  it618_cssname       String
+  it618_order         Int
+  it618_goodscount    Int
+  it618_wapgoodscount Int    @default(5)
+  it618_img           String @default("")
+  it618_url           String
+  it618_istj          Int    @default(0)
+  it618_homeorder     Int
+}
+
+model pre_it618_sale_class2 {
+  id                  Int    @id @default(autoincrement())
+  it618_class1_id     Int
+  it618_classname     String
+  it618_color         String
+  it618_order         Int
+  it618_istj          Int    @default(0)
+  it618_goodscount    Int
+  it618_wapgoodscount Int
+  it618_homeorder     Int
+}
+
+model pre_it618_sale_collect {
+  id         Int @id @default(autoincrement())
+  it618_uid  Int @default(0)
+  it618_pid  Int @default(0)
+  it618_time Int @default(0)
+}
+
+model pre_it618_sale_diy {
+  id              Int    @id @default(autoincrement())
+  it618_name      String
+  it618_type      String
+  it618_modecode  String
+  it618_count     Int    @default(10)
+  it618_isjs      Int    @default(0)
+  it618_time      Int    @default(0)
+  it618_catchtime Int    @default(1)
+}
+
+model pre_it618_sale_findkey {
+  id          Int    @id @default(autoincrement())
+  it618_uid   Int    @default(0)
+  it618_key   String
+  it618_count Int    @default(0)
+  it618_time  Int    @default(0)
+}
+
+model pre_it618_sale_focus {
+  id          Int    @id @default(autoincrement())
+  it618_type  Int    @default(0)
+  it618_img   String
+  it618_url   String
+  it618_order Int
+}
+
+model pre_it618_sale_gonggao {
+  id           Int    @id @default(autoincrement())
+  it618_title  String
+  it618_url    String
+  it618_color  String
+  it618_isbold Int    @default(0)
+  it618_order  Int
+}
+
+model pre_it618_sale_goods {
+  id                   Int    @id @default(autoincrement())
+  it618_class1_id      Int
+  it618_class2_id      Int
+  it618_productid      String
+  it618_name           String
+  it618_acsalebl       Float
+  it618_actime1        String
+  it618_actime2        String
+  it618_pcurl          String
+  it618_wapurl         String
+  it618_codeurl        String
+  it618_quanstr        String
+  it618_quanurl        String
+  it618_quancodeurl    String
+  it618_quantime1      String
+  it618_quantime2      String
+  it618_message1       String
+  it618_message2       String
+  it618_xgtime         Int    @default(0)
+  it618_xgcount        Int    @default(0)
+  it618_description    String
+  it618_seokeywords    String
+  it618_seodescription String
+  it618_price          Float
+  it618_saleprice      Float
+  it618_pic            String
+  it618_message        String
+  it618_salecount      Int    @default(0)
+  it618_collect        Int    @default(0)
+  it618_views          Int    @default(0)
+  it618_order          Int    @default(0)
+  it618_istj           Int    @default(0)
+  it618_isurl          Int    @default(0)
+  it618_state          Int    @default(0)
+  it618_time           Int    @default(0)
+  it618_category       Int    @default(0)
+}
+
+model pre_it618_sale_kd {
+  id          Int    @id @default(autoincrement())
+  it618_name  String
+  it618_url   String
+  it618_order Int
+}
+
+model pre_it618_sale_kf {
+  id               Int    @id @default(autoincrement())
+  it618_isok       Int
+  it618_top        Int
+  it618_width      Int
+  it618_title      String
+  it618_about      String
+  it618_yytime     String
+  it618_dianhua    String
+  it618_kefuqq     String
+  it618_kefuwx     String
+  it618_kefuqqname String
+}
+
+model pre_it618_sale_money {
+  id              Int    @id @default(autoincrement())
+  it618_uid       Int
+  it618_daoid     String
+  it618_saleid    String
+  it618_productid String
+  it618_pname     String
+  it618_money     Float
+  it618_salebl    Float
+  it618_salemoney Float
+  it618_score     Int
+  it618_count     Int
+  it618_time1     Int    @default(0)
+  it618_time2     Int    @default(0)
+}
+
+model pre_it618_sale_nav {
+  id           Int    @id @default(autoincrement())
+  it618_name   String
+  it618_color  String
+  it618_url    String
+  it618_target Int
+  it618_order  Int
+}
+
+model pre_it618_sale_sale {
+  id           Int    @id @default(autoincrement())
+  it618_uid    Int
+  it618_pid    Int
+  it618_pname  String
+  it618_price  Float
+  it618_salebl Float
+  it618_score  Int
+  it618_count  Int
+  it618_state  Int
+  it618_name   String
+  it618_tel    String
+  it618_addr   String
+  it618_bz     String
+  it618_kdid   Int
+  it618_kddan  String
+  it618_time   Int    @default(0)
+}
+
+model pre_it618_sale_set {
+  id       Int    @id @default(autoincrement())
+  setname  String
+  setvalue String
+}
+
+model pre_it618_sale_style {
+  id           Int    @id @default(autoincrement())
+  it618_color1 String
+  it618_color2 String
+  it618_isok   Int    @default(0)
+}
+
+model pre_it618_sale_wapiconav {
+  id           Int    @id @default(autoincrement())
+  it618_title  String
+  it618_img    String
+  it618_url    String
+  it618_target Int    @default(0)
+  it618_color  String
+  it618_isbold Int    @default(0)
+  it618_order  Int
+}
+
+model pre_it618_sale_wapstyle {
+  id           Int    @id @default(autoincrement())
+  it618_color1 String
+  it618_color2 String
+  it618_isok   Int    @default(0)
+}
+
+model pre_mobileoem_member {
+  uid     Int @id @default(0)
+  newpush Int @default(0)
+}
+
+model pre_mobileoem_pushthreads {
+  uid      Int     @default(0)
+  type     Boolean @default(false)
+  tid      Int     @default(0)
+  dateline Int     @default(0)
+
+  @@id([uid, type, tid])
+  @@index([uid, type, dateline], name: "uid")
+}
+
+model pre_mobile_setting {
+  skey   String @id @default("")
+  svalue String
+}
+
+model pre_mobile_wechat_authcode {
+  sid        String  @id
+  code       Int     @unique
+  uid        Int
+  status     Boolean @default(false)
+  createtime Int
+
+  @@index([createtime], name: "createtime")
+}
+
+model pre_mobile_wechat_masssend {
+  id              Int     @id @default(autoincrement())
+  type            String
+  name            String
+  resource_id     Int
+  group_id        Int
+  text            String?
+  media_id        String? @default("")
+  created_at      Int
+  sent_at         Int?
+  msg_id          Int?
+  res_status      String?
+  res_totalcount  Int?
+  res_filtercount Int?
+  res_sentcount   Int?
+  res_errorcount  Int?
+  res_finish_at   Int?
+}
+
+model pre_mobile_wechat_resource {
+  id       Int     @id @default(autoincrement())
+  name     String  @default("")
+  dateline Int
+  type     Boolean @default(false)
+  data     String
+
+  @@index([type], name: "type")
+}
+
+model pre_mobile_wsq_threadlist {
+  skey   Int    @id
+  svalue String
+}
+
+model pre_nciaer_carouseldz {
+  id           Int    @id @default(autoincrement())
+  title        String @default("")
+  pic          String @default("")
+  url          String @default("")
+  displayorder Int    @default(0)
+  dateline     Int    @default(0)
+
+  @@index([displayorder], name: "displayorder")
+}
+
+model pre_plugin_sina_blog_ht {
+  id        Int    @id @default(autoincrement())
+  sina_uid  Int
+  blogid    Int
+  uid       Int
+  sina_mid  Int
+  sina_id   Int
+  username  String
+  timestamp Int
+  title     String
+}
+
+model pre_plugin_sina_mhht {
+  id       Int @id @default(autoincrement())
+  sina_uid Int
+  aid      Int
+  uid      Int
+  sina_mid Int
+  sina_id  Int
+}
+
+model pre_portal_article_content {
+  cid       Int    @id @default(autoincrement())
+  aid       Int    @default(0)
+  id        Int    @default(0)
+  idtype    String @default("")
+  title     String @default("")
+  content   String
+  pageorder Int    @default(0)
+  dateline  Int    @default(0)
+
+  @@index([aid, pageorder], name: "aid")
+  @@index([pageorder], name: "pageorder")
+}
+
+model pre_portal_article_count {
+  aid        Int @id @default(0)
+  catid      Int @default(0)
+  viewnum    Int @default(0)
+  commentnum Int @default(0)
+  dateline   Int @default(0)
+  favtimes   Int @default(0)
+  sharetimes Int @default(0)
+}
+
+model pre_portal_article_moderate {
+  id       Int @id @default(0)
+  status   Int @default(0)
+  dateline Int @default(0)
+
+  @@index([status, dateline], name: "status")
+}
+
+model pre_portal_article_related {
+  aid          Int @default(autoincrement())
+  raid         Int @default(0)
+  displayorder Int @default(0)
+
+  @@id([aid, raid])
+  @@index([aid, displayorder], name: "aid")
+}
+
+model pre_portal_article_title {
+  aid          Int     @id @default(autoincrement())
+  catid        Int     @default(0)
+  bid          Int     @default(0)
+  uid          Int     @default(0)
+  username     String  @default("")
+  title        String  @default("")
+  shorttitle   String  @default("")
+  highlight    String  @default("")
+  author       String  @default("")
+  from         String  @default("")
+  fromurl      String  @default("")
+  url          String  @default("")
+  summary      String  @default("")
+  pic          String  @default("")
+  thumb        Boolean @default(false)
+  remote       Boolean @default(false)
+  id           Int     @default(0)
+  idtype       String  @default("")
+  contents     Int     @default(0)
+  allowcomment Boolean @default(false)
+  owncomment   Boolean @default(false)
+  click1       Int     @default(0)
+  click2       Int     @default(0)
+  click3       Int     @default(0)
+  click4       Int     @default(0)
+  click5       Int     @default(0)
+  click6       Int     @default(0)
+  click7       Int     @default(0)
+  click8       Int     @default(0)
+  tag          Int     @default(0)
+  dateline     Int     @default(0)
+  status       Boolean @default(false)
+  showinnernav Boolean @default(false)
+  preaid       Int
+  nextaid      Int
+  htmlmade     Boolean @default(false)
+  htmlname     String  @default("")
+  htmldir      String  @default("")
+
+  @@index([catid, dateline], name: "catid")
+}
+
+model pre_portal_article_trash {
+  aid     Int    @id @default(0)
+  content String
+}
+
+model pre_portal_attachment {
+  attachid   Int     @id @default(autoincrement())
+  uid        Int     @default(0)
+  dateline   Int     @default(0)
+  filename   String  @default("")
+  filetype   String  @default("")
+  filesize   Int     @default(0)
+  attachment String  @default("")
+  isimage    Boolean @default(false)
+  thumb      Boolean @default(false)
+  remote     Boolean @default(false)
+  aid        Int     @default(0)
+
+  @@index([aid, attachid], name: "aid")
+}
+
+model pre_portal_category {
+  catid                Int     @id @default(autoincrement())
+  upid                 Int     @default(0)
+  catname              String  @default("")
+  articles             Int     @default(0)
+  allowcomment         Boolean @default(true)
+  displayorder         Int     @default(0)
+  notinheritedarticle  Boolean @default(false)
+  notinheritedblock    Boolean @default(false)
+  domain               String  @default("")
+  url                  String  @default("")
+  uid                  Int     @default(0)
+  username             String  @default("")
+  dateline             Int     @default(0)
+  closed               Boolean @default(false)
+  shownav              Boolean @default(false)
+  description          String
+  seotitle             String
+  keyword              String
+  primaltplname        String  @default("")
+  articleprimaltplname String  @default("")
+  disallowpublish      Boolean @default(false)
+  foldername           String  @default("")
+  notshowarticlesummay String  @default("")
+  perpage              Int     @default(0)
+  maxpages             Int     @default(0)
+  noantitheft          Boolean @default(false)
+  lastpublish          Int     @default(0)
+}
+
+model pre_portal_category_permission {
+  catid          Int     @default(0)
+  uid            Int     @default(0)
+  allowpublish   Boolean @default(false)
+  allowmanage    Boolean @default(false)
+  inheritedcatid Int     @default(0)
+
+  @@id([catid, uid])
+  @@index([uid], name: "uid")
+}
+
+model pre_portal_comment {
+  cid      Int     @id @default(autoincrement())
+  uid      Int     @default(0)
+  username String  @default("")
+  id       Int     @default(0)
+  idtype   String  @default("")
+  postip   String  @default("")
+  port     Int     @default(0)
+  dateline Int     @default(0)
+  status   Boolean @default(false)
+  message  String
+
+  @@index([id, idtype, dateline], name: "idtype")
+}
+
+model pre_portal_comment_moderate {
+  id       Int    @id @default(0)
+  idtype   String @default("")
+  status   Int    @default(0)
+  dateline Int    @default(0)
+
+  @@index([idtype, status, dateline], name: "idtype")
+}
+
+model pre_portal_rsscache {
+  lastupdate  Int    @default(0)
+  catid       Int    @default(0)
+  aid         Int    @unique @default(0)
+  dateline    Int    @default(0)
+  catname     String @default("")
+  author      String @default("")
+  subject     String @default("")
+  description String @default("")
+
+  @@index([catid, dateline], name: "catid")
+}
+
+model pre_portal_topic {
+  topicid       Int     @id @default(autoincrement())
+  title         String  @default("")
+  name          String  @default("")
+  domain        String  @default("")
+  summary       String
+  keyword       String
+  cover         String  @default("")
+  picflag       Boolean @default(false)
+  primaltplname String  @default("")
+  useheader     Boolean @default(false)
+  usefooter     Boolean @default(false)
+  uid           Int     @default(0)
+  username      String  @default("")
+  viewnum       Int     @default(0)
+  dateline      Int     @default(0)
+  closed        Boolean @default(false)
+  allowcomment  Boolean @default(false)
+  commentnum    Int     @default(0)
+  htmlmade      Boolean @default(false)
+  htmldir       String  @default("")
+
+  @@index([name], name: "name")
+}
+
+model pre_portal_topic_pic {
+  picid    Int     @id @default(autoincrement())
+  topicid  Int     @default(0)
+  uid      Int     @default(0)
+  username String  @default("")
+  dateline Int     @default(0)
+  filename String  @default("")
+  title    String  @default("")
+  size     Int     @default(0)
+  filepath String  @default("")
+  thumb    Boolean @default(false)
+  remote   Boolean @default(false)
+
+  @@index([topicid], name: "topicid")
+}
+
+model pre_security_evilpost {
+  pid           Int     @id
+  tid           Int     @default(0)
+  type          Boolean @default(false)
+  evilcount     Int     @default(0)
+  eviltype      Int     @default(0)
+  createtime    Int     @default(0)
+  operateresult Boolean @default(false)
+  isreported    Boolean @default(false)
+  censorword    String
+
+  @@index([operateresult, createtime], name: "operateresult")
+  @@index([tid, type], name: "type")
+}
+
+model pre_security_eviluser {
+  uid           Int     @id
+  evilcount     Int     @default(0)
+  eviltype      Int     @default(0)
+  createtime    Int     @default(0)
+  operateresult Boolean @default(false)
+  isreported    Boolean @default(false)
+
+  @@index([operateresult, createtime], name: "operateresult")
+}
+
+model pre_security_failedlog {
+  id           Int    @id @default(autoincrement())
+  reporttype   String
+  tid          Int    @default(0)
+  pid          Int    @default(0)
+  uid          Int    @default(0)
+  failcount    Int    @default(0)
+  createtime   Int    @default(0)
+  posttime     Int    @default(0)
+  delreason    String
+  scheduletime Int    @default(0)
+  lastfailtime Int    @default(0)
+  extra1       Int
+  extra2       String @default("0")
+
+  @@index([pid], name: "pid")
+  @@index([uid], name: "uid")
+}
+
+model pre_sendcloud_sys {
+  skey   String @id
+  svalue String
+}
+
+model pre_sessions {
+  SessionKey      String              @id @default("")
+  // This type is currently not supported by the Prisma Client.
+  // SessionArray Unsupported("blob")
+  SessionExpTime  Int                 @default(0)
+
+  @@index([SessionKey], name: "SessionKey")
+}
+
+model pre_ta7_email {
+  tid Int @id
+}
+
+model pre_ucenter_admins {
+  uid               Int     @id @default(autoincrement())
+  username          String  @unique @default("")
+  allowadminsetting Boolean @default(false)
+  allowadminapp     Boolean @default(false)
+  allowadminuser    Boolean @default(false)
+  allowadminbadword Boolean @default(false)
+  allowadmintag     Boolean @default(false)
+  allowadminpm      Boolean @default(false)
+  allowadmincredits Boolean @default(false)
+  allowadmindomain  Boolean @default(false)
+  allowadmindb      Boolean @default(false)
+  allowadminnote    Boolean @default(false)
+  allowadmincache   Boolean @default(false)
+  allowadminlog     Boolean @default(false)
+}
+
+model pre_ucenter_applications {
+  appid        Int      @id @default(autoincrement())
+  type         String   @default("")
+  name         String   @default("")
+  url          String   @default("")
+  authkey      String   @default("")
+  ip           String   @default("")
+  viewprourl   String
+  apifilename  String   @default("uc.php")
+  charset      String   @default("")
+  dbcharset    String   @default("")
+  synlogin     Boolean  @default(false)
+  recvnote     Boolean? @default(false)
+  extra        String
+  tagtemplates String
+  allowips     String
+}
+
+model pre_ucenter_badwords {
+  id          Int    @id @default(autoincrement())
+  admin       String @default("")
+  find        String @unique @default("")
+  replacement String @default("")
+  findpattern String @default("")
+}
+
+model pre_ucenter_domains {
+  id     Int    @id @default(autoincrement())
+  domain String @default("")
+  ip     String @default("")
+}
+
+model pre_ucenter_failedlogins {
+  ip         String  @id @default("")
+  count      Boolean @default(false)
+  lastupdate Int     @default(0)
+}
+
+model pre_ucenter_feeds {
+  feedid         Int    @id @default(autoincrement())
+  appid          String @default("")
+  icon           String @default("")
+  uid            Int    @default(0)
+  username       String @default("")
+  dateline       Int    @default(0)
+  hash_template  String @default("")
+  hash_data      String @default("")
+  title_template String
+  title_data     String
+  body_template  String
+  body_data      String
+  body_general   String
+  image_1        String @default("")
+  image_1_link   String @default("")
+  image_2        String @default("")
+  image_2_link   String @default("")
+  image_3        String @default("")
+  image_3_link   String @default("")
+  image_4        String @default("")
+  image_4_link   String @default("")
+  target_ids     String @default("")
+
+  @@index([uid, dateline], name: "uid")
+}
+
+model pre_ucenter_friends {
+  uid       Int     @default(0)
+  friendid  Int     @default(0)
+  direction Boolean @default(false)
+  version   Int     @id @default(autoincrement())
+  delstatus Boolean @default(false)
+  comment   String  @default("")
+
+  @@index([friendid], name: "friendid")
+  @@index([uid], name: "uid")
+}
+
+model pre_ucenter_mailqueue {
+  mailid   Int     @id @default(autoincrement())
+  touid    Int     @default(0)
+  tomail   String
+  frommail String
+  subject  String
+  message  String
+  charset  String
+  htmlon   Boolean @default(false)
+  level    Boolean @default(true)
+  dateline Int     @default(0)
+  failures Int     @default(0)
+  appid    Int     @default(0)
+
+  @@index([appid], name: "appid")
+  @@index([level, failures], name: "level")
+}
+
+model pre_ucenter_memberfields {
+  uid       Int    @id
+  blacklist String
+}
+
+model pre_ucenter_members {
+  uid           Int    @id @default(autoincrement())
+  username      String @unique @default("")
+  password      String @default("")
+  email         String @default("")
+  myid          String @default("")
+  myidkey       String @default("")
+  regip         String @default("")
+  regdate       Int    @default(0)
+  lastloginip   Int    @default(0)
+  lastlogintime Int    @default(0)
+  salt          String
+  secques       String @default("")
+
+  @@index([email], name: "email")
+}
+
+model pre_ucenter_mergemembers {
+  appid    Int
+  username String
+
+  @@id([appid, username])
+}
+
+model pre_ucenter_newpm {
+  uid Int @id
+}
+
+model pre_ucenter_notelist {
+  noteid     Int    @id @default(autoincrement())
+  operation  String
+  closed     Int    @default(0)
+  totalnum   Int    @default(0)
+  succeednum Int    @default(0)
+  getdata    String
+  postdata   String
+  dateline   Int    @default(0)
+  pri        Int    @default(0)
+  app1       Int
+
+  @@index([closed, pri, noteid], name: "closed")
+  @@index([dateline], name: "dateline")
+}
+
+model pre_ucenter_pm_indexes {
+  pmid Int @id @default(autoincrement())
+  plid Int @default(0)
+
+  @@index([plid], name: "plid")
+}
+
+model pre_ucenter_pm_lists {
+  plid        Int     @id @default(autoincrement())
+  authorid    Int     @default(0)
+  pmtype      Boolean @default(false)
+  subject     String
+  members     Int     @default(0)
+  min_max     String
+  dateline    Int     @default(0)
+  lastmessage String
+
+  @@index([authorid, dateline], name: "authorid")
+  @@index([min_max], name: "min_max")
+  @@index([pmtype], name: "pmtype")
+}
+
+model pre_ucenter_pm_members {
+  plid         Int     @default(0)
+  uid          Int     @default(0)
+  isnew        Boolean @default(false)
+  pmnum        Int     @default(0)
+  lastupdate   Int     @default(0)
+  lastdateline Int     @default(0)
+
+  @@id([plid, uid])
+  @@index([isnew], name: "isnew")
+  @@index([uid, lastdateline], name: "lastdateline")
+  @@index([uid, lastupdate], name: "lastupdate")
+}
+
+model pre_ucenter_pm_messages_0 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_pm_messages_1 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_pm_messages_2 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_pm_messages_3 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_pm_messages_4 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_pm_messages_5 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_pm_messages_6 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_pm_messages_7 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_pm_messages_8 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_pm_messages_9 {
+  pmid      Int     @id @default(0)
+  plid      Int     @default(0)
+  authorid  Int     @default(0)
+  message   String
+  delstatus Boolean @default(false)
+  dateline  Int     @default(0)
+
+  @@index([plid, dateline], name: "dateline")
+  @@index([plid, delstatus, dateline], name: "plid")
+}
+
+model pre_ucenter_protectedmembers {
+  uid      Int     @default(0)
+  username String  @default("")
+  appid    Boolean @default(false)
+  dateline Int     @default(0)
+  admin    String  @default("0")
+
+  @@unique([username, appid], name: "username")
+}
+
+model pre_ucenter_settings {
+  k String @id @default("")
+  v String
+}
+
+model pre_ucenter_sqlcache {
+  sqlid  String @id @default("")
+  data   String
+  expiry Int
+
+  @@index([expiry], name: "expiry")
+}
+
+model pre_ucenter_vars {
+  name  String @id @default("")
+  value String @default("")
+}
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_aljsv_userinfo {
+  // uid       String
+  // formid    Int
+  // user      String
+  // ipadd     String
+  // datetime  Int
+  // formtitle String
+  // browser   String
+  // mobilepc  String
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_appbyme_tempcode {
+  // code String
+  // uid  Int
+  // time Int
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_common_credit_log_field {
+  // logid Int
+  // title String
+  // text  String
+
+  // @@index([logid], name: "logid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_common_magiclog {
+  // uid       Int     @default(0)
+  // magicid   Int     @default(0)
+  // action    Boolean @default(false)
+  // dateline  Int     @default(0)
+  // amount    Int     @default(0)
+  // credit    Boolean @default(false)
+  // price     Int     @default(0)
+  // targetid  Int     @default(0)
+  // idtype    String?
+  // targetuid Int     @default(0)
+
+  // @@index([action], name: "action")
+  // @@index([magicid, dateline], name: "magicid")
+  // @@index([targetuid, dateline], name: "targetuid")
+  // @@index([uid, dateline], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_common_regip {
+  // ip       String @default("")
+  // dateline Int    @default(0)
+  // count    Int    @default(0)
+
+  // @@index([ip], name: "ip")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_common_statuser {
+  // uid     Int    @default(0)
+  // daytime Int    @default(0)
+  // type    String @default("")
+
+  // @@index([uid], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_creditslog {
+  // uid            Int     @default(0)
+  // fromto         String  @default("")
+  // sendcredits    Boolean @default(false)
+  // receivecredits Boolean @default(false)
+  // send           Int     @default(0)
+  // receive        Int     @default(0)
+  // dateline       Int     @default(0)
+  // operation      String  @default("")
+
+  // @@index([uid, dateline], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_memberrecommend {
+  // tid          Int
+  // recommenduid Int
+  // dateline     Int
+
+  // @@index([tid], name: "tid")
+  // @@index([recommenduid], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_modwork {
+  // uid       Int      @default(0)
+  // modaction String   @default("")
+  // dateline  DateTime @default(dbgenerated("2006-01-01"))
+  // count     Int      @default(0)
+  // posts     Int      @default(0)
+
+  // @@index([uid, dateline], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_onlinelist {
+  // groupid      Int    @default(0)
+  // displayorder Int    @default(0)
+  // title        String @default("")
+  // url          String @default("")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_pollvoter {
+  // tid      Int    @default(0)
+  // uid      Int    @default(0)
+  // username String @default("")
+  // options  String
+  // dateline Int    @default(0)
+
+  // @@index([tid], name: "tid")
+  // @@index([uid, dateline], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_ratelog {
+  // pid        Int     @default(0)
+  // uid        Int     @default(0)
+  // username   String  @default("")
+  // extcredits Boolean @default(false)
+  // dateline   Int     @default(0)
+  // score      Int     @default(0)
+  // reason     String  @default("")
+
+  // @@index([dateline], name: "dateline")
+  // @@index([pid, dateline], name: "pid")
+  // @@index([uid], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_threadimage {
+  // tid        Int     @default(0)
+  // attachment String  @default("")
+  // remote     Boolean @default(false)
+
+  // @@index([tid], name: "tid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_threadmod {
+  // tid        Int     @default(0)
+  // uid        Int     @default(0)
+  // username   String  @default("")
+  // dateline   Int     @default(0)
+  // expiration Int     @default(0)
+  // action     String  @default("")
+  // status     Boolean @default(false)
+  // magicid    Int
+  // stamp      Int
+  // reason     String  @default("")
+
+  // @@index([expiration, status], name: "expiration")
+  // @@index([tid, dateline], name: "tid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_threadpartake {
+  // tid      Int @default(0)
+  // uid      Int @default(0)
+  // dateline Int @default(0)
+
+  // @@index([tid, uid], name: "tid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_forum_typeoptionvar {
+  // sortid     Int    @default(0)
+  // tid        Int    @default(0)
+  // fid        Int    @default(0)
+  // optionid   Int    @default(0)
+  // expiration Int    @default(0)
+  // value      String
+
+  // @@index([fid], name: "fid")
+  // @@index([sortid], name: "sortid")
+  // @@index([tid], name: "tid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_home_clickuser {
+  // uid      Int    @default(0)
+  // username String @default("")
+  // id       Int    @default(0)
+  // idtype   String @default("")
+  // clickid  Int    @default(0)
+  // dateline Int    @default(0)
+
+  // @@index([id, idtype, dateline], name: "id")
+  // @@index([uid, idtype, dateline], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_home_specialuser {
+  // uid          Int     @default(0)
+  // username     String  @default("")
+  // status       Boolean @default(false)
+  // dateline     Int     @default(0)
+  // reason       String
+  // opuid        Int     @default(0)
+  // opusername   String  @default("")
+  // displayorder Int     @default(0)
+
+  // @@index([status, displayorder], name: "displayorder")
+  // @@index([uid, status], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_home_userapp {
+  // uid              Int     @default(0)
+  // appid            Int     @default(0)
+  // appname          String  @default("")
+  // privacy          Boolean @default(false)
+  // allowsidenav     Boolean @default(false)
+  // allowfeed        Boolean @default(false)
+  // allowprofilelink Boolean @default(false)
+  // narrow           Boolean @default(false)
+  // menuorder        Int     @default(0)
+  // displayorder     Int     @default(0)
+
+  // @@index([uid, displayorder], name: "displayorder")
+  // @@index([uid, menuorder], name: "menuorder")
+  // @@index([uid, appid], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_home_userappfield {
+  // uid         Int    @default(0)
+  // appid       Int    @default(0)
+  // profilelink String
+  // myml        String
+
+  // @@index([uid, appid], name: "uid")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_it618_sale_salework {
+  // it618_iswork Int
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_plugin_sina_ht {
+  // id  Int
+  // tid Int
+  // mid Int
+  // uid Int
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_ucenter_tags {
+  // tagname    String
+  // appid      Int     @default(0)
+  // data       String?
+  // expiration Int
+
+  // @@index([tagname, appid], name: "tagname")
+// }
+
+// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+// model pre_zzbuluo_replyemail_thread {
+  // tid    Int     @default(0)
+  // status Boolean @default(false)
+
+  // @@index([tid], name: "tid")
+// }
+
+enum pre_common_cron_type {
+  user
+  system
+  plugin
+}
+
+enum pre_common_smiley_type {
+  smiley
+  stamp
+  stamplist
+}
+
+enum pre_common_task_reward {
+  credit
+  magic
+  medal
+  invite
+  group
+}
+
+enum pre_common_taskvar_sort {
+  apply
+  complete
+}
+
+enum pre_common_usergroup_type {
+  system
+  special
+  member
+}
+
+enum pre_forum_forum_type {
+  group
+  forum
+  sub
+}
+
+enum pre_forum_grouplevel_type {
+  special
+  default
+}
+
+enum pre_forum_imagetype_type {
+  smiley
+  icon
+  avatar
+}
+
+enum pre_forum_relatedthread_type {
+  general
+  trade
+}

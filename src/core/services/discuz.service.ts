@@ -12,6 +12,15 @@ export class DiscuzService {
             orderBy: {
                 tid: 'desc',
             },
+            select: {
+                tid: true,
+                subject: true,
+                dateline: true,
+                views: true,
+                replies: true,
+                recommend_add: true,
+                highlight: true,
+            },
             skip: (params.pageIndex - 1) * params.pageSize,
             take: params.pageSize
         }
@@ -41,6 +50,9 @@ export class DiscuzService {
             let board = await this.prisma.pre_forum_forum.findFirst({
                 where: {
                     fid: item.fid
+                },
+                select: {
+                    name: true
                 }
             })
             item['tags'].push({
@@ -53,9 +65,11 @@ export class DiscuzService {
                 where: {
                     tid: item.tid,
                 },
-                // select:{
-                //     tags:
-                // }
+                select: {
+                    tags: true,
+                    authorid: true,
+                    author: true,
+                }
             });
             let users = []
             for (let index = 0; index < posts.length; index++) {
@@ -96,6 +110,13 @@ export class DiscuzService {
             where: {
                 tid: params.tid,
             },
+            select: {
+                author: true,
+                authorid: true,
+                dateline: true,
+                message: true,
+                attachment: true
+            },
             skip: (params.pageIndex - 1) * params.pageSize,
             take: params.pageSize
         });
@@ -104,10 +125,44 @@ export class DiscuzService {
                 tid: params.tid,
             },
         })
+        for (let index = 0; index < list.length; index++) {
+            const item = list[index];
+            if (item.attachment) {
+                let reg = /\[attach\][0-9]+\[\/attach\]/g;
+                // console.log(item.message.match(reg));
+                let attachList = item.message.match(reg);
+                for (let index = 0; index < attachList.length; index++) {
+                    let aid = Number(attachList[index].replace('[attach]', '').replace('[/attach]', ''))
+                    this.getImg(aid)
+                }
+            }
+        }
         return {
             data: list,
             total: total
         }
+    }
+
+
+    async getImg(aid) {
+        let attachment = await this.prisma.pre_forum_attachment.findUnique({
+            where: {
+                aid: aid
+            }
+        })
+        console.log('附件',aid);
+        // console.log(attachment);
+        //prisma bug：https://github.com/prisma/prisma/issues/4981
+        //暂时停止附件获取的工作
+        // switch (attachment.tableid) {
+        //     case value:
+
+        //         break;
+
+        //     default:
+        //         break;
+        // }
+
     }
 
     async user(params: { uid }) {
@@ -144,7 +199,9 @@ export class DiscuzService {
             },
             where: {
                 status: true,
-
+                NOT: {
+                    type: 'group'
+                }
             },
             take: num
         });

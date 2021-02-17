@@ -11,7 +11,7 @@ export class DiscuzService {
 
         let resp = {
             tags: [],
-            totle: null,
+            total: null,
             data: null
         }
         let target: any = {
@@ -58,7 +58,7 @@ export class DiscuzService {
             })
         }
         if (params.pageSize > 30) params.pageSize = 30;
-        resp.totle = await this.prisma.pre_forum_thread.count(countTarget);
+        resp.total = await this.prisma.pre_forum_thread.count(countTarget);
         resp.data = await this.prisma.pre_forum_thread.findMany(target);
 
         // 获取标签和分类信息

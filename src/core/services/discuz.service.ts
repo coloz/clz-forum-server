@@ -8,6 +8,12 @@ export class DiscuzService {
     async threads(params: {
         pageIndex, pageSize, category, tags
     }) {
+
+        let resp = {
+            tags: [],
+            totle: null,
+            data: null
+        }
         let target: any = {
             orderBy: {
                 tid: 'desc',
@@ -20,6 +26,7 @@ export class DiscuzService {
                 replies: true,
                 recommend_add: true,
                 highlight: true,
+                fid: true
             },
             skip: (params.pageIndex - 1) * params.pageSize,
             take: params.pageSize
@@ -29,21 +36,34 @@ export class DiscuzService {
             console.log(params.tags);
         }
         if (typeof params.category != 'undefined' && !isNaN(params.category)) {
-            // console.log(params.category);
             target['where'] = {
                 fid: params.category
             }
             countTarget['where'] = {
                 fid: params.category
             }
+            // 获取分类信息
+            let board = await this.prisma.pre_forum_forum.findFirst({
+                where: {
+                    fid: params.category
+                },
+                select: {
+                    name: true
+                }
+            })
+            resp['tags'].push({
+                type: 'category',
+                text: board.name,
+                id: params.category
+            })
         }
         if (params.pageSize > 30) params.pageSize = 30;
-        let list = await this.prisma.pre_forum_thread.findMany(target);
-        let total = await this.prisma.pre_forum_thread.count(countTarget);
+        resp.totle = await this.prisma.pre_forum_thread.count(countTarget);
+        resp.data = await this.prisma.pre_forum_thread.findMany(target);
 
         // 获取标签和分类信息
-        for (let index = 0; index < list.length; index++) {
-            const item = list[index];
+        for (let index = 0; index < resp.data.length; index++) {
+            let item = resp.data[index];
             item['tags'] = []
             item['users'] = []
             // 添加分类
@@ -60,6 +80,7 @@ export class DiscuzService {
                 text: board.name,
                 id: item.fid
             })
+
             // 添加标签 和 参与用户信息
             let posts = await this.prisma.pre_forum_post.findMany({
                 where: {
@@ -82,7 +103,7 @@ export class DiscuzService {
                     })
                 }
             }
-            if (typeof posts[0] != 'undefined')
+            if (typeof posts[0] != 'undefined') {
                 if (posts[0].tags.length > 2) {
                     let array = posts[0].tags.split('\t');
                     for (let index = 0; index < array.length; index++) {
@@ -95,12 +116,11 @@ export class DiscuzService {
                             })
                     }
                 }
+            }
+
         }
 
-        return {
-            data: list,
-            total: total
-        }
+        return resp
     }
 
     async thread(params: {
@@ -115,7 +135,8 @@ export class DiscuzService {
                 authorid: true,
                 dateline: true,
                 message: true,
-                attachment: true
+                attachment: true,
+                subject: true,
             },
             skip: (params.pageIndex - 1) * params.pageSize,
             take: params.pageSize
@@ -131,10 +152,11 @@ export class DiscuzService {
                 let reg = /\[attach\][0-9]+\[\/attach\]/g;
                 // console.log(item.message.match(reg));
                 let attachList = item.message.match(reg);
-                for (let index = 0; index < attachList.length; index++) {
-                    let aid = Number(attachList[index].replace('[attach]', '').replace('[/attach]', ''))
-                    this.getImg(aid)
-                }
+                if (attachList != null)
+                    for (let index = 0; index < attachList.length; index++) {
+                        let aid = Number(attachList[index].replace('[attach]', '').replace('[/attach]', ''))
+                        this.getImg(aid)
+                    }
             }
         }
         return {
@@ -150,7 +172,7 @@ export class DiscuzService {
                 aid: aid
             }
         })
-        console.log('附件',aid);
+        console.log('附件', aid);
         // console.log(attachment);
         //prisma bug：https://github.com/prisma/prisma/issues/4981
         //暂时停止附件获取的工作

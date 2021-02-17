@@ -22,8 +22,6 @@ export class AuthService {
                 }
             })
         }
-        console.log(CryptoJS.MD5(password + user.salt).toString());
-        console.log(user.password);
         if (user.password == CryptoJS.MD5(password + user.salt).toString()) {
             return console.log("登录成功");
 

@@ -1,12 +1,14 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
+import { AuthService } from './core/services/auth.service';
 import { DiscuzService } from './core/services/discuz.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private discuzService: DiscuzService
+    private discuzService: DiscuzService,
+    private authService: AuthService
   ) { }
 
   @Get()
@@ -54,6 +56,12 @@ export class AppController {
   @Get('categorys')
   getCategorys(@Query() params): any {
     return this.discuzService.categorys(parseInt(params.num))
+  }
+
+
+  @Post('login')
+  login(@Body() params): any {
+    return this.authService.login(params.username, params.password)
   }
 
 

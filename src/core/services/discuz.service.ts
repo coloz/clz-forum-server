@@ -150,12 +150,13 @@ export class DiscuzService {
             const item = list[index];
             if (item.attachment) {
                 let reg = /\[attach\][0-9]+\[\/attach\]/g;
-                // console.log(item.message.match(reg));
                 let attachList = item.message.match(reg);
                 if (attachList != null)
                     for (let index = 0; index < attachList.length; index++) {
-                        let aid = Number(attachList[index].replace('[attach]', '').replace('[/attach]', ''))
-                        this.getImg(aid)
+                        let element = attachList[index]
+                        let aid = Number(element.replace('[attach]', '').replace('[/attach]', ''))
+                        let attachment = await this.getAttachment(aid);
+                        item.message = item.message.replace(element, attachment)
                     }
             }
         }
@@ -166,25 +167,71 @@ export class DiscuzService {
     }
 
 
-    async getImg(aid) {
-        let attachment = await this.prisma.pre_forum_attachment.findUnique({
+    async getAttachment(aid) {
+        let target = {
             where: {
                 aid: aid
             }
-        })
-        console.log('附件', aid);
-        // console.log(attachment);
-        //prisma bug：https://github.com/prisma/prisma/issues/4981
-        //暂时停止附件获取的工作
-        // switch (attachment.tableid) {
-        //     case value:
-
-        //         break;
-
-        //     default:
-        //         break;
-        // }
-
+        }
+        let attachmentIndex = await this.prisma.pre_forum_attachment.findUnique(target)
+        if (attachmentIndex != null) {
+            // console.log('附件', aid);
+            // console.log(attachmentIndex);
+            //prisma bug：https://github.com/prisma/prisma/issues/4981
+            let attachment;
+            target['select'] = {
+                aid: true,
+                isimage: true,
+                attachment: true,
+                description: true,
+                filename: true,
+                filesize: true,
+                dateline: true,
+            }
+            switch (attachmentIndex.tableid) {
+                case 0:
+                    attachment = await this.prisma.pre_forum_attachment_0.findUnique(target)
+                    break;
+                case 1:
+                    attachment = await this.prisma.pre_forum_attachment_1.findUnique(target)
+                    break;
+                case 2:
+                    attachment = await this.prisma.pre_forum_attachment_2.findUnique(target)
+                    break;
+                case 3:
+                    attachment = await this.prisma.pre_forum_attachment_3.findUnique(target)
+                    break;
+                case 4:
+                    attachment = await this.prisma.pre_forum_attachment_4.findUnique(target)
+                    break;
+                case 5:
+                    attachment = await this.prisma.pre_forum_attachment_5.findUnique(target)
+                    break;
+                case 6:
+                    attachment = await this.prisma.pre_forum_attachment_6.findUnique(target)
+                    break;
+                case 7:
+                    attachment = await this.prisma.pre_forum_attachment_7.findUnique(target)
+                    break;
+                case 8:
+                    attachment = await this.prisma.pre_forum_attachment_8.findUnique(target)
+                    break;
+                case 9:
+                    attachment = await this.prisma.pre_forum_attachment_9.findUnique(target)
+                    break;
+                default:
+                    break;
+            }
+            if (typeof attachment != 'undefined') {
+                if (attachment.isimage) {
+                    return `<img src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" alt="${attachment.description}">`
+                }
+                else {
+                    return `暂不支持附件${aid}下载~~`
+                }
+            }
+        }
+        return `~~附件${aid}已被删除~~`
     }
 
     async user(params: { uid }) {

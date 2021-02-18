@@ -1,8 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import expressSession from 'express-session';
-import { PrismaSessionStore } from '@quixo3/prisma-session-store';
-import { Prisma } from '@prisma/client';
+// import expressSession from 'express-session';
+// import { PrismaSessionStore } from '@quixo3/prisma-session-store';
+// import { PrismaClient } from '@prisma/client';
+// const prisma = new PrismaClient()
 
 declare const module: any;
 
@@ -17,7 +18,7 @@ async function bootstrap() {
   //      },
   //      secret: 'a santa at nasa',
   //      store: new PrismaSessionStore(
-  //        Prisma,
+  //       prisma,
   //        {
   //          checkPeriod: 2 * 60 * 1000,  //ms
   //          dbRecordIdIsSessionId: true,

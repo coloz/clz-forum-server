@@ -224,7 +224,7 @@ export class DiscuzService {
             }
             if (typeof attachment != 'undefined') {
                 if (attachment.isimage) {
-                    return `<img src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" alt="${attachment.description}">`
+                    return `<img class="lazyload" data-src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" data-alt="${attachment.description}">`
                 }
                 else {
                     return `暂不支持附件${aid}下载~~`

@@ -18,13 +18,14 @@ export class AppController {
 
   @Get('thread/all')
   getThreads(@Query() params: {
-    pageIndex, pageSize, category, tags
+    pageIndex, pageSize, category, tags, order
   }): any {
     return this.discuzService.threads({
       pageIndex: Number(params.pageIndex),
       pageSize: Number(params.pageSize),
       category: Number(params.category),
-      tags: params.tags
+      tags: params.tags,
+      order: params.order
     });
   }
 

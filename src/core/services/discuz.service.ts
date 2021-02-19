@@ -6,18 +6,14 @@ export class DiscuzService {
     constructor(private prisma: PrismaService) { }
 
     async threads(params: {
-        pageIndex, pageSize, category, tags
+        pageIndex, pageSize, category, tags, order
     }) {
-
         let resp = {
             tags: [],
             total: null,
             data: null
         }
         let target: any = {
-            orderBy: {
-                tid: 'desc',
-            },
             select: {
                 tid: true,
                 subject: true,
@@ -32,6 +28,23 @@ export class DiscuzService {
             take: params.pageSize
         }
         let countTarget = {}
+        if (typeof params.order != 'undefined') {
+            switch (params.order) {
+                case '0':
+                    target['orderBy'] = {
+                        lastpost: 'desc'
+                    }
+                    break;
+                case '1':
+                    target['orderBy'] = {
+                        dateline: 'desc'
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
         if (typeof params.tags != 'undefined') {
             console.log(params.tags);
         }

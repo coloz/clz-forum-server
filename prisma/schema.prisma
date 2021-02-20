@@ -3192,7 +3192,7 @@ model pre_forum_thread {
   lastposter    String  @default("") @db.Char(15)
   views         Int     @default(0) @db.UnsignedInt
   replies       Int     @default(0) @db.UnsignedMediumInt
-  displayorder  Boolean @default(false)
+  displayorder  Int     @default(0) @db.UnsignedInt
   highlight     Boolean @default(false)
   digest        Boolean @default(false)
   rate          Boolean @default(false)

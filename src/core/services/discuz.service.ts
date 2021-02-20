@@ -22,7 +22,15 @@ export class DiscuzService {
                 replies: true,
                 recommend_add: true,
                 highlight: true,
-                fid: true
+                fid: true,
+                closed: true
+            },
+            where: {
+                NOT: {
+                    displayorder: {
+                        gte: 0
+                    }
+                }
             },
             skip: (params.pageIndex - 1) * params.pageSize,
             take: params.pageSize
@@ -49,9 +57,7 @@ export class DiscuzService {
             console.log(params.tags);
         }
         if (typeof params.category != 'undefined' && !isNaN(params.category)) {
-            target['where'] = {
-                fid: params.category
-            }
+            target.where['fid'] = params.category
             countTarget['where'] = {
                 fid: params.category
             }
@@ -188,8 +194,6 @@ export class DiscuzService {
         }
         let attachmentIndex = await this.prisma.pre_forum_attachment.findUnique(target)
         if (attachmentIndex != null) {
-            // console.log('附件', aid);
-            // console.log(attachmentIndex);
             //prisma bug：https://github.com/prisma/prisma/issues/4981
             let attachment;
             target['select'] = {

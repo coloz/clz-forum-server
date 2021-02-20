@@ -28,14 +28,22 @@ export class DiscuzService {
             where: {
                 NOT: {
                     displayorder: {
-                        gte: 0
+                        lt: 0
                     }
                 }
             },
             skip: (params.pageIndex - 1) * params.pageSize,
             take: params.pageSize
         }
-        let countTarget = {}
+        let countTarget = {
+            where: {
+                NOT: {
+                    displayorder: {
+                        lt: 0
+                    }
+                }
+            }
+        }
         if (typeof params.order != 'undefined') {
             switch (params.order) {
                 case '0':
@@ -58,9 +66,7 @@ export class DiscuzService {
         }
         if (typeof params.category != 'undefined' && !isNaN(params.category)) {
             target.where['fid'] = params.category
-            countTarget['where'] = {
-                fid: params.category
-            }
+            countTarget.where['fid'] = params.category
             // 获取分类信息
             let board = await this.prisma.pre_forum_forum.findFirst({
                 where: {

@@ -28,5 +28,14 @@ discuzQ
 
 ## 安装部署  
 ```
+git clone https://github.com/coloz/clz-forum-server
+cd clz-forum-server
+npm i
+npx prisma generate
 ```
+
+```
+nest start
+```
+
 ## API设计  

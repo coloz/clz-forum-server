@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthService } from './core/services/auth.service';
 import { DiscuzService } from './core/services/discuz.service';
@@ -30,22 +30,22 @@ export class AppController {
   }
 
   @Get('thread/:tid')
-  getThread(@Param('tid') tid, @Query() params: {
+  getThread(@Param('tid', ParseIntPipe) tid: number, @Query() params: {
     pageIndex, pageSize
   }): any {
     return this.discuzService.thread({
-      tid: Number(tid),
+      tid: tid,
       pageIndex: Number(params.pageIndex),
       pageSize: Number(params.pageSize)
     });
   }
 
   @Get('user/:uid')
-  getUser(@Param('uid') uid, @Query() params: {
+  getUser(@Param('uid', ParseIntPipe) uid: number, @Query() params: {
     pageIndex, pageSize
   }): any {
     return this.discuzService.user({
-      uid: Number(uid)
+      uid: uid
     });
   }
 
@@ -65,5 +65,12 @@ export class AppController {
     return this.authService.login(params.username, params.password)
   }
 
-
+  @Get('search')
+  async getFilteredPosts(
+    @Query('keyword') keyword: string,
+    @Query('pageIndex', ParseIntPipe) pageIndex: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number
+  ) {
+    return this.discuzService.search({ keyword, pageIndex, pageSize });
+  }
 }

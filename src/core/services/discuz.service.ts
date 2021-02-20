@@ -299,4 +299,46 @@ export class DiscuzService {
         });
     }
 
+
+    async search({ keyword, pageIndex, pageSize }) {
+        let list = await this.prisma.pre_forum_post.findMany({
+            where: {
+                first: true,
+                OR: [
+                    {
+                        subject: { contains: keyword },
+                    },
+                    {
+                        message: { contains: keyword },
+                    },
+                ],
+            },
+            select: {
+                subject: true,
+                message: true,
+                tid: true,
+                dateline: true,
+            },
+            // skip: (pageIndex - 1) * pageSize,
+            // take: pageSize
+        })
+        let total = await this.prisma.pre_forum_post.count({
+            where: {
+                first: true,
+                OR: [
+                    {
+                        subject: { contains: keyword },
+                    },
+                    {
+                        message: { contains: keyword },
+                    },
+                ],
+            }
+        });
+        return {
+            data: list,
+            total: total
+        }
+    }
+
 }

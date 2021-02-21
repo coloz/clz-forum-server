@@ -90,7 +90,10 @@ export class DiscuzService {
         for (let index = 0; index < resp.data.length; index++) {
             let item = resp.data[index];
             item['tags'] = []
-            item['users'] = []
+            item['users'] = {
+                list: [],
+                count: 0
+            }
             // 添加分类
             let board = await this.prisma.pre_forum_forum.findFirst({
                 where: {
@@ -111,6 +114,9 @@ export class DiscuzService {
                 where: {
                     tid: item.tid,
                 },
+                orderBy: {
+                    dateline: 'asc'
+                },
                 select: {
                     tags: true,
                     authorid: true,
@@ -118,13 +124,10 @@ export class DiscuzService {
                 },
                 distinct: "authorid",
             });
-            item['users']['count'] = posts.length
-            item['users']['list'] = []
-            for (let index = 0; index < 5; index++) {
+            item.users.count = posts.length
+            for (let index = 0; index < (posts.length <= 5 ? posts.length : 4); index++) {
                 const post = posts[index];
-                console.log(post);
-                
-                item['users']['list'].push({
+                item.users.list.push({
                     uid: post.authorid,
                     username: post.author
                 })

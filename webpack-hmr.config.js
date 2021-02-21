@@ -6,7 +6,6 @@ module.exports = function(options) {
   return {
     ...options,
     entry: ['webpack/hot/poll?100', options.entry],
-    watch: true,
     externals: [
       nodeExternals({
         allowlist: ['webpack/hot/poll?100'],
@@ -15,7 +14,9 @@ module.exports = function(options) {
     plugins: [
       ...options.plugins,
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.WatchIgnorePlugin([/\.js$/, /\.d\.ts$/]),
+      new webpack.WatchIgnorePlugin({
+          paths: [/\.js$/, /\.d\.ts$/]
+      }),
       new StartServerPlugin({ name: options.output.filename }),
     ],
   };

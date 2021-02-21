@@ -10,6 +10,7 @@ export class AuthService {
     ) { }
 
     async login({ username, password, token }) {
+        this.verify(token)
         let user;
         var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
         if (reg.test(username)) {
@@ -26,18 +27,27 @@ export class AuthService {
             })
         }
         if (user.password == CryptoJS.MD5(password + user.salt).toString()) {
-            return console.log("登录成功");
+            console.log("登录成功123");
+            console.log(username, password);
+            console.log(JSON.stringify(token));
+            console.log("登录成功");
+            return {
+                message: '登录成功'
+            }
         }
-        this.verify(token)
+        return {
+            message: '登录失败'
+        }
     }
 
     verify(token) {
         this.http.post<RecaptchaResponse>('https://recaptcha.net/recaptcha/api/siteverify', {
-            secret: RECAPTCHA_SECRET,
-            response: token
-        }).subscribe(resp => {
+            body: {
+                secret: RECAPTCHA_SECRET,
+                response: token
+            }
+        }).toPromise().then(resp => {
             console.log(resp);
-
         })
     }
 

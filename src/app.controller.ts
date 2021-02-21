@@ -61,8 +61,8 @@ export class AppController {
 
 
   @Post('login')
-  login(@Body() params): any {
-    return this.authService.login(params.username, params.password)
+  login(@Body('username') username, @Body('password') password, @Body('token') token,): any {
+    return this.authService.login({ username, password, token })
   }
 
   @Get('search')

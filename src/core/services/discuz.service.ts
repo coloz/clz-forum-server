@@ -115,18 +115,19 @@ export class DiscuzService {
                     tags: true,
                     authorid: true,
                     author: true,
-                }
+                },
+                distinct: "authorid",
             });
-            let users = []
-            for (let index = 0; index < posts.length; index++) {
+            item['users']['count'] = posts.length
+            item['users']['list'] = []
+            for (let index = 0; index < 5; index++) {
                 const post = posts[index];
-                if (users.indexOf(post.authorid) < 0) {
-                    users.push(post.authorid)
-                    item['users'].push({
-                        uid: post.authorid,
-                        username: post.author
-                    })
-                }
+                console.log(post);
+                
+                item['users']['list'].push({
+                    uid: post.authorid,
+                    username: post.author
+                })
             }
             if (typeof posts[0] != 'undefined') {
                 if (posts[0].tags.length > 2) {

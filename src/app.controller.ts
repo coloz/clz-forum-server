@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
+import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './core/services/auth.service';
 import { DiscuzService } from './core/services/discuz.service';
 
@@ -57,7 +58,17 @@ export class AppController {
     return this.discuzService.categorys(parseInt(params.num))
   }
 
+  @Get('search')
+  async getFilteredPosts(
+    @Query('keyword') keyword: string,
+    @Query('pageIndex', ParseIntPipe) pageIndex: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number
+  ) {
+    return this.discuzService.search({ keyword, pageIndex, pageSize });
+  }
 
+  // 登录、注册、登出
+  @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   login(@Body('username') username, @Body('password') password, @Body('token') token,): any {
     return this.authService.login({ username, password, token })
@@ -73,12 +84,5 @@ export class AppController {
     return this.authService.login({ username, password, token })
   }
 
-  @Get('search')
-  async getFilteredPosts(
-    @Query('keyword') keyword: string,
-    @Query('pageIndex', ParseIntPipe) pageIndex: number,
-    @Query('pageSize', ParseIntPipe) pageSize: number
-  ) {
-    return this.discuzService.search({ keyword, pageIndex, pageSize });
-  }
+
 }

@@ -5,9 +5,8 @@ import { PrismaService } from 'src/core/services/prisma.service';
 export class DiscuzService {
     constructor(private prisma: PrismaService) { }
 
-    async threads(params: {
-        pageIndex, pageSize, category, tags, order
-    }) {
+    async threads({ pageIndex, pageSize, category, tags, order }) {
+        if (pageSize > 30) pageSize = 30;
         let resp = {
             tags: [],
             total: null,
@@ -32,8 +31,8 @@ export class DiscuzService {
                     }
                 }
             },
-            skip: (params.pageIndex - 1) * params.pageSize,
-            take: params.pageSize
+            skip: (pageIndex - 1) * pageSize,
+            take: pageSize
         }
         let countTarget = {
             where: {
@@ -44,8 +43,8 @@ export class DiscuzService {
                 }
             }
         }
-        if (typeof params.order != 'undefined') {
-            switch (params.order) {
+        if (typeof order != 'undefined') {
+            switch (order) {
                 case '0':
                     target['orderBy'] = {
                         lastpost: 'desc'
@@ -61,16 +60,16 @@ export class DiscuzService {
                     break;
             }
         }
-        if (typeof params.tags != 'undefined') {
-            console.log(params.tags);
+        if (typeof tags != 'undefined') {
+            console.log(tags);
         }
-        if (typeof params.category != 'undefined' && !isNaN(params.category)) {
-            target.where['fid'] = params.category
-            countTarget.where['fid'] = params.category
+        if (typeof category != 'undefined' && !isNaN(category)) {
+            target.where['fid'] = category
+            countTarget.where['fid'] = category
             // 获取分类信息
             let board = await this.prisma.pre_forum_forum.findFirst({
                 where: {
-                    fid: params.category
+                    fid: category
                 },
                 select: {
                     name: true
@@ -79,10 +78,9 @@ export class DiscuzService {
             resp['tags'].push({
                 type: 'category',
                 text: board.name,
-                id: params.category
+                id: category
             })
         }
-        if (params.pageSize > 30) params.pageSize = 30;
         resp.total = await this.prisma.pre_forum_thread.count(countTarget);
         resp.data = await this.prisma.pre_forum_thread.findMany(target);
 
@@ -152,12 +150,11 @@ export class DiscuzService {
         return resp
     }
 
-    async thread(params: {
-        pageIndex, pageSize, tid
-    }) {
+    async thread({ pageIndex, pageSize, tid }) {
+        if (pageSize > 30) pageSize = 30;
         let list = await this.prisma.pre_forum_post.findMany({
             where: {
-                tid: params.tid,
+                tid: tid,
             },
             select: {
                 author: true,
@@ -167,12 +164,12 @@ export class DiscuzService {
                 attachment: true,
                 subject: true,
             },
-            skip: (params.pageIndex - 1) * params.pageSize,
-            take: params.pageSize
+            skip: (pageIndex - 1) * pageSize,
+            take: pageSize
         });
         let total = await this.prisma.pre_forum_post.count({
             where: {
-                tid: params.tid,
+                tid: tid,
             },
         })
         for (let index = 0; index < list.length; index++) {
@@ -283,12 +280,14 @@ export class DiscuzService {
     }
 
     async tags(num = 15) {
+        if (num > 30) num = 30
         return this.prisma.pre_common_tag.findMany({
             take: num
         });
     }
 
     async categorys(num = 15) {
+        if (num > 30) num = 30
         return this.prisma.pre_forum_forum.findMany({
             orderBy: {
                 yesterdayposts: 'desc'

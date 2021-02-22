@@ -17,16 +17,14 @@ export class AppController {
   }
 
   @Get('thread/all')
-  getThreads(@Query() params: {
-    pageIndex, pageSize, category, tags, order
-  }): any {
-    return this.discuzService.threads({
-      pageIndex: Number(params.pageIndex),
-      pageSize: Number(params.pageSize),
-      category: Number(params.category),
-      tags: params.tags,
-      order: params.order
-    });
+  getThreads(
+    @Query('pageIndex', ParseIntPipe) pageIndex,
+    @Query('pageSize', ParseIntPipe) pageSize,
+    @Query('category') category,
+    @Query('tags') tags,
+    @Query('order') order
+  ): any {
+    return this.discuzService.threads({ pageIndex, pageSize, category, tags, order});
   }
 
   @Get('thread/:tid')
@@ -60,8 +58,18 @@ export class AppController {
   }
 
 
-  @Post('login')
+  @Post('auth/login')
   login(@Body('username') username, @Body('password') password, @Body('token') token,): any {
+    return this.authService.login({ username, password, token })
+  }
+
+  @Post('auth/register')
+  register(@Body('username') username, @Body('password') password, @Body('token') token,): any {
+    return this.authService.login({ username, password, token })
+  }
+
+  @Post('auth/logout')
+  logout(@Body('username') username, @Body('password') password, @Body('token') token,): any {
     return this.authService.login({ username, password, token })
   }
 

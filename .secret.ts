@@ -1,1 +1,0 @@
-export const RECAPTCHA_SECRET='6LfOEsYUAAAAAPmQclomEN_kKpk4zEwm6ojd4Foo'

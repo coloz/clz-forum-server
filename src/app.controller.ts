@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Request, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AppService } from './app.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
-import { AuthService } from './core/services/auth.service';
 import { DiscuzService } from './core/services/discuz.service';
 
 @Controller()
@@ -9,7 +9,6 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private discuzService: DiscuzService,
-    private authService: AuthService
   ) { }
 
   @Get()
@@ -68,20 +67,25 @@ export class AppController {
   }
 
   // 登录、注册、登出
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(AuthGuard('local'))
   @Post('auth/login')
-  login(@Body('username') username, @Body('password') password, @Body('token') token,): any {
-    return this.authService.login({ username, password, token })
+  login(@Request() req){
+    console.log(req);
+    return req.user;
   }
+  
+  // login(@Body('username') username, @Body('password') password, @Body('token') token,): any {
+  //   return this.authService.login({ username, password, token })
+  // }
 
   @Post('auth/register')
   register(@Body('username') username, @Body('password') password, @Body('token') token,): any {
-    return this.authService.login({ username, password, token })
+    // return this.authService.register()
   }
 
   @Post('auth/logout')
   logout(@Body('username') username, @Body('password') password, @Body('token') token,): any {
-    return this.authService.login({ username, password, token })
+    // return this.authService.logout()
   }
 
 

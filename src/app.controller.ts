@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Request, UseFilters, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GoogleRecaptchaGuard, Recaptcha } from '@nestlab/google-recaptcha';
 import { AppService } from './app.service';
-import { LocalAuthGuard } from './auth/local-auth.guard';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { DiscuzService } from './core/services/discuz.service';
+import { GoogleRecaptchaFilter } from './filter';
 
 @Controller()
 export class AppController {
@@ -24,7 +26,7 @@ export class AppController {
     @Query('tags') tags,
     @Query('order') order
   ): any {
-    return this.discuzService.threads({ pageIndex, pageSize, category, tags, order});
+    return this.discuzService.threads({ pageIndex, pageSize, category, tags, order });
   }
 
   @Get('thread/:tid')
@@ -67,17 +69,18 @@ export class AppController {
   }
 
   // 登录、注册、登出
-  @UseGuards(AuthGuard('local'))
+  // @Recaptcha()
+  @UseGuards(GoogleRecaptchaGuard, AuthGuard('local'))
   @Post('auth/login')
-  login(@Request() req){
-    console.log(req);
+  @UseFilters(GoogleRecaptchaFilter)
+  login(@Request() req) {
     return req.user;
   }
-  
+
   // login(@Body('username') username, @Body('password') password, @Body('token') token,): any {
   //   return this.authService.login({ username, password, token })
   // }
-
+  @Recaptcha()
   @Post('auth/register')
   register(@Body('username') username, @Body('password') password, @Body('token') token,): any {
     // return this.authService.register()
@@ -88,5 +91,10 @@ export class AppController {
     // return this.authService.logout()
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user;
+  }
 
 }

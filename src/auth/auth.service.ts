@@ -1,6 +1,7 @@
 
 import { HttpService, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
+import { JwtService } from '@nestjs/jwt';
 import * as CryptoJS from 'crypto-js';
 
 @Injectable()
@@ -8,12 +9,12 @@ export class AuthService {
 
   constructor(
     private usersService: UsersService,
+    private jwtService: JwtService,
     private http: HttpService
   ) { }
 
-  async validateUser({ username, password, token }): Promise<any> {
-    // if (!await this.verify(token)) return 'Recaptcha验证失败'
-    const user = await this.usersService.findOne(username);
+  async validateUser({ username, password }): Promise<any> {
+    const user = await this.usersService.findUser(username);
     if (user == null) return '该用户没有注册'
     if (user.password == CryptoJS.MD5(password + user.salt).toString()) {
       return user
@@ -22,6 +23,13 @@ export class AuthService {
       message: '登录失败'
     }
     return null;
+  }
+
+  async login(user: any) {
+    const payload = { username: user.username, sub: user.uid };
+    return {
+      access_token: this.jwtService.sign(payload,{}),
+    };
   }
 
   async register() {

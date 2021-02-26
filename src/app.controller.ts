@@ -69,9 +69,8 @@ export class AppController {
   }
 
   // 登录、注册、登出
-  // @Recaptcha()
-  @UseGuards(GoogleRecaptchaGuard, AuthGuard('local'))
   @Post('auth/login')
+  @UseGuards(GoogleRecaptchaGuard, AuthGuard('local'))
   @UseFilters(GoogleRecaptchaFilter)
   login(@Request() req) {
     return req.user;

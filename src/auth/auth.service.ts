@@ -17,7 +17,11 @@ export class AuthService {
     const user = await this.usersService.findUser(username);
     if (user == null) return '该用户没有注册'
     if (user.password == CryptoJS.MD5(password + user.salt).toString()) {
-      return user
+      return {
+        uid:user.uid,
+        username: user.username,
+
+      }
     }
     return {
       message: '登录失败'
@@ -28,7 +32,7 @@ export class AuthService {
   async login(user: any) {
     const payload = { username: user.username, sub: user.uid };
     return {
-      access_token: this.jwtService.sign(payload,{}),
+      access_token: this.jwtService.sign(payload, {}),
     };
   }
 

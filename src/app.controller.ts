@@ -76,9 +76,6 @@ export class AppController {
     return req.user;
   }
 
-  // login(@Body('username') username, @Body('password') password, @Body('token') token,): any {
-  //   return this.authService.login({ username, password, token })
-  // }
   @Recaptcha()
   @Post('auth/register')
   register(@Body('username') username, @Body('password') password, @Body('token') token,): any {

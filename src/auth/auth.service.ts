@@ -15,24 +15,22 @@ export class AuthService {
 
   async validateUser({ username, password }): Promise<any> {
     const user = await this.usersService.findUser(username);
-    if (user == null) return '该用户没有注册'
+    if (user == null) return null
     if (user.password == CryptoJS.MD5(password + user.salt).toString()) {
       return {
-        uid:user.uid,
+        uid: user.uid,
         username: user.username,
 
       }
-    }
-    return {
-      message: '登录失败'
     }
     return null;
   }
 
   async login(user: any) {
-    const payload = { username: user.username, sub: user.uid };
+    const payload = { username: user.username, uid: user.uid };
+
     return {
-      access_token: this.jwtService.sign(payload, {}),
+      access_token: this.jwtService.sign(payload),
     };
   }
 

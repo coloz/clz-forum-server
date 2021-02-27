@@ -45,12 +45,12 @@ export class DiscuzService {
         }
         if (typeof order != 'undefined') {
             switch (order) {
-                case '0':
+                case 0:
                     target['orderBy'] = {
                         lastpost: 'desc'
                     }
                     break;
-                case '1':
+                case 1:
                     target['orderBy'] = {
                         dateline: 'desc'
                     }
@@ -61,7 +61,7 @@ export class DiscuzService {
             }
         }
         if (typeof tags != 'undefined') {
-            console.log(tags);
+            console.log('tags:',tags);
         }
         if (typeof category != 'undefined' && !isNaN(category)) {
             target.where['fid'] = category
@@ -152,6 +152,19 @@ export class DiscuzService {
 
     async thread({ pageIndex, pageSize, tid }) {
         if (pageSize > 30) pageSize = 30;
+        let thread = await this.prisma.pre_forum_thread.findUnique({
+            where: {
+                tid: tid
+            },
+            select: {
+                recommend_add: true,
+                favtimes: true,
+                subject: true,
+                dateline: true,
+                views: true,
+                replies: true,
+            }
+        })
         let list = await this.prisma.pre_forum_post.findMany({
             where: {
                 tid: tid,
@@ -187,7 +200,14 @@ export class DiscuzService {
             }
         }
         return {
-            data: list,
+            data: {
+                subject: thread.subject,
+                replies: thread.replies,
+                views: thread.views,
+                like: thread.recommend_add,
+                favtimes: thread.favtimes,
+                list: list
+            },
             total: total
         }
     }

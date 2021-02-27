@@ -1,7 +1,9 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Request, UseFilters, UseGuards } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { GoogleRecaptchaGuard, Recaptcha } from '@nestlab/google-recaptcha';
 import { AppService } from './app.service';
+import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { DiscuzService } from './core/services/discuz.service';
 import { GoogleRecaptchaFilter } from './filter';
@@ -11,6 +13,7 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private discuzService: DiscuzService,
+    private authService: AuthService
   ) { }
 
   @Get()
@@ -18,13 +21,13 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('thread/all')
-  getThreads(
-    @Query('pageIndex', ParseIntPipe) pageIndex,
-    @Query('pageSize', ParseIntPipe) pageSize,
-    @Query('category') category,
-    @Query('tags') tags,
-    @Query('order') order
+  @Post('thread/all')
+  getThreadList(
+    @Body('pageIndex') pageIndex,
+    @Body('pageSize') pageSize,
+    @Body('category') category,
+    @Body('tags') tags,
+    @Body('order') order
   ): any {
     return this.discuzService.threads({ pageIndex, pageSize, category, tags, order });
   }
@@ -73,7 +76,7 @@ export class AppController {
   @UseGuards(GoogleRecaptchaGuard, AuthGuard('local'))
   @UseFilters(GoogleRecaptchaFilter)
   login(@Request() req) {
-    return req.user;
+    return this.authService.login(req.user);
   }
 
   @Recaptcha()

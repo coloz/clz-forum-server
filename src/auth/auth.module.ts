@@ -18,6 +18,6 @@ import { LocalStrategy } from './local.strategy';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60s' },
     }),
-  ]
+  ],exports: [AuthService]
 })
 export class AuthModule { }

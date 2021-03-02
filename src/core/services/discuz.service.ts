@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/services/prisma.service';
-import { pre_forum_thread } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { UsersService } from 'src/users/users.service';
 
 @Injectable()
@@ -372,7 +372,7 @@ export class DiscuzService {
 
     async newThread({ uid, fid, subject, content }) {
         let user = await this.usersService.findUserByUid(uid)
-        let thread = {
+        let thread: Prisma.pre_forum_threadCreateInput = {
             fid: fid,
             author: user.username,
             authorid: uid,
@@ -393,7 +393,7 @@ export class DiscuzService {
 
     async newPost({ user, thread, subject, content }) {
         let pid = await this.prisma.pre_forum_post.count() + 1;
-        let post = {
+        let post: Prisma.pre_forum_postCreateInput = {
             pid: pid,
             fid: thread.fid,
             tid: thread.tid,

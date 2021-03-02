@@ -96,4 +96,27 @@ export class AppController {
     return req.user;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('thread')
+  newThread(
+    @Body('uid') uid,
+    @Body('fid') fid,
+    @Body('subject') subject,
+    @Body('content') content,
+  ): any {
+    return this.discuzService.newThread({ uid, fid, subject, content });
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('thread/:tid')
+  newPost(
+    @Param('tid', ParseIntPipe) tid: number,
+    @Body('uid') uid,
+    @Body('fid') fid,
+    @Body('subject') subject,
+    @Body('content') content,
+  ): any {
+    return this.discuzService.newThread({ uid, fid, subject, content });
+  }
+
 }

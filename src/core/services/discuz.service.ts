@@ -1,9 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/services/prisma.service';
+import { pre_forum_thread } from '@prisma/client';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class DiscuzService {
-    constructor(private prisma: PrismaService) { }
+    constructor(
+        private prisma: PrismaService,
+        private usersService: UsersService,
+
+    ) { }
 
     async threads({ pageIndex, pageSize, category, tags, order }) {
         if (pageSize > 30) pageSize = 30;
@@ -61,7 +67,7 @@ export class DiscuzService {
             }
         }
         if (typeof tags != 'undefined') {
-            console.log('tags:',tags);
+            console.log('tags:', tags);
         }
         if (typeof category != 'undefined' && !isNaN(category)) {
             target.where['fid'] = category
@@ -362,6 +368,46 @@ export class DiscuzService {
             data: list,
             total: total
         }
+    }
+
+    async newThread({ uid, fid, subject, content }) {
+        let user = await this.usersService.findUserByUid(uid)
+        let thread = {
+            fid: fid,
+            author: user.username,
+            authorid: uid,
+            subject: subject,
+            dateline: new Date().getTime(),
+            lastpost: new Date().getTime(),
+            lastposter: user.username
+        }
+        thread = await this.prisma.pre_forum_thread.create({
+            data: thread
+        })
+        await this.newPost({ user, thread, subject, content })
+        return {
+            code: 0,
+            message: '主题创建成功'
+        }
+    }
+
+    async newPost({ user, thread, subject, content }) {
+        let pid = await this.prisma.pre_forum_post.count() + 1;
+        let post = {
+            pid: pid,
+            fid: thread.fid,
+            tid: thread.tid,
+            first: true,
+            author: user.username,
+            authorid: user.uid,
+            subject: subject,
+            dateline: new Date().getTime(),
+            message: content,
+            tags: ''
+        }
+        return await this.prisma.pre_forum_post.create({
+            data: post
+        })
     }
 
 }

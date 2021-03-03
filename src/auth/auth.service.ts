@@ -14,7 +14,7 @@ export class AuthService {
   ) { }
 
   async validateUser({ username, password }): Promise<any> {
-    const user = await this.usersService.findUser(username);
+    const user = await this.usersService.findUserByUsername(username);
     if (user == null) return null
     if (user.password == CryptoJS.MD5(password + user.salt).toString()) {
       return {

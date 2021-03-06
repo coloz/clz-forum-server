@@ -158,19 +158,6 @@ export class DiscuzService {
 
     async thread({ pageIndex, pageSize, tid }) {
         if (pageSize > 30) pageSize = 30;
-        let thread = await this.prisma.pre_forum_thread.findUnique({
-            where: {
-                tid: tid
-            },
-            select: {
-                recommend_add: true,
-                favtimes: true,
-                subject: true,
-                dateline: true,
-                views: true,
-                replies: true,
-            }
-        })
         let list = await this.prisma.pre_forum_post.findMany({
             where: {
                 tid: tid,
@@ -206,16 +193,72 @@ export class DiscuzService {
             }
         }
         return {
-            data: {
-                subject: thread.subject,
-                replies: thread.replies,
-                views: thread.views,
-                like: thread.recommend_add,
-                favtimes: thread.favtimes,
-                list: list
-            },
-            total: total
+            list: list,
+            total: total,
+            pageIndex: pageIndex,
+            pageSize: pageSize
         }
+    }
+
+    async threadInfo(tid) {
+        let thread = await this.prisma.pre_forum_thread.findUnique({
+            where: {
+                tid: tid
+            },
+            select: {
+                tid: true,
+                subject: true,
+                recommend_add: true,
+                favtimes: true,
+                dateline: true,
+                views: true,
+                replies: true,
+                author: true,
+                authorid: true
+            }
+        })
+        let total = await this.prisma.pre_forum_post.count({
+            where: {
+                tid: tid,
+            },
+        })
+        thread = Object.assign(thread, { total: total })
+        return thread
+    }
+
+    async threadPosts({ index, count, tid }) {
+        if (count > 30) count = 30;        
+        let list = await this.prisma.pre_forum_post.findMany({
+            where: {
+                tid: tid,
+            },
+            select: {
+                author: true,
+                authorid: true,
+                dateline: true,
+                message: true,
+                attachment: true,
+                subject: true,
+            },
+            skip: index - 1,
+            take: count
+        });
+        // 解析附件地址
+        for (let index = 0; index < list.length; index++) {
+            const item = list[index];
+            if (item.attachment) {
+                let reg = /\[attach\][0-9]+\[\/attach\]/g;
+                let attachList = item.message.match(reg);
+                if (attachList != null)
+                    for (let index = 0; index < attachList.length; index++) {
+                        let element = attachList[index]
+                        let aid = Number(element.replace('[attach]', '').replace('[/attach]', ''))
+                        let attachment = await this.getAttachment(aid);
+                        item.message = item.message.replace(element, attachment)
+                    }
+            }
+        }
+        return list
     }
 
 
@@ -274,7 +317,8 @@ export class DiscuzService {
             }
             if (typeof attachment != 'undefined') {
                 if (attachment.isimage) {
-                    return `<img class="lazyload" data-src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" data-alt="${attachment.description}">`
+                    // return `<img class="lazyload" data-src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" data-alt="${attachment.description}">`
+                return `<img src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" data-alt="${attachment.description}">`
                 }
                 else {
                     return `暂不支持附件${aid}下载~~`

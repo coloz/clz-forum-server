@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Request, UseFilters, UseGuards } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { GoogleRecaptchaGuard, Recaptcha } from '@nestlab/google-recaptcha';
 import { AppService } from './app.service';
@@ -32,91 +31,98 @@ export class AppController {
     return this.discuzService.threads({ pageIndex, pageSize, category, tags, order });
   }
 
-  @Get('thread/:tid')
-  getThread(@Param('tid', ParseIntPipe) tid: number, @Query() params: {
-    pageIndex, pageSize
-  }): any {
-    return this.discuzService.thread({
+  @Get('thread/:tid/info')
+  getThreadInfo(@Param('tid', ParseIntPipe) tid: number): any {
+    return this.discuzService.threadInfo(tid);
+  }
+
+  @Get('thread/:tid/posts')
+  getThread(
+    @Param('tid', ParseIntPipe) tid: number,
+    @Query('index', ParseIntPipe) index,
+    @Query('count', ParseIntPipe) count,
+  ): any {
+    return this.discuzService.threadPosts({
       tid: tid,
-      pageIndex: Number(params.pageIndex),
-      pageSize: Number(params.pageSize)
-    });
-  }
+      index: index,
+      count: count
+  });
+}
 
-  @Get('user/:uid')
-  getUser(@Param('uid', ParseIntPipe) uid: number, @Query() params: {
-    pageIndex, pageSize
-  }): any {
-    return this.discuzService.user({
-      uid: uid
-    });
-  }
+@Get('user/:uid')
+getUser(@Param('uid', ParseIntPipe) uid: number, @Query() params: {
+  pageIndex, pageSize
+}): any {
+  return this.discuzService.user({
+    uid: uid
+  });
+}
 
-  @Get('tags')
-  getTags(@Query() params): any {
-    return this.discuzService.tags(parseInt(params.num))
-  }
+@Get('tags')
+getTags(@Query() params): any {
+  return this.discuzService.tags(parseInt(params.num))
+}
 
-  @Get('categorys')
-  getCategorys(@Query() params): any {
-    return this.discuzService.categorys(parseInt(params.num))
-  }
+@Get('categorys')
+getCategorys(@Query() params): any {
+  return this.discuzService.categorys(parseInt(params.num))
+}
 
-  @Get('search')
-  async getFilteredPosts(
+@Get('search')
+async getFilteredPosts(
     @Query('keyword') keyword: string,
     @Query('pageIndex', ParseIntPipe) pageIndex: number,
     @Query('pageSize', ParseIntPipe) pageSize: number
   ) {
-    return this.discuzService.search({ keyword, pageIndex, pageSize });
-  }
+  return this.discuzService.search({ keyword, pageIndex, pageSize });
+}
 
-  // 登录、注册、登出
-  @Post('auth/login')
-  @UseGuards(GoogleRecaptchaGuard, AuthGuard('local'))
-  @UseFilters(GoogleRecaptchaFilter)
-  login(@Request() req) {
-    return this.authService.login(req.user);
-  }
+// 登录、注册、登出
+@Post('auth/login')
+@UseGuards(GoogleRecaptchaGuard, AuthGuard('local'))
+@UseFilters(GoogleRecaptchaFilter)
+login(@Request() req) {
+  return this.authService.login(req.user);
+}
 
-  @Recaptcha()
-  @Post('auth/register')
-  register(@Body('username') username, @Body('password') password, @Body('token') token,): any {
-    // return this.authService.register()
-  }
+@Recaptcha()
+@Post('auth/register')
+register(@Body('username') username, @Body('password') password, @Body('token') token,): any {
+  // return this.authService.register()
+}
 
-  @Post('auth/logout')
-  logout(@Body('username') username, @Body('password') password, @Body('token') token,): any {
-    // return this.authService.logout()
-  }
+@Post('auth/logout')
+logout(@Body('username') username, @Body('password') password, @Body('token') token,): any {
+  // return this.authService.logout()
+}
 
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
+@UseGuards(JwtAuthGuard)
+@Get('profile')
+getProfile(@Request() req) {
+  return req.user;
+}
 
-  @UseGuards(JwtAuthGuard)
-  @Post('thread')
-  newThread(
+@UseGuards(JwtAuthGuard)
+@Post('thread')
+newThread(
     @Body('uid') uid,
     @Body('fid') fid,
     @Body('subject') subject,
     @Body('content') content,
   ): any {
-    return this.discuzService.newThread({ uid, fid, subject, content });
-  }
+  return this.discuzService.newThread({ uid, fid, subject, content });
+}
 
-  @UseGuards(JwtAuthGuard)
-  @Post('thread/:tid')
-  newPost(
+@UseGuards(JwtAuthGuard)
+@Post('thread/:tid')
+newPost(
     @Param('tid', ParseIntPipe) tid: number,
     @Body('uid') uid,
     @Body('fid') fid,
     @Body('subject') subject,
     @Body('content') content,
   ): any {
-    return this.discuzService.newThread({ uid, fid, subject, content });
-  }
+  return this.discuzService.newThread({ uid, fid, subject, content });
+}
 
 }

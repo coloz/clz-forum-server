@@ -9,10 +9,10 @@ export class GoogleRecaptchaFilter implements ExceptionFilter {
         const response = ctx.getResponse<Response>();
         const request = ctx.getRequest<Request>();
         const status = exception.getStatus();
-
+        
         response.status(200).json({
             code: 3,
-            message: '雁阵马错误'
+            message: 'Are you a robot?'
         })
     }
 }

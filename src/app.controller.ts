@@ -46,83 +46,85 @@ export class AppController {
       tid: tid,
       index: index,
       count: count
-  });
-}
+    });
+  }
 
-@Get('user/:uid')
-getUser(@Param('uid', ParseIntPipe) uid: number, @Query() params: {
-  pageIndex, pageSize
-}): any {
-  return this.discuzService.user({
-    uid: uid
-  });
-}
+  @Get('user/:uid')
+  getUser(@Param('uid', ParseIntPipe) uid: number, @Query() params: {
+    pageIndex, pageSize
+  }): any {
+    return this.discuzService.user({
+      uid: uid
+    });
+  }
 
-@Get('tags')
-getTags(@Query() params): any {
-  return this.discuzService.tags(parseInt(params.num))
-}
+  @Get('tags')
+  getTags(@Query() params): any {
+    return this.discuzService.tags(parseInt(params.num))
+  }
 
-@Get('categorys')
-getCategorys(@Query() params): any {
-  return this.discuzService.categorys(parseInt(params.num))
-}
+  @Get('categorys')
+  getCategorys(@Query() params): any {
+    return this.discuzService.categorys(parseInt(params.num))
+  }
 
-@Get('search')
-async getFilteredPosts(
+  @Get('search')
+  async getFilteredPosts(
     @Query('keyword') keyword: string,
     @Query('pageIndex', ParseIntPipe) pageIndex: number,
     @Query('pageSize', ParseIntPipe) pageSize: number
   ) {
-  return this.discuzService.search({ keyword, pageIndex, pageSize });
-}
+    return this.discuzService.search({ keyword, pageIndex, pageSize });
+  }
 
-// 登录、注册、登出
-@Post('auth/login')
-@UseGuards(GoogleRecaptchaGuard, AuthGuard('local'))
-@UseFilters(GoogleRecaptchaFilter)
-login(@Request() req) {
-  return this.authService.login(req.user);
-}
+  // 登录
+  @Post('auth/login')
+  @UseGuards(GoogleRecaptchaGuard, AuthGuard('local'))
+  @UseFilters(GoogleRecaptchaFilter)
+  login(@Request() req) {
+    return this.authService.login(req.user);
+  }
 
-@Recaptcha()
-@Post('auth/register')
-register(@Body('username') username, @Body('password') password, @Body('token') token,): any {
-  // return this.authService.register()
-}
+  // 注册
+  @Recaptcha()
+  @Post('auth/register')
+  register(@Body('username') username, @Body('password') password, @Body('token') token,): any {
+    // return this.authService.register()
+  }
+  
+  // 登出
+  @Post('auth/logout')
+  logout(@Body('username') username, @Body('password') password, @Body('token') token,): any {
+    // return this.authService.logout()
+  }
 
-@Post('auth/logout')
-logout(@Body('username') username, @Body('password') password, @Body('token') token,): any {
-  // return this.authService.logout()
-}
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user;
+  }
 
-@UseGuards(JwtAuthGuard)
-@Get('profile')
-getProfile(@Request() req) {
-  return req.user;
-}
-
-@UseGuards(JwtAuthGuard)
-@Post('thread')
-newThread(
+  @UseGuards(JwtAuthGuard)
+  @Post('thread')
+  newThread(
     @Body('uid') uid,
     @Body('fid') fid,
     @Body('subject') subject,
     @Body('content') content,
   ): any {
-  return this.discuzService.newThread({ uid, fid, subject, content });
-}
+    return this.discuzService.newThread({ uid, fid, subject, content });
+  }
 
-@UseGuards(JwtAuthGuard)
-@Post('thread/:tid')
-newPost(
+  @UseGuards(JwtAuthGuard)
+  @Post('thread/:tid')
+  newPost(
     @Param('tid', ParseIntPipe) tid: number,
     @Body('uid') uid,
     @Body('fid') fid,
     @Body('subject') subject,
     @Body('content') content,
   ): any {
-  return this.discuzService.newThread({ uid, fid, subject, content });
-}
+    return this.discuzService.newThread({ uid, fid, subject, content });
+  }
 
 }

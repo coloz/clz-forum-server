@@ -227,7 +227,7 @@ export class DiscuzService {
     }
 
     async threadPosts({ index, count, tid }) {
-        if (count > 30) count = 30;        
+        if (count > 30) count = 30;
         let list = await this.prisma.pre_forum_post.findMany({
             where: {
                 tid: tid,
@@ -243,9 +243,10 @@ export class DiscuzService {
             skip: index - 1,
             take: count
         });
-        // 解析附件地址
+
         for (let index = 0; index < list.length; index++) {
             const item = list[index];
+            // 解析附件地址
             if (item.attachment) {
                 let reg = /\[attach\][0-9]+\[\/attach\]/g;
                 let attachList = item.message.match(reg);
@@ -257,7 +258,14 @@ export class DiscuzService {
                         item.message = item.message.replace(element, attachment)
                     }
             }
+            // // 解析视频地址
+            // if (item.message.indexOf('bilibili.com') > -1) {
+
+            // }
         }
+        // https://www.bilibili.com/video/BV1tp4y1H7xc
+        // <iframe src="//player.bilibili.com/player.html?aid=971963556&bvid=BV1tp4y1H7xc&cid=306734934&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+        // http://player.bilibili.com/player.html?bvid=BV1tp4y1H7xc
         return list
     }
 
@@ -317,8 +325,8 @@ export class DiscuzService {
             }
             if (typeof attachment != 'undefined') {
                 if (attachment.isimage) {
-                    // return `<img class="lazyload" data-src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" data-alt="${attachment.description}">`
-                return `<img src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" data-alt="${attachment.description}">`
+                    return `<img class="lazyload" data-src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" data-alt="${attachment.description}">`
+                    // return `<img src="https://arduino.cn/data/attachment/forum/${attachment.attachment}" data-alt="${attachment.description}">`
                 }
                 else {
                     return `暂不支持附件${aid}下载~~`
@@ -326,6 +334,11 @@ export class DiscuzService {
             }
         }
         return `~~附件${aid}已被删除~~`
+    }
+
+    getVideoIframe(url) {
+        let reg = /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/;
+
     }
 
     async user(params: { uid }) {
@@ -392,8 +405,8 @@ export class DiscuzService {
                 tid: true,
                 dateline: true,
             },
-            // skip: (pageIndex - 1) * pageSize,
-            // take: pageSize
+            skip: (pageIndex - 1) * pageSize,
+            take: pageSize
         })
         let total = await this.prisma.pre_forum_post.count({
             where: {
@@ -410,7 +423,7 @@ export class DiscuzService {
         });
         return {
             data: list,
-            total: total
+            total: total,
         }
     }
 

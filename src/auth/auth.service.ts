@@ -20,7 +20,6 @@ export class AuthService {
       return {
         uid: user.uid,
         username: user.username,
-
       }
     }
     return null;
@@ -30,6 +29,10 @@ export class AuthService {
     const payload = { username: user.username, uid: user.uid };
     return {
       code: 0,
+      detail: {
+        username: user.username,
+        uid: user.uid
+      },
       access_token: this.jwtService.sign(payload)
     }
   }

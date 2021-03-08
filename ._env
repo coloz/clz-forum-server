@@ -1,2 +1,4 @@
 DATABASE_URL = 'mysql://username:password@localhost:3306/dbname'
 RECAPTCHA_SECRET = ''
+JWT_SECRET = ''
+admin='1,2,3'

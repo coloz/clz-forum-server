@@ -16,7 +16,7 @@ import { LocalStrategy } from './local.strategy';
     ConfigModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '100 days' },
+      signOptions: { expiresIn: '30 days' },
     }),
   ],exports: [AuthService]
 })

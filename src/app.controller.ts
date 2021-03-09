@@ -91,7 +91,7 @@ export class AppController {
   register(@Body('username') username, @Body('password') password, @Body('token') token,): any {
     // return this.authService.register()
   }
-  
+
   // 登出
   @Post('auth/logout')
   logout(@Body('username') username, @Body('password') password, @Body('token') token,): any {
@@ -101,7 +101,10 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
-    return req.user;
+    return {
+      code: 0,
+      detail: req.user
+    }
   }
 
   @UseGuards(JwtAuthGuard)

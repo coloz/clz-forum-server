@@ -438,19 +438,28 @@ export class DiscuzService {
             lastpost: new Date().getTime(),
             lastposter: user.username
         }
-        thread = await this.prisma.pre_forum_thread.create({
+        let newthread = await this.prisma.pre_forum_thread.create({
             data: thread
         })
         await this.newPost({ user, thread, subject, content })
         return {
             code: 0,
-            message: '主题创建成功'
+            message: '主题创建成功',
+            detail: {
+                tid: newthread.tid
+            }
         }
     }
 
-    async newPost({ user, thread, subject, content }) {
-        let pid = await this.prisma.pre_forum_post.count() + 1;
-        let post: Prisma.pre_forum_postCreateInput = {
+    async newPost({ user, thread, subject = '', content }) {
+        let pid = (await this.prisma.pre_forum_post.aggregate({
+            max: {
+                pid: true
+            }
+        })).max.pid + 1
+        console.log(pid);
+
+        let post = {
             pid: pid,
             fid: thread.fid,
             tid: thread.tid,
@@ -458,12 +467,16 @@ export class DiscuzService {
             author: user.username,
             authorid: user.uid,
             subject: subject,
-            dateline: new Date().getTime(),
+            dateline: Math.floor(new Date().getTime() / 1000),
             message: content,
             tags: ''
         }
-        return await this.prisma.pre_forum_post.create({
-            data: post
+        return await this.prisma.pre_forum_post.upsert({
+            where: {
+                pid: pid,
+            },
+            update:post,
+            create: post
         })
     }
 

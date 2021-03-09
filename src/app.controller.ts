@@ -122,12 +122,15 @@ export class AppController {
   @Post('thread/:tid')
   newPost(
     @Param('tid', ParseIntPipe) tid: number,
-    @Body('uid') uid,
-    @Body('fid') fid,
-    @Body('subject') subject,
     @Body('content') content,
+    @Request() req
   ): any {
-    return this.discuzService.newThread({ uid, fid, subject, content });
+    console.log(req.user);
+    return this.discuzService.newPost({
+      user: req.user,
+      thread: { tid: tid },
+      content: content
+    });
   }
 
 }

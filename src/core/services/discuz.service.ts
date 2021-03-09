@@ -475,7 +475,7 @@ export class DiscuzService {
             where: {
                 pid: pid,
             },
-            update:post,
+            update: post,
             create: post
         })
     }

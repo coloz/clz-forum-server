@@ -120,17 +120,21 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Post('thread/:tid')
-  newPost(
+  async newPost(
     @Param('tid', ParseIntPipe) tid: number,
     @Body('content') content,
     @Request() req
-  ): any {
+  ): Promise<any> {
     console.log(req.user);
-    return this.discuzService.newPost({
+    let post = await this.discuzService.newPost({
       user: req.user,
       thread: { tid: tid },
       content: content
     });
+    return {
+      code: 0,
+      detail: { post: post }
+    }
   }
 
 }

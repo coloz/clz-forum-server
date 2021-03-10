@@ -497,8 +497,10 @@ export class DiscuzService {
         })
         return {
             code: 0,
-            favorite: favorite != null,
-            like: like != null
+            detail: {
+                favorite: favorite != null,
+                like: like != null
+            }
         }
     }
 
@@ -513,7 +515,7 @@ export class DiscuzService {
                 favid: true
             }
         })
-        return await this.prisma.pre_home_favorite.upsert({
+        await this.prisma.pre_home_favorite.upsert({
             where: {
                 favid: favorite.favid
             },
@@ -521,21 +523,25 @@ export class DiscuzService {
                 uid: uid,
                 id: tid,
                 idtype: 'tid',
-                description:'',
-                title:'',
-                spaceuid:null,
+                description: '',
+                title: '',
+                spaceuid: null,
                 dateline: Math.floor(new Date().getTime() / 1000),
             },
             update: {
                 uid: uid,
                 id: tid,
                 idtype: 'tid',
-                description:'',
-                title:'',
-                spaceuid:null,
+                description: '',
+                title: '',
+                spaceuid: null,
                 dateline: Math.floor(new Date().getTime() / 1000),
             }
         })
+        return {
+            code: 0,
+            detail: {}
+        }
     }
 
     async addLike(uid, tid) {
@@ -548,7 +554,7 @@ export class DiscuzService {
                 id: true
             }
         })
-        return await this.prisma.pre_forum_memberrecommend.upsert({
+        await this.prisma.pre_forum_memberrecommend.upsert({
             where: {
                 id: like.id
             },
@@ -563,5 +569,9 @@ export class DiscuzService {
                 dateline: Math.floor(new Date().getTime() / 1000),
             }
         })
+        return {
+            code: 0,
+            detail: {}
+        }
     }
 }

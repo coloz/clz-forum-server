@@ -117,12 +117,15 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Post('thread/:tid/favorite')
   addFavorite(@Request() req, @Param('tid', ParseIntPipe) tid: number) {
+    console.log(tid);
+    
     return this.discuzService.addFavorite(req.user.uid, tid)
   }
   //点赞
   @UseGuards(JwtAuthGuard)
   @Post('thread/:tid/like')
   addLike(@Request() req, @Param('tid', ParseIntPipe) tid: number) {
+    console.log(tid);
     return this.discuzService.addLike(req.user.uid, tid)
   }
 

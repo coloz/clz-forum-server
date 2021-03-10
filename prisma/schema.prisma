@@ -2850,15 +2850,14 @@ model pre_forum_medallog {
   @@index([uid, medalid, type], name: "uid")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model pre_forum_memberrecommend {
+  id           Int @id @default(autoincrement())
   tid          Int @db.UnsignedMediumInt
   recommenduid Int @db.UnsignedMediumInt
   dateline     Int @db.UnsignedInt
 
   @@index([tid], name: "tid")
   @@index([recommenduid], name: "uid")
-  @@ignore
 }
 
 model pre_forum_moderator {

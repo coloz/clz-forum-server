@@ -480,4 +480,88 @@ export class DiscuzService {
         })
     }
 
+    async getFavoriteAndLikeState(uid, tid) {
+        let favorite = await this.prisma.pre_home_favorite.findFirst({
+            where: {
+                uid: uid,
+                id: tid,
+                idtype: 'tid'
+            }
+        })
+
+        let like = await this.prisma.pre_forum_memberrecommend.findFirst({
+            where: {
+                recommenduid: uid,
+                tid: tid,
+            }
+        })
+        return {
+            code: 0,
+            favorite: favorite != null,
+            like: like != null
+        }
+    }
+
+    async addFavorite(uid, tid) {
+        let favorite = await this.prisma.pre_home_favorite.findFirst({
+            where: {
+                uid: uid,
+                id: tid,
+                idtype: 'tid'
+            },
+            select: {
+                favid: true
+            }
+        })
+        return await this.prisma.pre_home_favorite.upsert({
+            where: {
+                favid: favorite.favid
+            },
+            create: {
+                uid: uid,
+                id: tid,
+                idtype: 'tid',
+                description:'',
+                title:'',
+                spaceuid:null,
+                dateline: Math.floor(new Date().getTime() / 1000),
+            },
+            update: {
+                uid: uid,
+                id: tid,
+                idtype: 'tid',
+                description:'',
+                title:'',
+                spaceuid:null,
+                dateline: Math.floor(new Date().getTime() / 1000),
+            }
+        })
+    }
+
+    async addLike(uid, tid) {
+        let like = await this.prisma.pre_forum_memberrecommend.findFirst({
+            where: {
+                recommenduid: uid,
+                tid: tid,
+            },
+            select: {
+                id: true
+            }
+        })
+        return await this.prisma.pre_forum_memberrecommend.upsert({
+            where: {
+                id: like.id
+            },
+            create: {
+                recommenduid: uid,
+                tid: tid,
+                dateline: Math.floor(new Date().getTime() / 1000),
+            },
+            update: {
+                recommenduid: uid,
+                tid: tid,
+                dateline: Math.floor(new Date().getTime() / 1000),
+            }
+        })
+    }
 }

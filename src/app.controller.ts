@@ -107,6 +107,25 @@ export class AppController {
     }
   }
 
+  // 获取收藏点赞状态
+  @UseGuards(JwtAuthGuard)
+  @Get('thread/:tid/like')
+  getFavoriteAndLikeState(@Request() req, @Param('tid', ParseIntPipe) tid: number) {
+    return this.discuzService.getFavoriteAndLikeState(req.user.uid, tid)
+  }
+  //收藏
+  @UseGuards(JwtAuthGuard)
+  @Post('thread/:tid/favorite')
+  addFavorite(@Request() req, @Param('tid', ParseIntPipe) tid: number) {
+    return this.discuzService.addFavorite(req.user.uid, tid)
+  }
+  //点赞
+  @UseGuards(JwtAuthGuard)
+  @Post('thread/:tid/like')
+  addLike(@Request() req, @Param('tid', ParseIntPipe) tid: number) {
+    return this.discuzService.addLike(req.user.uid, tid)
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post('thread')
   newThread(

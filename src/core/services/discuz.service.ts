@@ -515,32 +515,28 @@ export class DiscuzService {
                 favid: true
             }
         })
-        await this.prisma.pre_home_favorite.upsert({
+        if (favorite == null)
+            await this.prisma.pre_home_favorite.create({
+                data: {
+                    uid: uid,
+                    id: tid,
+                    idtype: 'tid',
+                    description: '',
+                    title: '',
+                    spaceuid: undefined,
+                    dateline: Math.floor(new Date().getTime() / 1000),
+                },
+            })
+        else await this.prisma.pre_home_favorite.delete({
             where: {
                 favid: favorite.favid
-            },
-            create: {
-                uid: uid,
-                id: tid,
-                idtype: 'tid',
-                description: '',
-                title: '',
-                spaceuid: null,
-                dateline: Math.floor(new Date().getTime() / 1000),
-            },
-            update: {
-                uid: uid,
-                id: tid,
-                idtype: 'tid',
-                description: '',
-                title: '',
-                spaceuid: null,
-                dateline: Math.floor(new Date().getTime() / 1000),
             }
         })
         return {
             code: 0,
-            detail: {}
+            detail: {
+                favorite: favorite == null
+            }
         }
     }
 
@@ -554,24 +550,25 @@ export class DiscuzService {
                 id: true
             }
         })
-        await this.prisma.pre_forum_memberrecommend.upsert({
-            where: {
-                id: like.id
-            },
-            create: {
-                recommenduid: uid,
-                tid: tid,
-                dateline: Math.floor(new Date().getTime() / 1000),
-            },
-            update: {
-                recommenduid: uid,
-                tid: tid,
-                dateline: Math.floor(new Date().getTime() / 1000),
-            }
-        })
+        if (like == null)
+            await this.prisma.pre_forum_memberrecommend.create({
+                data: {
+                    recommenduid: uid,
+                    tid: tid,
+                    dateline: Math.floor(new Date().getTime() / 1000),
+                }
+            })
+        else
+            await this.prisma.pre_forum_memberrecommend.delete({
+                where: {
+                    id: like.id,
+                }
+            })
         return {
             code: 0,
-            detail: {}
+            detail: {
+                like: like == null
+            }
         }
     }
 }

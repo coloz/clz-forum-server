@@ -46,3 +46,7 @@ nest start
 2 权限错误
 3 验证码错误  
 4 用户名或密码错误  
+
+
+# 数据库变更记录
+pre_forum_memberrecommend 添加主键列id  

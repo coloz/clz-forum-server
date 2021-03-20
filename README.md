@@ -48,5 +48,10 @@ nest start
 4 用户名或密码错误  
 
 
-# 数据库变更记录
+# 数据库
+## 数据库生成  
+https://www.prisma.io/docs/concepts/components/prisma-migrate
+npx prisma migrate dev --name init --preview-feature  
+
+## 变更记录
 pre_forum_memberrecommend 添加主键列id  

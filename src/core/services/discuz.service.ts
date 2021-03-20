@@ -550,7 +550,7 @@ export class DiscuzService {
                 id: true
             }
         })
-        if (like == null)
+        if (like == null) {
             await this.prisma.pre_forum_memberrecommend.create({
                 data: {
                     recommenduid: uid,
@@ -558,12 +558,32 @@ export class DiscuzService {
                     dateline: Math.floor(new Date().getTime() / 1000),
                 }
             })
-        else
+            await this.prisma.pre_forum_thread.update({
+                where: {
+                    tid: tid
+                },
+                data: {
+                    recommend_add: +1
+                }
+            })
+        }
+
+        else {
             await this.prisma.pre_forum_memberrecommend.delete({
                 where: {
                     id: like.id,
                 }
             })
+            await this.prisma.pre_forum_thread.update({
+                where: {
+                    tid: tid
+                },
+                data: {
+                    recommend_add: -1
+                }
+            })
+        }
+
         return {
             code: 0,
             detail: {

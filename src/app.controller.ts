@@ -108,7 +108,6 @@ export class AppController {
   }
 
   // 获取收藏点赞状态
-  @UseGuards(JwtAuthGuard)
   @Get('thread/:tid/like')
   getFavoriteAndLikeState(@Request() req, @Param('tid', ParseIntPipe) tid: number) {
     return this.discuzService.getFavoriteAndLikeState(req.user.uid, tid)

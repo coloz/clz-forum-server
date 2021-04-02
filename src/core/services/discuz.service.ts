@@ -67,7 +67,7 @@ export class DiscuzService {
             }
         }
         if (typeof tags != 'undefined') {
-            console.log('tags:', tags);
+            // console.log('tags:', tags);
         }
         if (typeof category != 'undefined' && !isNaN(category)) {
             target.where['fid'] = category
@@ -457,7 +457,7 @@ export class DiscuzService {
                 pid: true
             }
         })).max.pid + 1
-        console.log(pid);
+        // console.log(pid);
 
         let post = {
             pid: pid,
